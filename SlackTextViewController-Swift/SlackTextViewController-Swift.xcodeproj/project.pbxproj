@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */; };
+		4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */; };
+		FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */; };
+		FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0811EF38C8000BA6945 /* ViewController.swift */; };
+		FDBAD0851EF38C8000BA6945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0831EF38C8000BA6945 /* Main.storyboard */; };
+		FDBAD0871EF38C8000BA6945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0861EF38C8000BA6945 /* Assets.xcassets */; };
+		FDBAD08A1EF38C8000BA6945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */; };
+		FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */; };
+		FDBAD0951EF38D1100BA6945 /* SLKTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */; };
+		FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0991EF395A200BA6945 /* StringExtensions.swift */; };
+		FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */; };
+		FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */; };
+		FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewExtensions.swift; sourceTree = "<group>"; };
+		4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SlackTextViewController-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FDBAD0811EF38C8000BA6945 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FDBAD0841EF38C8000BA6945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FDBAD0861EF38C8000BA6945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDBAD0891EF38C8000BA6945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FDBAD08B1EF38C8000BA6945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKInputAccessoryView.swift; sourceTree = "<group>"; };
+		FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextInput.swift; sourceTree = "<group>"; };
+		FDBAD0991EF395A200BA6945 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextInputbar.swift; sourceTree = "<group>"; };
+		FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextView.swift; sourceTree = "<group>"; };
+		FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKUIConstants.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDBAD0791EF38C8000BA6945 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FDBAD0731EF38C8000BA6945 = {
+			isa = PBXGroup;
+			children = (
+				FDBAD07E1EF38C8000BA6945 /* SlackTextViewController-Swift */,
+				FDBAD07D1EF38C8000BA6945 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FDBAD07D1EF38C8000BA6945 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDBAD07E1EF38C8000BA6945 /* SlackTextViewController-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD0911EF38C8B00BA6945 /* Source */,
+				FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */,
+				FDBAD0811EF38C8000BA6945 /* ViewController.swift */,
+				FDBAD0831EF38C8000BA6945 /* Main.storyboard */,
+				FDBAD0861EF38C8000BA6945 /* Assets.xcassets */,
+				FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */,
+				FDBAD08B1EF38C8000BA6945 /* Info.plist */,
+			);
+			path = "SlackTextViewController-Swift";
+			sourceTree = "<group>";
+		};
+		FDBAD0911EF38C8B00BA6945 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */,
+				FDBAD0961EF3941500BA6945 /* Extensions */,
+				FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */,
+				FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */,
+				FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */,
+				4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */,
+				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		FDBAD0961EF3941500BA6945 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD0991EF395A200BA6945 /* StringExtensions.swift */,
+				4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDBAD07B1EF38C8000BA6945 /* SlackTextViewController-Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDBAD08E1EF38C8000BA6945 /* Build configuration list for PBXNativeTarget "SlackTextViewController-Swift" */;
+			buildPhases = (
+				FDBAD0781EF38C8000BA6945 /* Sources */,
+				FDBAD0791EF38C8000BA6945 /* Frameworks */,
+				FDBAD07A1EF38C8000BA6945 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SlackTextViewController-Swift";
+			productName = "SlackTextViewController-Swift";
+			productReference = FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDBAD0741EF38C8000BA6945 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = hacknocraft;
+				TargetAttributes = {
+					FDBAD07B1EF38C8000BA6945 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = HN63343AHN;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FDBAD0771EF38C8000BA6945 /* Build configuration list for PBXProject "SlackTextViewController-Swift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDBAD0731EF38C8000BA6945;
+			productRefGroup = FDBAD07D1EF38C8000BA6945 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDBAD07B1EF38C8000BA6945 /* SlackTextViewController-Swift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDBAD07A1EF38C8000BA6945 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBAD08A1EF38C8000BA6945 /* LaunchScreen.storyboard in Resources */,
+				FDBAD0871EF38C8000BA6945 /* Assets.xcassets in Resources */,
+				FDBAD0851EF38C8000BA6945 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDBAD0781EF38C8000BA6945 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBAD0951EF38D1100BA6945 /* SLKTextInput.swift in Sources */,
+				FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */,
+				4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */,
+				FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */,
+				FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */,
+				FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */,
+				4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */,
+				FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */,
+				FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */,
+				FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FDBAD0831EF38C8000BA6945 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDBAD0841EF38C8000BA6945 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDBAD0891EF38C8000BA6945 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FDBAD08C1EF38C8000BA6945 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FDBAD08D1EF38C8000BA6945 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FDBAD08F1EF38C8000BA6945 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HN63343AHN;
+				INFOPLIST_FILE = "SlackTextViewController-Swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacknocraft.www.SlackTextViewController-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		FDBAD0901EF38C8000BA6945 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HN63343AHN;
+				INFOPLIST_FILE = "SlackTextViewController-Swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacknocraft.www.SlackTextViewController-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDBAD0771EF38C8000BA6945 /* Build configuration list for PBXProject "SlackTextViewController-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBAD08C1EF38C8000BA6945 /* Debug */,
+				FDBAD08D1EF38C8000BA6945 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDBAD08E1EF38C8000BA6945 /* Build configuration list for PBXNativeTarget "SlackTextViewController-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBAD08F1EF38C8000BA6945 /* Debug */,
+				FDBAD0901EF38C8000BA6945 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FDBAD0741EF38C8000BA6945 /* Project object */;
+}
