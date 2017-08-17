@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A0800661F45216E0080BE23 /* UIScrollViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */; };
+		4A0800681F4524CC0080BE23 /* UIResponderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */; };
 		4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */; };
 		4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */; };
 		FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtensions.swift; sourceTree = "<group>"; };
+		4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResponderExtensions.swift; sourceTree = "<group>"; };
 		4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewExtensions.swift; sourceTree = "<group>"; };
 		4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SlackTextViewController-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,8 @@
 			children = (
 				FDBAD0991EF395A200BA6945 /* StringExtensions.swift */,
 				4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */,
+				4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */,
+				4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 			files = (
 				FDBAD0951EF38D1100BA6945 /* SLKTextInput.swift in Sources */,
 				FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */,
+				4A0800681F4524CC0080BE23 /* UIResponderExtensions.swift in Sources */,
 				4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */,
+				4A0800661F45216E0080BE23 /* UIScrollViewExtensions.swift in Sources */,
 				FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */,
 				FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */,
 				FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */,

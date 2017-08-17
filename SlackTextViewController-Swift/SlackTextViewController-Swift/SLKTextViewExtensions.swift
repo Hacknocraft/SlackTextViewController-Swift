@@ -30,7 +30,7 @@ extension SLKTextView {
         }
     }
 
-    func slk_scrollToBottom(_ animated: Bool) {
+    override func slk_scrollToBottom(_ animated: Bool) {
         guard let selectedTextRange = selectedTextRange else { return }
 
         var rect = caretRect(for: selectedTextRange.end)
