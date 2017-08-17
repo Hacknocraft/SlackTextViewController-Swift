@@ -56,7 +56,7 @@ private var integerPartOfsystemVersion: Int {
     return 0
 }
 
-let SLKTextViewControllerDomain = "SLKTextViewControllerDomain"
+let SLKTextViewControllerDomain = "com.slack.TextViewController"
 
 /// Returns a constant font size difference reflecting the current accessibility settings
 /// - Parameters:
