@@ -10,6 +10,10 @@ import Foundation
 
 extension String {
 
+    var length: Int {
+        return characters.count
+    }
+
     func index(from: Int) -> Index {
         return self.index(startIndex, offsetBy: from)
     }
@@ -29,20 +33,39 @@ extension String {
         let endIndex = index(from: range.upperBound)
         return substring(with: startIndex..<endIndex)
     }
-    
-    func nsRange(of string: String) -> NSRange {
-        
-        if let stringRange = range(of: string) {
-            
-            let lowerInt = distance(from: startIndex, to: stringRange.lowerBound)
-            let upperInt = distance(from: startIndex, to: stringRange.upperBound)
-            return NSRange(location: lowerInt, length: upperInt - lowerInt)
-        }
-        
-        return NSRange(location: 0, length: 0)
+
+    func substring(with nsRange: NSRange) -> String {
+        let startIndex = index(from: nsRange.location)
+        let endIndex = index(from: nsRange.location + nsRange.length)
+        return substring(with: startIndex..<endIndex)
     }
 
-    var length: Int {
-        return characters.count
+    func nsRange(of string: String) -> NSRange {
+        guard let stringRange = range(of: string) else {
+            return NSRange(location: 0, length: 0)
+        }
+
+        let lowerInt = distance(from: startIndex, to: stringRange.lowerBound)
+        let upperInt = distance(from: startIndex, to: stringRange.upperBound)
+        return NSRange(location: lowerInt, length: upperInt - lowerInt)
     }
+
+    func nsRangeOfCharacter(from characterSet: CharacterSet) -> NSRange {
+        guard let stringRange = rangeOfCharacter(from: characterSet) else {
+            return NSRange(location: 0, length: 0)
+        }
+
+        let lowerInt = distance(from: startIndex, to: stringRange.lowerBound)
+        let upperInt = distance(from: startIndex, to: stringRange.upperBound)
+        return NSRange(location: lowerInt, length: upperInt - lowerInt)
+    }
+
+    func range(of searchString: String, options mask: NSString.CompareOptions = [], range rangeOfReceiverToSearch: NSRange) -> NSRange {
+        return (self as NSString).range(of: searchString, options: mask, range: rangeOfReceiverToSearch)
+    }
+
+    func character(at index: Int) -> unichar {
+        return (self as NSString).character(at: index)
+    }
+
 }

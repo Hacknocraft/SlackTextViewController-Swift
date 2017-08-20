@@ -58,7 +58,8 @@ extension SLKTextInput {
         
         return wordAtRange(slk_caretRange, rangeInText: &range)
     }
-    
+
+    @discardableResult
     func wordAtRange(_ range: NSRange, rangeInText: inout NSRange) -> String? {
         let location = range.location
         

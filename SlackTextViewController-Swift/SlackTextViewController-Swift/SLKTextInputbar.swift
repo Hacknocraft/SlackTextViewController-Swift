@@ -58,7 +58,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The custom input accessory view, used as empty achor view to detect the keyboard frame
-    override var inputAccessoryView: UIView? {
+    override var inputAccessoryView: SLKInputAccessoryView? {
         let inputAccessoryView = SLKInputAccessoryView(frame: .zero)
         inputAccessoryView.backgroundColor = .clear
         inputAccessoryView.isUserInteractionEnabled = false
@@ -158,7 +158,7 @@ class SLKTextInputbar: UIToolbar {
             height = minimumHeight;
         }
 
-        if (editing) {
+        if (isEditing) {
             height += self.editorContentViewHeight;
         }
         
@@ -212,24 +212,23 @@ class SLKTextInputbar: UIToolbar {
     var editorContentViewHeight: CGFloat = 38
 
     /// A Boolean value indicating whether the control is in edit mode
-    var editing: Bool {
+    var isEditing: Bool {
         get {
-            return _editing
+            return _isEditing
         }
         set {
-            if (_editing == newValue) { return }
+            if (_isEditing == newValue) { return }
 
-            _editing = newValue;
-            editorContentView.isHidden = !_editing;
+            _isEditing = newValue;
+            editorContentView.isHidden = !_isEditing;
 
-            contentViewHC.isActive = _editing;
+            contentViewHC.isActive = _isEditing;
             
             setNeedsLayout()
             super.layoutIfNeeded()
         }
     }
-
-    private var _editing = false
+    private var _isEditing = false
 
     /// The label used to display the character counts
     lazy var charCountLabel: UILabel = {
@@ -318,11 +317,11 @@ class SLKTextInputbar: UIToolbar {
 
     private var _charCountLabel: UILabel!
     private var previousOrigin: CGPoint = .zero
-    private var textViewClass: SLKTextView.Type!
+    private var textViewClass: AnyClass?
 
     // MARK: - Initialization
 
-    init(textViewClass: SLKTextView.Type) {
+    init(textViewClass: AnyClass?) {
         self.textViewClass = textViewClass
         super.init(frame: .zero)
         slk_commonInit()
@@ -429,7 +428,7 @@ class SLKTextInputbar: UIToolbar {
     }
 
     private var slk_contentViewHeight: CGFloat {
-        if !self.editing {
+        if !self.isEditing {
             return contentView.frame.height
         }
         return 0.0;
@@ -466,7 +465,7 @@ class SLKTextInputbar: UIToolbar {
         // We don't call super here, since we want to avoid to visually hide the view.
         // The hidden render state is handled by the view controller.
         didSet {
-            if !editing {
+            if !isEditing {
                 self.contentViewHC.isActive = isHidden;
 
                 super.setNeedsLayout()
@@ -483,7 +482,7 @@ class SLKTextInputbar: UIToolbar {
     /// - Returns:
     /// YES if the text is editable
     func canEditText(_ text: String) -> Bool {
-        if editing && self.textView.text == text || isHidden {
+        if isEditing && self.textView.text == text || isHidden {
             return false
         }
 
@@ -492,11 +491,11 @@ class SLKTextInputbar: UIToolbar {
 
     ///  Begins editing the text, by updating the 'editing' flag and the view constraints.
     func beginTextEditing() {
-        if editing || isHidden {
+        if isEditing || isHidden {
             return;
         }
 
-        editing = true;
+        isEditing = true;
 
         slk_updateConstraintConstants()
 
@@ -507,11 +506,11 @@ class SLKTextInputbar: UIToolbar {
 
     /// End editing the text, by updating the 'editing' flag and the view constraints
     func endTextEdition() {
-        if (!editing || isHidden) {
+        if (!isEditing || isHidden) {
             return;
         }
 
-        editing = false;
+        isEditing = false;
         slk_updateConstraintConstants()
     }
 
@@ -553,7 +552,7 @@ class SLKTextInputbar: UIToolbar {
             slk_updateCounter()
         }
 
-        if (autoHideRightButton && !editing)
+        if (autoHideRightButton && !isEditing)
         {
             // Only updates if the width did change
             if (rightButtonWC.constant == slk_appropriateRightButtonWidth) {
@@ -577,13 +576,13 @@ class SLKTextInputbar: UIToolbar {
 
     @objc private func slk_didChangeTextViewContentSize(_ noti: Notification) {
         if maxCharCount > 0 {
-            let shouldHide = textView.numberOfLines == 1 || editing
+            let shouldHide = textView.numberOfLines == 1 || isEditing
             charCountLabel.isHidden = shouldHide
         }
     }
 
     @objc private func slk_didChangeContentSizeCategory(_ noti: Notification) {
-        if !textView.dynamicTypeEnabled {
+        if !textView.isDynamicTypeEnabled {
             return
         }
 
@@ -633,7 +632,7 @@ class SLKTextInputbar: UIToolbar {
         let zero: CGFloat = 0
         textViewBottomMarginC.constant = slk_bottomMargin
 
-        if editing {
+        if isEditing {
             editorContentViewHC.constant = editorContentViewHeight;
 
             leftButtonWC.constant = zero;

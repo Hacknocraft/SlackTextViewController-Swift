@@ -17,11 +17,11 @@ extension UIView {
     ///   - bounce: YES if the animation should use spring damping and velocity to give a bouncy effect to animations
     ///   - options: A mask of options indicating how you want to perform the animations
     ///   - animations: An additional block for custom animations
-    func slk_animateLayoutIfNeeded(bounce: Bool, options: UIViewAnimationOptions, animations: ((Void) -> Void)?) {
+    func slk_animateLayoutIfNeeded(bounce: Bool, options: UIViewAnimationOptions, animations: (() -> Void)?) {
         slk_animateLayoutIfNeeded(bounce: bounce, options: options, animations: animations, completion: nil)
     }
 
-    func slk_animateLayoutIfNeeded(bounce: Bool, options: UIViewAnimationOptions, animations: ((Void) -> Void)?, completion: ((_ finished: Bool) -> Void)?) {
+    func slk_animateLayoutIfNeeded(bounce: Bool, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((_ finished: Bool) -> Void)?) {
         let duration: TimeInterval = bounce ? 0.65 : 0.2
         slk_animateLayoutIfNeeded(duration: duration, bounce: bounce, options: options, animations: animations, completion: completion)
     }
@@ -33,7 +33,7 @@ extension UIView {
     ///   - bounce: YES if the animation should use spring damping and velocity to give a bouncy effect to animations
     ///   - options:  mask of options indicating how you want to perform the animations
     ///   - animations: An additional block for custom animations
-    func slk_animateLayoutIfNeeded(duration: TimeInterval, bounce: Bool, options: UIViewAnimationOptions, animations: ((Void) -> Void)?, completion: ((_ finished: Bool) -> Void)?) {
+    func slk_animateLayoutIfNeeded(duration: TimeInterval, bounce: Bool, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((_ finished: Bool) -> Void)?) {
         if bounce {
             UIView.animate(withDuration: duration,
                            delay: 0,

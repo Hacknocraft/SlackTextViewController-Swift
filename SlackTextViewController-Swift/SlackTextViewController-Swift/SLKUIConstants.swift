@@ -89,7 +89,6 @@ var slkKeyWindowBounds: CGRect {
 }
 
 func slk_RectInvert(_ rect: CGRect) -> CGRect {
-    
     var invert: CGRect = .zero
     invert.origin.x = rect.origin.y
     invert.origin.y = rect.origin.x

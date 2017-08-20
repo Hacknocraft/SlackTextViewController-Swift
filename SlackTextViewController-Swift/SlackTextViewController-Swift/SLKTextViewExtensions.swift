@@ -11,16 +11,16 @@ import UIKit
 
 extension SLKTextView {
 
-    func slk_clearText(_ clearUndo: Bool) {
+    func slk_clearText(clearUndo: Bool) {
         // Important to call self implementation, as SLKTextView overrides setText: to add additional features.
         attributedText = nil
 
-        if undoManagerEnabled && clearUndo {
+        if isUndoManagerEnabled && clearUndo {
             undoManager?.removeAllActions()
         }
     }
 
-    func slk_scrollToCaretPositon(_ animated: Bool) {
+    func slk_scrollToCaretPositon(animated: Bool) {
         if animated {
             scrollRangeToVisible(selectedRange)
         } else {
@@ -30,7 +30,7 @@ extension SLKTextView {
         }
     }
 
-    override func slk_scrollToBottom(_ animated: Bool) {
+    override func slk_scrollToBottom(animated: Bool) {
         guard let selectedTextRange = selectedTextRange else { return }
 
         var rect = caretRect(for: selectedTextRange.end)
@@ -53,7 +53,7 @@ extension SLKTextView {
 
         //Detected break. Should scroll to bottom if needed.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0125) {
-            self.slk_scrollToBottom(animated)
+            self.slk_scrollToBottom(animated: animated)
         }
     }
 
@@ -67,6 +67,7 @@ extension SLKTextView {
         selectedRange = NSRange(location: range.location, length: 0)
     }
 
+    @discardableResult
     func slk_insertText(_ text: String, in range: NSRange) -> NSRange {
         let attributedText = slk_defaultAttributedString(for: text)
         return slk_insertAttributedText(attributedText, in: range)
@@ -156,7 +157,7 @@ extension SLKTextView {
 
     func slk_prepareForUndo(_ description: String) {
 
-        if !undoManagerEnabled { return }
+        if !isUndoManagerEnabled { return }
 
         if let prepareInvocation = undoManager?.prepare(withInvocationTarget: self) as? SLKTextView {
             prepareInvocation.text = text

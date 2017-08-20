@@ -34,7 +34,7 @@ extension UIScrollView {
     /// Sets the content offset to the top
     ///
     /// - Parameter animated: YES to animate the transition at a constant velocity to the new offset, NO to make the transition immediate
-    func slk_scrollToTop(_ animated: Bool) {
+    func slk_scrollToTop(animated: Bool) {
         if slk_canScroll {
             setContentOffset(.zero, animated: animated)
         }
@@ -43,7 +43,7 @@ extension UIScrollView {
     /// Sets the content offset to the bottom
     ///
     /// - Parameter animated: YES to animate the transition at a constant velocity to the new offset, NO to make the transition immediate
-    func slk_scrollToBottom(_ animated: Bool) {
+    func slk_scrollToBottom(animated: Bool) {
         if slk_canScroll {
             setContentOffset(slk_bottomRect.origin, animated: animated)
         }

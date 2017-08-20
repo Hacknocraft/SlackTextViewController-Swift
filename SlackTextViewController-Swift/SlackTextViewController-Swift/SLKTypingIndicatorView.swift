@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SLKTypingIndicatorView: UIView, SLKTypingIndicatorProtocol {
+class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - Public Properties
 
@@ -112,7 +112,7 @@ class SLKTypingIndicatorView: UIView, SLKTypingIndicatorProtocol {
 
         self.textLabel.attributedText = attributedString
 
-        self.visible = true
+        self.isVisible = true
     }
 
     func removeUsername(_ username: String?) {
@@ -126,25 +126,25 @@ class SLKTypingIndicatorView: UIView, SLKTypingIndicatorProtocol {
             textLabel.attributedText = attributedString
         }
         else {
-            visible = false
+            isVisible = false
         }
     }
 
     // MARK: - SLKTypingIndicatorProtocol
 
-    var visible: Bool {
+    override var isVisible: Bool {
         get {
-            return _visible
+            return _isVisible
         }
         set {
             // Skip when updating the same value, specially to avoid inovking KVO unnecessary
-            if _visible == newValue { return }
+            if _isVisible == newValue { return }
 
             // Required implementation for key-value observer compliance
             willChangeValue(forKey: "visible")
-            _visible = newValue
+            _isVisible = newValue
 
-            if !_visible {
+            if !_isVisible {
                 slk_invalidateTimers()
             }
 
@@ -152,11 +152,11 @@ class SLKTypingIndicatorView: UIView, SLKTypingIndicatorProtocol {
             didChangeValue(forKey: "visible")
         }
     }
-    private var _visible = false
+    private var _isVisible = false
 
-    func dismissIndicator() {
-        if visible {
-            visible = false
+    override func dismissIndicator() {
+        if isVisible {
+            isVisible = false
         }
     }
 
@@ -307,7 +307,7 @@ class SLKTypingIndicatorView: UIView, SLKTypingIndicatorProtocol {
 // MARK: - SLKTypingIndicatorProtocol
 protocol SLKTypingIndicatorProtocol: class {
     
-    var visible: Bool {get set}
+    var isVisible: Bool {get set}
     
     func dismissIndicator()
 }

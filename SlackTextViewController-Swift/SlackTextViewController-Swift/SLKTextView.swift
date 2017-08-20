@@ -105,7 +105,7 @@ class SLKTextView: UITextView, SLKTextInput {
             }
         }
 
-        if dynamicTypeEnabled {
+        if isDynamicTypeEnabled {
             let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory
             let pointSizeDifference = slk_pointSizeDifference(for: contentSizeCategory)
             var factor = pointSizeDifference / initialFontSize
@@ -166,50 +166,47 @@ class SLKTextView: UITextView, SLKTextInput {
 //    @property (nonatomic, getter=isLoupeVisible) BOOL loupeVisible DEPRECATED_ATTRIBUTE;
     
     /// YES if the keyboard track pad has been recognized. iOS 9 only
-    var trackpadEnabled = false
+    var isTrackpadEnabled = false
     
     /// YES if autocorrection and spell checking are enabled. On iOS8, this property also controls the predictive QuickType bar from being visible. Default is YES
-    var typingSuggestionEnabled: Bool {
+    var isTypingSuggestionEnabled: Bool {
         get {
             return (autocorrectionType == .no) ? false : true
         }
         set {
-            if _typingSuggestionEnabled == newValue { return }
+            if isTypingSuggestionEnabled == newValue { return }
 
             autocorrectionType = newValue ? .default : .no
             spellCheckingType = newValue ? .default: .no
-
-            _typingSuggestionEnabled = newValue
         }
     }
-    private var _typingSuggestionEnabled = true
-    
+
     /// YES if the text view supports undoing, either using UIMenuController, or with ctrl+z when using an external keyboard. Default is YES
-    var undoManagerEnabled: Bool {
+    var isUndoManagerEnabled: Bool {
         get {
-            return _undoManagerEnabled
+            return _isUndoManagerEnabled
         }
         set {
-            if _undoManagerEnabled == newValue { return }
+            if _isUndoManagerEnabled == newValue { return }
 
             undoManager?.levelsOfUndo = 10
             undoManager?.removeAllActions()
             undoManager?.setActionIsDiscardable(true)
 
-            _undoManagerEnabled = newValue
+            _isUndoManagerEnabled = newValue
         }
     }
-    private var _undoManagerEnabled = true
+    private var _isUndoManagerEnabled = true
     
     /// YES if the font size should dynamically adapt based on the font sizing option preferred by the user. Default is YES
-    var dynamicTypeEnabled: Bool {
+    var isDynamicTypeEnabled: Bool {
         get {
-            return _dynamicTypeEnabled
+            return _isDynamicTypeEnabled
         }
         set {
-            if _dynamicTypeEnabled == newValue { return }
+            if _isDynamicTypeEnabled == newValue { return }
 
-            _dynamicTypeEnabled = newValue
+            _isDynamicTypeEnabled = newValue
 
             guard let font = font else { return }
 
@@ -217,7 +214,7 @@ class SLKTextView: UITextView, SLKTextInput {
             setFont(name: font.fontName, pointSize: initialFontSize, contentSizeCategory: contentSizeCategory)
         }
     }
-    private var _dynamicTypeEnabled = true
+    private var _isDynamicTypeEnabled = true
 
     // MARK: - Private properties
     
@@ -265,8 +262,8 @@ class SLKTextView: UITextView, SLKTextInput {
         
         slk_registerNotifications()
         
-        //        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
-        
+        addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+
         initPlaceholderLabel()
     }
     
@@ -545,7 +542,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     private func setFont(name: String, pointSize: CGFloat, contentSizeCategory: UIContentSizeCategory) {
         var size = pointSize
-        if dynamicTypeEnabled {
+        if isDynamicTypeEnabled {
             size += slk_pointSizeDifference(for: contentSizeCategory)
         }
         let dynamicFont = UIFont(name: name, size: size)
@@ -569,14 +566,14 @@ class SLKTextView: UITextView, SLKTextInput {
     override func beginFloatingCursor(at point: CGPoint) {
         super.beginFloatingCursor(at: point)
 
-        trackpadEnabled = true
+        isTrackpadEnabled = true
     }
 
     @available(iOS 9.0, *)
     override func endFloatingCursor() {
         super.endFloatingCursor()
 
-        trackpadEnabled = false
+        isTrackpadEnabled = false
 
         // We still need to notify a selection change in the textview after the trackpad is disabled
         textViewDelegate?.textViewDidChangeSelection?(self)
@@ -592,7 +589,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     override var canResignFirstResponder: Bool {
-        if undoManagerEnabled {
+        if isUndoManagerEnabled {
             undoManager?.removeAllActions()
         }
 
@@ -635,7 +632,7 @@ class SLKTextView: UITextView, SLKTextInput {
             return super.canPerformAction(action, withSender: sender)
         }
 
-        if undoManagerEnabled {
+        if isUndoManagerEnabled {
 
             if action == #selector(slk_undo(_:)) {
                 if undoManager.undoActionIsDiscardable {
@@ -840,7 +837,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// YES if the a markdown closure symbol should be added automatically after double spacebar tap, just like the native gesture to add a sentence period. Default is YES. This will always be NO if there isn't any registered formatting symbols.
-    var formattingEnabled: Bool {
+    var isFormattingEnabled: Bool {
         return (registeredFormattingSymbols.count > 0) ? true : false
     }
 
@@ -885,7 +882,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     @objc private func slk_didChangeContentSizeCategory(_ noti: Notification) {
 
-        guard dynamicTypeEnabled == true,
+        guard isDynamicTypeEnabled == true,
             let contentSizeCategory = noti.userInfo?[UIContentSizeCategoryNewValueKey] as? UIContentSizeCategory,
             let font = self.font else {
                 return
@@ -914,7 +911,7 @@ class SLKTextView: UITextView, SLKTextInput {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         if let obj = object as? SLKTextView, obj === self,
-            keyPath == NSStringFromSelector(#selector(setter: contentSize)) {
+            keyPath == "contentSize" {
 
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextViewContentSizeDidChangeNotification), object: self, userInfo: nil)
 
@@ -973,7 +970,7 @@ class SLKTextView: UITextView, SLKTextInput {
     // MARK: - Up/Down Cursor Movement
 
     /// Notifies the text view that the user pressed any arrow key. This is used to move the cursor up and down while having multiple lines.
-    func didPressArrowKey(_ keyCommand: UIKeyCommand) {
+    func didPressArrowKey(keyCommand: UIKeyCommand) {
 
         if !keyCommand.isKind(of: UIKeyCommand.self) || text.length == 0 || numberOfLines < 2 {
             return
@@ -1001,7 +998,7 @@ class SLKTextView: UITextView, SLKTextInput {
         verticalMoveLastCaretRect = caretRect(for: end)
         selectedTextRange = textRange(from: end, to: end)
 
-        slk_scrollToCaretPositon(false)
+        slk_scrollToCaretPositon(animated: false)
     }
 
     // Based on code from Ruben Cabaco

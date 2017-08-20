@@ -13,6 +13,7 @@
 		4A08006C1F454CA00080BE23 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */; };
 		4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */; };
 		4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */; };
+		FDAD42B11F49C96E00D9707D /* CharacterSetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */; };
 		FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */; };
 		FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0811EF38C8000BA6945 /* ViewController.swift */; };
 		FDBAD0851EF38C8000BA6945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0831EF38C8000BA6945 /* Main.storyboard */; };
@@ -24,6 +25,8 @@
 		FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */; };
 		FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */; };
 		FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */; };
+		FDFE00A41F45C612000E5164 /* SLKTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */; };
+		FDFE00AA1F469875000E5164 /* SLKBaseTypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,7 @@
 		4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewExtensions.swift; sourceTree = "<group>"; };
 		4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetExtensions.swift; sourceTree = "<group>"; };
 		FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SlackTextViewController-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDBAD0811EF38C8000BA6945 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +50,8 @@
 		FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextInputbar.swift; sourceTree = "<group>"; };
 		FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextView.swift; sourceTree = "<group>"; };
 		FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKUIConstants.swift; sourceTree = "<group>"; };
+		FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewController.swift; sourceTree = "<group>"; };
+		FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKBaseTypingIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,8 @@
 				4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */,
 				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
 				4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */,
+				FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */,
+				FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -112,6 +120,7 @@
 				4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */,
 				4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */,
 				4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */,
+				FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -193,15 +202,18 @@
 				FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */,
 				4A0800681F4524CC0080BE23 /* UIResponderExtensions.swift in Sources */,
 				4A08006A1F4535700080BE23 /* SLKTypingIndicatorView.swift in Sources */,
+				FDFE00AA1F469875000E5164 /* SLKBaseTypingIndicatorView.swift in Sources */,
 				4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */,
 				4A0800661F45216E0080BE23 /* UIScrollViewExtensions.swift in Sources */,
 				FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */,
 				FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */,
 				FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */,
 				4A08006C1F454CA00080BE23 /* ArrayExtensions.swift in Sources */,
+				FDFE00A41F45C612000E5164 /* SLKTextViewController.swift in Sources */,
 				4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */,
 				FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */,
 				FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */,
+				FDAD42B11F49C96E00D9707D /* CharacterSetExtensions.swift in Sources */,
 				FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
