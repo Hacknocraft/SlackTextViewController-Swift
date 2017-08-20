@@ -90,7 +90,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
         let isShowing = usernames.contains(username)
 
-        if (interval > 0.0) {
+        if interval > 0.0 {
 
             if isShowing, let timer = slk_timerWithIdentifier(username) {
                 slk_invalidateTimer(timer)
@@ -122,10 +122,9 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
         }
         usernames.remove(at: nameIndex)
 
-        if (usernames.count > 0) {
+        if usernames.count > 0 {
             textLabel.attributedText = attributedString
-        }
-        else {
+        } else {
             isVisible = false
         }
     }
@@ -171,19 +170,17 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
         var text = ""
 
-        if (self.usernames.count == 1) {
+        if self.usernames.count == 1 {
             text = String(format: NSLocalizedString("%@ is typing", comment: ""), firstObject)
-        }
-        else if (self.usernames.count == 2) {
+        } else if self.usernames.count == 2 {
             text = String(format: NSLocalizedString("%@ & %@ are typing", comment: ""), firstObject, lastObject)
-        }
-        else if (self.usernames.count > 2) {
+        } else if self.usernames.count > 2 {
             text = NSLocalizedString("Several people are typing", comment: "")
         }
 
         let style  = NSMutableParagraphStyle()
-        style.alignment = .left;
-        style.lineBreakMode = .byTruncatingTail;
+        style.alignment = .left
+        style.lineBreakMode = .byTruncatingTail
         style.minimumLineHeight = 10.0
 
         let attributes: [String: Any] = [NSFontAttributeName: textFont,
@@ -192,7 +189,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
         let attributedString = NSMutableAttributedString(string: text, attributes: attributes)
 
-        if (self.usernames.count <= 2) {
+        if self.usernames.count <= 2 {
             attributedString.addAttribute(NSFontAttributeName, value: highlightFont, range: text.nsRange(of: firstObject))
             attributedString.addAttribute(NSFontAttributeName, value: highlightFont, range: text.nsRange(of: lastObject))
         }
@@ -227,7 +224,6 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
         }
     }
     private var _isHidden = false
-
 
     // MARK: - Private Methods
 
@@ -288,7 +284,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         if canResignByTouch {
@@ -306,8 +302,8 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
 // MARK: - SLKTypingIndicatorProtocol
 protocol SLKTypingIndicatorProtocol: class {
-    
+
     var isVisible: Bool {get set}
-    
+
     func dismissIndicator()
 }

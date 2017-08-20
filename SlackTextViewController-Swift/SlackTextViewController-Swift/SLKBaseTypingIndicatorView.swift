@@ -24,8 +24,8 @@ extension SLKBaseTypingIndicatorView: SLKTypingIndicatorProtocol {
             return false
         }
         set {
-            
+
         }
     }
-    
+
 }

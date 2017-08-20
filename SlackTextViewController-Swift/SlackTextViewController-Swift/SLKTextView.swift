@@ -22,13 +22,13 @@ let SLKTextViewPastedItemData = "SLKTextViewPastedItemData"
 let SLKTextViewGenericFormattingSelectorPrefix = "slk_format_"
 
 struct SLKPastableMediaTypes: OptionSet {
-    
+
     let rawValue: Int
-    
+
     init(rawValue: Int) {
         self.rawValue = rawValue
     }
-    
+
     static let none = SLKPastableMediaTypes(rawValue: 0)
     static let png = SLKPastableMediaTypes(rawValue: 1 << 0)
     static let jpeg = SLKPastableMediaTypes(rawValue: 1 << 1)
@@ -39,15 +39,15 @@ struct SLKPastableMediaTypes: OptionSet {
     static let images: SLKPastableMediaTypes = [.png, .jpeg, .tiff, .gif]
     static let videos: SLKPastableMediaTypes = [.mov]
     static let all: SLKPastableMediaTypes = [.images, .mov]
-    
+
 }
 
 class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - Public properties
-    
+
     weak var textViewDelegate: SLKTextViewDelegate?
-    
+
     /// The placeholder text string. Default is nil
     var placeholder: String! {
         get {
@@ -60,7 +60,7 @@ class SLKTextView: UITextView, SLKTextInput {
             setNeedsLayout()
         }
     }
-    
+
     /// The placeholder color. Default is lightGrayColor
     var placeholderColor: UIColor {
         get {
@@ -70,7 +70,7 @@ class SLKTextView: UITextView, SLKTextInput {
             placeholderLabel.textColor = newValue
         }
     }
-    
+
     /// The placeholder's number of lines. Default is 1
     var placeholderNumberOfLines = 1 {
         didSet {
@@ -78,7 +78,7 @@ class SLKTextView: UITextView, SLKTextInput {
             setNeedsLayout()
         }
     }
-    
+
     /// The placeholder's font. Default is the textView's font
     var placeholderFont: UIFont! {
         get {
@@ -92,7 +92,7 @@ class SLKTextView: UITextView, SLKTextInput {
             }
         }
     }
-    
+
     /// The maximum number of lines before enabling scrolling. Default is 0 wich means limitless. If dynamic type is enabled, the maximum number of lines will be calculated proportionally to the user preferred font size
     var maxNumberOfLines: Int {
         var numberOfLines = 0
@@ -117,7 +117,7 @@ class SLKTextView: UITextView, SLKTextInput {
             numberOfLines -= Int(floorf(Float(CGFloat(numberOfLines) * factor))) // Calculates a dynamic number of lines depending of the user preferred font size
         }
 
-        return numberOfLines;
+        return numberOfLines
     }
 
     /// The current displayed number of lines
@@ -147,7 +147,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     /// The supported media types allowed to be pasted in the text view, such as images or videos. Default is None
     let pastableMediaTypes: SLKPastableMediaTypes = .none
-    
+
     /// YES if the text view is and can still expand it self, depending if the maximum number of lines are reached
     var isExpanding: Bool {
         if numberOfLines >= maxNumberOfLines {
@@ -155,19 +155,19 @@ class SLKTextView: UITextView, SLKTextInput {
         }
         return false
     }
-    
+
     /// YES if quickly refreshed the textview without the intension to dismiss the keyboard. @view -disableQuicktypeBar: for more details
     var didNotResignFirstResponder = false
-    
+
     /** YES if the magnifying glass is visible.
      This feature is deprecated since there are no legit alternatives to detect the magnifying glass.
      Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
      */
 //    @property (nonatomic, getter=isLoupeVisible) BOOL loupeVisible DEPRECATED_ATTRIBUTE;
-    
+
     /// YES if the keyboard track pad has been recognized. iOS 9 only
     var isTrackpadEnabled = false
-    
+
     /// YES if autocorrection and spell checking are enabled. On iOS8, this property also controls the predictive QuickType bar from being visible. Default is YES
     var isTypingSuggestionEnabled: Bool {
         get {
@@ -197,7 +197,7 @@ class SLKTextView: UITextView, SLKTextInput {
         }
     }
     private var _isUndoManagerEnabled = true
-    
+
     /// YES if the font size should dynamically adapt based on the font sizing option preferred by the user. Default is YES
     var isDynamicTypeEnabled: Bool {
         get {
@@ -217,36 +217,36 @@ class SLKTextView: UITextView, SLKTextInput {
     private var _isDynamicTypeEnabled = true
 
     // MARK: - Private properties
-    
+
     /// The label used as placeholder
     private var placeholderLabel: UILabel!
-    
+
     /// The initial font point size, used for dynamic type calculations
     private var initialFontSize: CGFloat = 0
-    
+
     // Used for moving the caret up/down
     private var verticalMoveDirection: UITextLayoutDirection!
     private var verticalMoveStartCaretRect: CGRect = .zero
     private var verticalMoveLastCaretRect: CGRect = .zero
-    
+
     // Used for detecting if the scroll indicator was previously flashed
     private var didFlashScrollIndicators = false
-    
+
     private var registeredFormattingTitles = [String]()
     private var registeredFormattingSymbols = [String]()
     private var formatting = false
-    
+
     // The keyboard commands available for external keyboards
     private var registeredKeyCommands = [String: UIKeyCommand]()
     private var registeredKeyCallbacks = [String: (UIKeyCommand) -> Void]()
-    
+
     // MARK: - Initialization
-    
+
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         slk_commonInit()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         slk_commonInit()
@@ -259,14 +259,14 @@ class SLKTextView: UITextView, SLKTextInput {
         scrollsToTop = false
         isDirectionalLockEnabled = true
         dataDetectorTypes = UIDataDetectorTypes(rawValue: 0)
-        
+
         slk_registerNotifications()
-        
+
         addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
 
         initPlaceholderLabel()
     }
-    
+
     private func initPlaceholderLabel() {
         placeholderLabel = UILabel()
         placeholderLabel.clipsToBounds = false
@@ -279,7 +279,7 @@ class SLKTextView: UITextView, SLKTextInput {
         placeholderLabel.isAccessibilityElement = false
         addSubview(placeholderLabel)
     }
-    
+
     // MARK: - UIView Overrides
 
     override var intrinsicContentSize: CGSize {
@@ -300,23 +300,22 @@ class SLKTextView: UITextView, SLKTextInput {
         }
         super.layoutIfNeeded()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.placeholderLabel.isHidden = slk_shouldHidePlaceholder()
-        
+
         if !placeholderLabel.isHidden {
-            
+
             UIView.performWithoutAnimation {
-                
+
                 placeholderLabel.frame = slk_placeholderRectThatFits(bounds)
                 sendSubview(toBack: placeholderLabel)
             }
         }
     }
-    
-    
+
     // MARK: - Getters
 
     private func slk_pastedItem() -> Any? {
@@ -339,7 +338,7 @@ class SLKTextView: UITextView, SLKTextInput {
         if let string = UIPasteboard.general.string {
             return string
         }
-        
+
         return nil
     }
 
@@ -399,34 +398,34 @@ class SLKTextView: UITextView, SLKTextInput {
             types.append(type)
         }
 
-        return types;
+        return types
     }
 
     private func stringFrom(_ type: SLKPastableMediaTypes) -> String? {
 
-        if (type == .png) {
+        if type == .png {
             return "public.png"
         }
-        if (type == .jpeg) {
+        if type == .jpeg {
             return "public.jpeg"
         }
-        if (type == .tiff) {
+        if type == .tiff {
             return "public.tiff"
         }
-        if (type == .gif) {
+        if type == .gif {
             return "com.compuserve.gif"
         }
-        if (type == .mov) {
+        if type == .mov {
             return "com.apple.quicktime"
         }
-        if (type == .passbook) {
+        if type == .passbook {
             return "com.apple.pkpass"
         }
-        if (type == .images) {
+        if type == .images {
             return "com.apple.uikit.image"
         }
 
-        return nil;
+        return nil
     }
 
     private func slk_pastableMediaType(from string: String) -> SLKPastableMediaTypes {
@@ -461,24 +460,24 @@ class SLKTextView: UITextView, SLKTextInput {
         if placeholder == nil {
             return true
         }
-        
+
         if placeholder.length == 0 || text.length > 0 {
             return true
         }
-        
+
         return false
     }
-    
+
     /// Returns only a supported pasted item
     private func slk_placeholderRectThatFits(_ bounds: CGRect) -> CGRect {
         let padding = textContainer.lineFragmentPadding
-        
+
         var rect: CGRect = .zero
         rect.size.height = placeholderLabel.sizeThatFits(bounds.size).height
-        rect.size.width = textContainer.size.width - padding * 2.0;
-        rect.origin.x += padding;
-        
-        return rect;
+        rect.size.width = textContainer.size.width - padding * 2.0
+        rect.origin.x += padding
+
+        return rect
     }
 
     // MARK: - Setters
@@ -501,7 +500,6 @@ class SLKTextView: UITextView, SLKTextInput {
         }
     }
 
-    // TODO: 可能会有问题
     override var text: String! {
         get {
             return attributedText.string
@@ -511,7 +509,7 @@ class SLKTextView: UITextView, SLKTextInput {
             slk_prepareForUndo("Text Set")
 
             if newValue != nil {
-                attributedText = slk_defaultAttributedString(for: text)
+                attributedText = slk_defaultAttributedString(for: newValue)
             } else {
                 attributedText = nil
             }
@@ -612,7 +610,7 @@ class SLKTextView: UITextView, SLKTextInput {
                     }
                 }
             }
-            
+
             return false
         }
 
@@ -700,7 +698,7 @@ class SLKTextView: UITextView, SLKTextInput {
     // MARK: - Custom Actions
 
     private func slk_flashScrollIndicatorsIfNeeded() {
-        if (numberOfLines == maxNumberOfLines + 1) && !didFlashScrollIndicators  {
+        if (numberOfLines == maxNumberOfLines + 1) && !didFlashScrollIndicators {
             didFlashScrollIndicators = true
             super.flashScrollIndicators()
         } else if didFlashScrollIndicators {
@@ -749,7 +747,6 @@ class SLKTextView: UITextView, SLKTextInput {
 
         UIMenuController.shared.menuItems = items
     }
-
 
     @objc private func slk_undo(_ sender: Any?) {
         undoManager?.undo()
@@ -1031,7 +1028,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
             checkPosition = nextPosition!
             let checkRect = caretRect(for: checkPosition)
-            if (startingCaretRect.midY != checkRect.midY) {
+            if startingCaretRect.midY != checkRect.midY {
 
                 // While on the next line stop just above/below the starting position
                 if lookupDirection == .left && checkRect.midX <= verticalMoveStartCaretRect.midX {
@@ -1103,16 +1100,15 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     // MARK: - Lifeterm
-    
+
     deinit {
         slk_unregisterNotifications()
         removeObserver(self, forKeyPath: NSStringFromSelector(#selector(setter: contentSize)))
     }
 }
 
-
 @objc protocol SLKTextViewDelegate: UITextViewDelegate {
-    
+
     /// Asks the delegate whether the specified formatting symbol should be displayed in the tooltip. This is useful to remove some tooltip options when they no longer apply in some context. For example, Blockquotes formatting requires the symbol to be prefixed at the begining of a paragraph
     /// - Parameters:
     ///   - textView: The text view containing the changes
@@ -1120,7 +1116,7 @@ class SLKTextView: UITextView, SLKTextInput {
     /// - Returns: 
     /// YES if the formatting symbol should be displayed in the tooltip. Default is YES.
     @objc optional func textView(_ textView: SLKTextView, shouldOfferFormattingFor symbol: String) -> Bool
-    
+
     /// Asks the delegate whether the specified formatting symbol should be suffixed, to close the formatting wrap
     /// - Parameters:
     ///   - prefixRange: The prefix range

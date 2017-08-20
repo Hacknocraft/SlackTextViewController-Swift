@@ -12,7 +12,7 @@ import UIKit
 extension UIScrollView {
 
     // MARK: - Public API
-    
+
     /// YES if the scrollView's offset is at the very top
     var slk_isAtTop: Bool {
         return slk_visibleRect.midY <= bounds.minY
@@ -55,11 +55,11 @@ extension UIScrollView {
             return
         }
 
-        var offset = self.contentOffset;
-        offset.y -= 1.0;
+        var offset = self.contentOffset
+        offset.y -= 1.0
         contentOffset = offset
 
-        offset.y += 1.0;
+        offset.y += 1.0
         contentOffset = offset
     }
 

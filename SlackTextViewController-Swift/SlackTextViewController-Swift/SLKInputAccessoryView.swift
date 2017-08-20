@@ -12,7 +12,7 @@ class SLKInputAccessoryView: UIView {
 
     /// The system keyboard view used as reference
     weak var keyboardViewProxy: UIView?
-    
+
     override func willMove(toSuperview newSuperview: UIView?) {
         keyboardViewProxy = newSuperview
     }

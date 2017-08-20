@@ -179,7 +179,7 @@ class SLKTextViewController: UIViewController {
             return true
         }
 
-        return false;
+        return false
     }
 
     /// Notifies the view controller that the keyboard changed status.
@@ -213,16 +213,14 @@ class SLKTextViewController: UIViewController {
         textInputbar.rightButton.isEnabled = canPressRightButton()
         textInputbar.editorRightButton.isEnabled = canPressRightButton()
 
-
-
-        if (inputbarHeight != textInputbarHC.constant) {
+        if inputbarHeight != textInputbarHC.constant {
             let inputBarHeightDelta = inputbarHeight - textInputbarHC.constant
 
             let newOffset = CGPoint(x: 0, y: scrollViewProxy!.contentOffset.y + inputBarHeightDelta)
             textInputbarHC.constant = inputbarHeight
             scrollViewHC.constant = slk_appropriateScrollViewHeight
 
-            if (animated) {
+            if animated {
 
                 let bounces = self.bounces && textView.isFirstResponder
 
@@ -240,8 +238,7 @@ class SLKTextViewController: UIViewController {
                                                 }
                 })
 
-            }
-            else {
+            } else {
                 view.layoutIfNeeded()
             }
         }
@@ -304,10 +301,10 @@ class SLKTextViewController: UIViewController {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if text.length > 0 && !textInputbar.limitExceeded {
-            return true;
+            return true
         }
 
-        return false;
+        return false
     }
 
     /// Notifies the view controller when the user has pasted a supported media content (images and/or videos).
@@ -337,15 +334,15 @@ class SLKTextViewController: UIViewController {
     /// You can override this method to perform additional tasks associated with the shake gesture.
     /// Calling super will prompt a system alert view with undo option. This will not be called if 'undoShakingEnabled' is set to NO and/or if the text view's content is empty.
     func willRequestUndo() {
-        let title = NSLocalizedString("Undo Typing", comment: "");
-        let acceptTitle = NSLocalizedString("Undo", comment: "");
-        let cancelTitle = NSLocalizedString("Cancel", comment: "");
+        let title = NSLocalizedString("Undo Typing", comment: "")
+        let acceptTitle = NSLocalizedString("Undo", comment: "")
+        let cancelTitle = NSLocalizedString("Cancel", comment: "")
 
         if #available(iOS 8, *) {
             let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: acceptTitle, style: .default, handler: { _ in
                 // Clears the text but doesn't clear the undo manager
-                if (self.shakeToClearEnabled) {
+                if self.shakeToClearEnabled {
                     self.textView.slk_clearText(clearUndo: false)
                 }
             })
@@ -451,7 +448,7 @@ class SLKTextViewController: UIViewController {
 
         if animated {
             UIView.animate(withDuration: 0.25, animations: animations, completion: completion)
-        }  else {
+        } else {
             animations()
             completion(false)
         }
@@ -468,7 +465,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter text: The string text to edit.
-    func editText(_ text:  String) {
+    func editText(_ text: String) {
         let attributedText = textView.slk_defaultAttributedString(for: text)
         editAttributedText(attributedText)
     }
@@ -577,7 +574,7 @@ class SLKTextViewController: UIViewController {
             return false
         }
 
-        return true;
+        return true
     }
 
     /// During text autocompletion, by default, auto-correction and spell checking are disabled.
@@ -590,7 +587,7 @@ class SLKTextViewController: UIViewController {
             return false
         }
 
-        return true;
+        return true
     }
 
     /// Notifies the view controller either the autocompletion prefix or word have changed.
@@ -621,7 +618,7 @@ class SLKTextViewController: UIViewController {
         // Toggles auto-correction if requiered
         slk_enableTypingSuggestionIfNeeded()
 
-        var viewHeight = show ? heightForAutoCompletionView() : 0.0;
+        var viewHeight = show ? heightForAutoCompletionView() : 0.0
 
         if autoCompletionViewHC.constant == viewHeight {
             return
@@ -630,15 +627,15 @@ class SLKTextViewController: UIViewController {
         // If the auto-completion view height is bigger than the maximum height allows, it is reduce to that size. Default 140 pts.
         let maximumHeight = maximumHeightForAutoCompletionView()
 
-        if (viewHeight > maximumHeight) {
-            viewHeight = maximumHeight;
+        if viewHeight > maximumHeight {
+            viewHeight = maximumHeight
         }
 
-        let contentViewHeight = scrollViewHC.constant + autoCompletionViewHC.constant;
+        let contentViewHeight = scrollViewHC.constant + autoCompletionViewHC.constant
 
         // On iPhone, the auto-completion view can't extend beyond the content view height
         if slk_IsIphone && viewHeight > contentViewHeight {
-            viewHeight = contentViewHeight;
+            viewHeight = contentViewHeight
         }
 
         autoCompletionViewHC.constant = viewHeight
@@ -659,9 +656,9 @@ class SLKTextViewController: UIViewController {
     func showAutoCompletionView(prefix: String, word: String, prefixRange: NSRange) {
         guard registeredPrefixes.contains(prefix) else { return }
 
-        foundPrefix = prefix;
-        foundWord = word;
-        foundPrefixRange = prefixRange;
+        foundPrefix = prefix
+        foundWord = word
+        foundPrefixRange = prefixRange
         didChangeAutoCompletion(prefix: prefix, word: word)
         showAutoCompletionView(show: true)
     }
@@ -679,18 +676,18 @@ class SLKTextViewController: UIViewController {
     ///
     /// - Returns: The autocompletion view's max height.
     func maximumHeightForAutoCompletionView() -> CGFloat {
-        var maxiumumHeight = SLKAutoCompletionViewDefaultHeight;
+        var maxiumumHeight = SLKAutoCompletionViewDefaultHeight
 
-        if (self.isAutoCompleting) {
-            var scrollViewHeight = self.scrollViewHC.constant;
+        if self.isAutoCompleting {
+            var scrollViewHeight = self.scrollViewHC.constant
             scrollViewHeight -= slk_topBarsHeight
 
-            if (scrollViewHeight < maxiumumHeight) {
-                maxiumumHeight = scrollViewHeight;
+            if scrollViewHeight < maxiumumHeight {
+                maxiumumHeight = scrollViewHeight
             }
         }
 
-        return maxiumumHeight;
+        return maxiumumHeight
     }
 
     /// Cancels and hides the autocompletion view, animated.
@@ -719,14 +716,14 @@ class SLKTextViewController: UIViewController {
                 return
         }
 
-        var location = foundPrefixRange.location;
-        if (keepPrefix) {
-            location += foundPrefixRange.length;
+        var location = foundPrefixRange.location
+        if keepPrefix {
+            location += foundPrefixRange.length
         }
 
-        var length = foundWord.length;
-        if (!keepPrefix) {
-            length += foundPrefixRange.length;
+        var length = foundWord.length
+        if !keepPrefix {
+            length += foundPrefixRange.length
         }
 
         let range = NSRange(location: location, length: length)
@@ -749,7 +746,7 @@ class SLKTextViewController: UIViewController {
     /// - Returns: The string key for which to enable text caching.
     func keyForTextCaching() -> String? {
         // No implementation here. Meant to be overriden in subclass.
-        return nil;
+        return nil
     }
 
     /// Removes the current view controller's cached text.
@@ -767,8 +764,8 @@ class SLKTextViewController: UIViewController {
             cachedKeys.append(key)
         }
 
-        if (cachedKeys.count == 0) {
-            return;
+        if cachedKeys.count == 0 {
+            return
         }
 
         for cachedKey in cachedKeys {
@@ -790,7 +787,7 @@ class SLKTextViewController: UIViewController {
 
         var cachedAttributedText = NSAttributedString(string: "")
 
-        if let obj = UserDefaults.standard.object(forKey: key)  {
+        if let obj = UserDefaults.standard.object(forKey: key) {
             if let string = obj as? String {
                 cachedAttributedText = NSAttributedString(string: string)
             } else if let data = obj as? Data, let attributedText = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSAttributedString {
@@ -798,8 +795,8 @@ class SLKTextViewController: UIViewController {
             }
         }
 
-        if (self.textView.attributedText.length == 0 || cachedAttributedText.length > 0) {
-            self.textView.attributedText = cachedAttributedText;
+        if textView.attributedText.length == 0 || cachedAttributedText.length > 0 {
+            textView.attributedText = cachedAttributedText
         }
     }
 
@@ -817,7 +814,7 @@ class SLKTextViewController: UIViewController {
 
         var cachedAttributedText = NSAttributedString(string: "")
 
-        if let obj = UserDefaults.standard.object(forKey: key)  {
+        if let obj = UserDefaults.standard.object(forKey: key) {
             if let string = obj as? String {
                 cachedAttributedText = NSAttributedString(string: string)
             } else if let data = obj as? Data, let attributedText = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSAttributedString {
@@ -834,8 +831,7 @@ class SLKTextViewController: UIViewController {
             // Clears cache only if it exists
         else if attributedText?.length == 0 && cachedAttributedText.length > 0 {
             UserDefaults.standard.removeObject(forKey: key)
-        }
-        else {
+        } else {
             // Skips so it doesn't hit 'synchronize' unnecessarily
             return
         }
@@ -895,7 +891,7 @@ class SLKTextViewController: UIViewController {
             _scrollViewProxy = newValue
 
             singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(slk_didTapScrollView(gesture:)))
-            singleTapGesture.delegate = self;
+            singleTapGesture.delegate = self
             singleTapGesture.require(toFail: _scrollViewProxy.panGestureRecognizer)
 
             _scrollViewProxy.addGestureRecognizer(singleTapGesture)
@@ -983,8 +979,8 @@ class SLKTextViewController: UIViewController {
     private func slk_commonInit() {
         slk_registerNotifications()
 
-        automaticallyAdjustsScrollViewInsets = true;
-        extendedLayoutIncludesOpaqueBars = true;
+        automaticallyAdjustsScrollViewInsets = true
+        extendedLayoutIncludesOpaqueBars = true
     }
 
     // MARK: - View Lifecycle
@@ -1006,7 +1002,7 @@ class SLKTextViewController: UIViewController {
         super.viewWillAppear(animated)
 
         // Invalidates this flag when the view appears
-        textView.didNotResignFirstResponder = false;
+        textView.didNotResignFirstResponder = false
 
         // Forces laying out the recently added subviews and update their constraints
         view.layoutIfNeeded()
@@ -1063,11 +1059,11 @@ class SLKTextViewController: UIViewController {
 
     private func tableView(style: UITableViewStyle) -> UITableView {
         let tableView = UITableView(frame: .zero, style: style)
-        tableView.translatesAutoresizingMaskIntoConstraints = false;
-        tableView.scrollsToTop = true;
-        tableView.dataSource = self;
-        tableView.delegate = self;
-        tableView.clipsToBounds = false;
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.scrollsToTop = true
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.clipsToBounds = false
         return tableView
     }
 
@@ -1085,9 +1081,9 @@ class SLKTextViewController: UIViewController {
         let autoCompletionView = UITableView(frame: .zero, style: .plain)
         autoCompletionView.translatesAutoresizingMaskIntoConstraints = false
         autoCompletionView.backgroundColor = UIColor(white: 0.97, alpha: 1)
-        autoCompletionView.scrollsToTop = false;
-        autoCompletionView.dataSource = self;
-        autoCompletionView.delegate = self;
+        autoCompletionView.scrollsToTop = false
+        autoCompletionView.dataSource = self
+        autoCompletionView.delegate = self
 
         if #available(iOS 9, *) {
             autoCompletionView.cellLayoutMarginsFollowReadableWidth = false
@@ -1102,7 +1098,7 @@ class SLKTextViewController: UIViewController {
 
     private func makeTextInputbar() -> SLKTextInputbar {
         let textInputbar = SLKTextInputbar(textViewClass: textViewClass)
-        textInputbar.translatesAutoresizingMaskIntoConstraints = false;
+        textInputbar.translatesAutoresizingMaskIntoConstraints = false
 
         textInputbar.leftButton.addTarget(self, action: #selector(didPressLeftButton(sender:)), for: .touchUpInside)
         textInputbar.rightButton.addTarget(self, action: #selector(didPressRightButton(sender:)), for: .touchUpInside)
@@ -1175,11 +1171,11 @@ class SLKTextViewController: UIViewController {
         // When the keyboard height is zero, we can assume there is no keyboard visible
         // In that case, let's see if there are any other views outside of the view hiearchy
         // requiring to adjust the text input bottom margin
-        if (keyboardHeight < bottomMargin) {
-            keyboardHeight = bottomMargin;
+        if keyboardHeight < bottomMargin {
+            keyboardHeight = bottomMargin
         }
 
-        return keyboardHeight;
+        return keyboardHeight
     }
 
     private var slk_appropriateBottomMargin: CGFloat {
@@ -1197,10 +1193,10 @@ class SLKTextViewController: UIViewController {
     private var slk_appropriateScrollViewHeight: CGFloat {
         var scrollViewHeight = view.bounds.height
 
-        scrollViewHeight -= self.keyboardHC.constant;
-        scrollViewHeight -= self.textInputbarHC.constant;
-        scrollViewHeight -= self.autoCompletionViewHC.constant;
-        scrollViewHeight -= self.typingIndicatorViewHC.constant;
+        scrollViewHeight -= self.keyboardHC.constant
+        scrollViewHeight -= self.textInputbarHC.constant
+        scrollViewHeight -= self.autoCompletionViewHC.constant
+        scrollViewHeight -= self.typingIndicatorViewHC.constant
 
         return (scrollViewHeight < 0) ? 0 : scrollViewHeight
     }
@@ -1220,7 +1216,7 @@ class SLKTextViewController: UIViewController {
 
         topBarsHeight +=  UIApplication.shared.statusBarFrame.height
 
-        return topBarsHeight;
+        return topBarsHeight
     }
 
     private func slk_appropriateKeyboardNotificationName(for noti: Notification) -> String? {
@@ -1304,7 +1300,7 @@ class SLKTextViewController: UIViewController {
             return false
         }
 
-        keyboardStatus = status;
+        keyboardStatus = status
 
         didChangeKeyboardStatus(status)
 
@@ -1332,8 +1328,8 @@ class SLKTextViewController: UIViewController {
         }
 
         // Skips if it's the current status
-        if (keyboardStatus == status) {
-            return;
+        if keyboardStatus == status {
+            return
         }
 
         // Programatically stops scrolling before updating the view constraints (to avoid scrolling glitch).
@@ -1342,7 +1338,7 @@ class SLKTextViewController: UIViewController {
         }
 
         // Stores the previous keyboard height
-        let previousKeyboardHeight = keyboardHC.constant;
+        let previousKeyboardHeight = keyboardHC.constant
 
         // Updates the height constraints' constants
         keyboardHC.constant = slk_appropriateKeyboardHeight(from: noti)
@@ -1383,7 +1379,7 @@ class SLKTextViewController: UIViewController {
 
         if beginFrame != endFrame || fabs(previousKeyboardHeight - keyboardHC.constant) > 0 {
             // Content Offset correction if not inverted and not auto-completing.
-            if (!isInverted && !isAutoCompleting) {
+            if !isInverted && !isAutoCompleting {
 
                 let scrollViewHeight = scrollViewHC.constant
                 let keyboardHeight = keyboardHC.constant
@@ -1402,9 +1398,8 @@ class SLKTextViewController: UIViewController {
                                            options: [.layoutSubviews, .beginFromCurrentState, .curveEaseIn, UIViewAnimationOptions(rawValue: UInt(curve << 16))],
                                            animations: animations,
                                            completion: nil)
-        }
-        else {
-            animations();
+        } else {
+            animations()
         }
 
     }
@@ -1519,10 +1514,10 @@ class SLKTextViewController: UIViewController {
         if !canShowTypingIndicator() && indicatorView.isVisible { return }
 
         let systemLayoutSizeHeight = indicatorView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
-        let height = indicatorView.isVisible ? systemLayoutSizeHeight : 0.0;
+        let height = indicatorView.isVisible ? systemLayoutSizeHeight : 0.0
 
-        typingIndicatorViewHC.constant = height;
-        scrollViewHC.constant -= height;
+        typingIndicatorViewHC.constant = height
+        scrollViewHC.constant -= height
 
         if indicatorView.isVisible {
             view.isHidden = false
@@ -1654,15 +1649,14 @@ class SLKTextViewController: UIViewController {
             var keyboardFrame = originalFrame
 
             if presenting {
-                keyboardFrame.origin.y += transition.y;
-            }
-            else {
+                keyboardFrame.origin.y += transition.y
+            } else {
                 keyboardFrame.origin.y += max(transition.y, 0)
             }
 
             // Makes sure they keyboard is always anchored to the bottom
             if keyboardFrame.minY < keyboardMinY {
-                keyboardFrame.origin.y = keyboardMinY;
+                keyboardFrame.origin.y = keyboardMinY
             }
 
             keyboardView.frame = keyboardFrame
@@ -1677,37 +1671,36 @@ class SLKTextViewController: UIViewController {
             var offset = scrollViewOffsetBeforeDragging
 
             if isInverted {
-                if (!scrollViewProxy!.isDecelerating && scrollViewProxy!.isTracking) {
+                if !scrollViewProxy!.isDecelerating && scrollViewProxy!.isTracking {
                     scrollViewProxy?.contentOffset = scrollViewOffsetBeforeDragging
                 }
-            }
-            else {
-                let keyboardHeightDelta = keyboardHeightBeforeDragging - keyboardHC.constant;
-                offset.y -= keyboardHeightDelta;
+            } else {
+                let keyboardHeightDelta = keyboardHeightBeforeDragging - keyboardHC.constant
+                offset.y -= keyboardHeightDelta
 
                 scrollViewProxy?.contentOffset = offset
             }
 
         case .possible, .cancelled, .ended, .failed:
 
-            if (!dragging) {
+            if !dragging {
                 break
             }
 
             let transition = CGPoint(x: 0, y: fabs(gestureLocation.y - startPoint.y))
-            var keyboardFrame = originalFrame;
+            var keyboardFrame = originalFrame
 
-            if (presenting) {
-                keyboardFrame.origin.y = keyboardMinY;
+            if presenting {
+                keyboardFrame.origin.y = keyboardMinY
             }
 
             // The velocity can be changed to hide or show the keyboard based on the gesture
-            let minVelocity: CGFloat = 20.0;
-            let minDistance = keyboardFrame.height/2.0;
+            let minVelocity: CGFloat = 20.0
+            let minDistance = keyboardFrame.height/2.0
 
-            let hide = (gestureVelocity.y > minVelocity) || (presenting && transition.y < minDistance) || (!presenting && transition.y > minDistance);
-            if (hide) {
-                keyboardFrame.origin.y = keyboardMaxY;
+            let hide = (gestureVelocity.y > minVelocity) || (presenting && transition.y < minDistance) || (!presenting && transition.y > minDistance)
+            if hide {
+                keyboardFrame.origin.y = keyboardMaxY
             }
 
             keyboardHC.constant = slk_appropriateKeyboardHeight(from: keyboardFrame)
@@ -1729,19 +1722,19 @@ class SLKTextViewController: UIViewController {
                             }
 
                             // Tear down
-                            startPoint = .zero;
-                            originalFrame = .zero;
-                            dragging = false;
-                            presenting = false;
+                            startPoint = .zero
+                            originalFrame = .zero
+                            dragging = false
+                            presenting = false
 
-                            self.isMovingKeyboard = false;
+                            self.isMovingKeyboard = false
 
             })
         }
     }
 
     @objc private func slk_didTapScrollView(gesture: UIGestureRecognizer) {
-        if (!isPresentedInPopover && !ignoreTextInputbarAdjustment()) {
+        if !isPresentedInPopover && !ignoreTextInputbarAdjustment() {
             dismissKeyboard(animated: true)
         }
     }
@@ -1776,8 +1769,8 @@ class SLKTextViewController: UIViewController {
 
         let keyboardHeight = endFrame.height
 
-        beginFrame.size.height = keyboardHeight;
-        endFrame.size.height = keyboardHeight;
+        beginFrame.size.height = keyboardHeight
+        endFrame.size.height = keyboardHeight
 
         userInfo[UIKeyboardFrameBeginUserInfoKey] = NSValue(cgRect: beginFrame)
         userInfo[UIKeyboardFrameEndUserInfoKey] = NSValue(cgRect: endFrame)
@@ -1813,8 +1806,8 @@ class SLKTextViewController: UIViewController {
     }
 
     private func slk_dismissTextInputbarIfNeeded() {
-        if (self.keyboardHC.constant == slk_appropriateBottomMargin) {
-            return;
+        if keyboardHC.constant == slk_appropriateBottomMargin {
+            return
         }
         if keyboardHC.constant == slk_appropriateBottomMargin { return }
 
@@ -1831,7 +1824,7 @@ class SLKTextViewController: UIViewController {
         isExternalKeyboardDetected = false
         isKeyboardUndocked = false
 
-        if (isMovingKeyboard) { return }
+        if isMovingKeyboard { return }
 
         // Based on http://stackoverflow.com/a/5760910/287403
         // We can determine if the external keyboard is showing by adding the origin.y of the target finish rect (end when showing, begin when hiding) to the inputAccessoryHeight.
@@ -1844,7 +1837,6 @@ class SLKTextViewController: UIViewController {
 
         // Grab the base view for conversions as we don't want window coordinates in < iOS 8
         // iOS 8 fixes the whole coordinate system issue for us, but iOS 7 doesn't rotate the app window coordinate space.
-        ;
 
         let screenBounds = UIScreen.main.bounds
 
@@ -1860,8 +1852,7 @@ class SLKTextViewController: UIViewController {
             if convertEnd.origin.y >= viewBounds.height {
                 isExternalKeyboardDetected = true
             }
-        }
-        else if notification.name == NSNotification.Name.UIKeyboardWillHide {
+        } else if notification.name == NSNotification.Name.UIKeyboardWillHide {
             // The additional logic check here (== to width) accounts for a glitch (iOS 8 only?) where the window has rotated it's coordinates
             // but the beginRect doesn't yet reflect that. It should never cause a false positive.
             if convertBegin.origin.y >= viewBounds.height ||
@@ -1885,16 +1876,15 @@ class SLKTextViewController: UIViewController {
 
         // When inverted, we need to substract the top bars height (generally status bar + navigation bar's) to align the top of the
         // scrollView correctly to its top edge.
-        if (isInverted) {
+        if isInverted {
             contentInset.bottom = slk_topBarsHeight
-            contentInset.top = (contentInset.bottom > 0.0) ? 0.0 : contentInset.top;
-        }
-        else {
-            contentInset.bottom = 0.0;
+            contentInset.top = (contentInset.bottom > 0.0) ? 0.0 : contentInset.top
+        } else {
+            contentInset.bottom = 0.0
         }
 
-        scrollViewProxy?.contentInset = contentInset;
-        scrollViewProxy?.scrollIndicatorInsets = contentInset;
+        scrollViewProxy?.contentInset = contentInset
+        scrollViewProxy?.scrollIndicatorInsets = contentInset
     }
 
     private func slk_prepareForInterfaceTransition(duration: TimeInterval) {
@@ -1914,7 +1904,6 @@ class SLKTextViewController: UIViewController {
             self.isTransitioning = false
         }
     }
-
 
     // MARK: - View Auto-Layout
 
@@ -1945,7 +1934,7 @@ class SLKTextViewController: UIViewController {
         scrollViewHC.constant = slk_appropriateScrollViewHeight
         keyboardHC.constant = slk_appropriateKeyboardHeight(from: .null)
 
-        if (textInputbar.isEditing) {
+        if textInputbar.isEditing {
             textInputbarHC.constant += textInputbar.editorContentViewHeight
         }
 
@@ -1992,7 +1981,9 @@ class SLKTextViewController: UIViewController {
         let set = NSMutableSet(set: registeredPrefixes)
         set.addObjects(from: prefixes)
 
-        registeredPrefixes = NSSet(set: set) as! Set<String>
+        if let registeredSet = NSSet(set: set) as? Set<String> {
+            registeredPrefixes = registeredSet
+        }
     }
 
     private func shouldProcessTextForAutoCompletion(text: String) -> Bool {
@@ -2009,10 +2000,10 @@ class SLKTextViewController: UIViewController {
         textView.lookForPrefixes(registeredPrefixes) { (prefix, word, wordRange) in
             guard let prefix = prefix, let word = word else {  return }
 
-            if (prefix.length > 0 && word.length > 0) {
+            if prefix.length > 0 && word.length > 0 {
 
                 // Captures the detected symbol prefix
-                foundPrefix = prefix;
+                foundPrefix = prefix
 
                 // Removes the found prefix, or not.
                 foundWord = word.substring(from: prefix.length)
@@ -2021,8 +2012,7 @@ class SLKTextViewController: UIViewController {
                 foundPrefixRange = NSRange(location: wordRange.location, length: prefix.length)
 
                 slk_handleProcessedWord(word, wordRange: wordRange)
-            }
-            else {
+            } else {
                 cancelAutoCompletion()
             }
         }
@@ -2040,22 +2030,20 @@ class SLKTextViewController: UIViewController {
             cancelAutoCompletion()
         }
 
-        if (foundPrefix.length > 0) {
-            if (wordRange.length == 0 || wordRange.length != word.length) {
+        if foundPrefix.length > 0 {
+            if wordRange.length == 0 || wordRange.length != word.length {
                 cancelAutoCompletion()
             }
 
-            if (word.length > 0) {
+            if word.length > 0 {
                 // If the prefix is still contained in the word, cancels
                 if foundWord.nsRange(of: foundPrefix).location != NSNotFound {
                     cancelAutoCompletion()
                 }
-            }
-            else {
+            } else {
                 cancelAutoCompletion()
             }
-        }
-        else {
+        } else {
             cancelAutoCompletion()
         }
 
@@ -2063,8 +2051,8 @@ class SLKTextViewController: UIViewController {
     }
 
     private func slk_invalidateAutoCompletion() {
-        foundPrefix = nil;
-        foundWord = nil;
+        foundPrefix = nil
+        foundWord = nil
         foundPrefixRange = NSRange(location: 0, length: 0)
 
         autoCompletionView?.contentOffset = .zero
@@ -2076,11 +2064,8 @@ class SLKTextViewController: UIViewController {
         }
     }
 
-
-
-    
     // MARK: - NSNotificationCenter registration
-    
+
     private func slk_registerNotifications() {
         slk_unregisterNotifications()
 
@@ -2190,15 +2175,15 @@ class SLKTextViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 extension SLKTextViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
-    
+
 }
 
 // MARK: - UITableViewDelegate
@@ -2209,21 +2194,20 @@ extension SLKTextViewController: UITableViewDelegate {
             return false
         }
 
-        if (isInverted) {
+        if isInverted {
             scrollViewProxy?.slk_scrollToBottom(animated: true)
-            return false;
-        }
-        else {
-            return true;
+            return false
+        } else {
+            return true
         }
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        isMovingKeyboard = false;
+        isMovingKeyboard = false
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        isMovingKeyboard = false;
+        isMovingKeyboard = false
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -2233,13 +2217,13 @@ extension SLKTextViewController: UITableViewDelegate {
             }
 
             var frame = autoCompletionHairline.frame
-            frame.origin.y = scrollView.contentOffset.y;
+            frame.origin.y = scrollView.contentOffset.y
             autoCompletionHairline.frame = frame
 
-        } else if (!isMovingKeyboard) {
+        } else if !isMovingKeyboard {
 
-            scrollViewOffsetBeforeDragging = scrollView.contentOffset;
-            keyboardHeightBeforeDragging = keyboardHC.constant;
+            scrollViewOffsetBeforeDragging = scrollView.contentOffset
+            keyboardHeightBeforeDragging = keyboardHC.constant
         }
     }
 }
@@ -2262,7 +2246,6 @@ extension SLKTextViewController: UICollectionViewDelegate {
 
 }
 
-
 // MARK: - UITextViewDelegate
 extension SLKTextViewController: UITextViewDelegate {
 
@@ -2274,15 +2257,14 @@ extension SLKTextViewController: UITextViewDelegate {
         let newWordInserted = text.nsRangeOfCharacter(from: .whitespacesAndNewlines).length != NSNotFound
 
         // Records text for undo for every new word
-        if (newWordInserted) {
+        if newWordInserted {
             slkTextView.slk_prepareForUndo("Word Change")
         }
 
         // Detects double spacebar tapping, to replace the default "." insert with a formatting symbol, if needed.
         if slkTextView.isFormattingEnabled && range.location > 0 && text.length > 0 &&
             CharacterSet.whitespaces.characterIsMember(text.character(at: 0)) &&
-            CharacterSet.whitespaces.characterIsMember(slkTextView.text.character(at: range.location - 1))
-        {
+            CharacterSet.whitespaces.characterIsMember(slkTextView.text.character(at: range.location - 1)) {
 
             var shouldChange = true
 
@@ -2292,14 +2274,14 @@ extension SLKTextViewController: UITextViewDelegate {
                 return true
             }
 
-            var wordRange = range;
+            var wordRange = range
             wordRange.location -= 2; // minus the white space added with the double space bar tapping
 
-            if (wordRange.location == NSNotFound) {
-                return true;
+            if wordRange.location == NSNotFound {
+                return true
             }
 
-            let symbols = slkTextView.registeredSymbols;
+            let symbols = slkTextView.registeredSymbols
 
             let invalidCharacters = NSMutableCharacterSet()
             invalidCharacters.formUnion(with: .whitespacesAndNewlines)
@@ -2312,8 +2294,8 @@ extension SLKTextViewController: UITextViewDelegate {
                 let searchRange = NSRange(location: 0, length: wordRange.location)
                 let prefixRange = slkTextView.text.range(of: symbol, options: .backwards, range: searchRange)
 
-                if (prefixRange.location == NSNotFound) {
-                    continue;
+                if prefixRange.location == NSNotFound {
+                    continue
                 }
 
                 let nextCharRange = NSRange(location: prefixRange.location + 1, length: 1)
@@ -2331,14 +2313,14 @@ extension SLKTextViewController: UITextViewDelegate {
                             continue
                         }
 
-                        suffixRange.location += suffixRange.length;
-                        suffixRange.length = 0;
+                        suffixRange.location += suffixRange.length
+                        suffixRange.length = 0
 
                         let lastCharacter = slkTextView.text.substring(with: NSRange(location: suffixRange.location, length: 1))
 
                         // Checks if the last character was a line break, so we append the symbol in the next line too
                         if NSCharacterSet.newlines.characterIsMember(lastCharacter.character(at: 0)) {
-                            suffixRange.location += 1;
+                            suffixRange.location += 1
                         }
 
                         slkTextView.slk_insertText(symbol, in: suffixRange)
@@ -2353,19 +2335,17 @@ extension SLKTextViewController: UITextViewDelegate {
                 }
             }
 
-            return shouldChange;
-        }
-        else if text == "\n" {
+            return shouldChange
+        } else if text == "\n" {
             //Detected break. Should insert new line break programatically instead.
             slkTextView.slk_insertNewLineBreak()
 
-            return false;
-        }
-        else {
+            return false
+        } else {
             let userInfo: [String: Any] = ["text": text, "range": NSValue(range: range)]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextViewTextWillChangeNotification), object: self.textView, userInfo: userInfo)
 
-            return true;
+            return true
         }
     }
 
@@ -2402,7 +2382,7 @@ extension SLKTextViewController: SLKTextViewDelegate {
     }
 
     func textView(_ textView: SLKTextView, shouldInsertSuffixForFormattingWith symbol: String, prefixRange: NSRange) -> Bool {
-        if (prefixRange.location > 0) {
+        if prefixRange.location > 0 {
             let previousCharRange = NSRange(location:prefixRange.location-1, length: 1)
             let previousCharacter = textView.text.substring(with: previousCharRange)
 
@@ -2414,7 +2394,7 @@ extension SLKTextViewController: SLKTextViewDelegate {
             }
         }
 
-        return true;
+        return true
     }
 
 }
@@ -2430,7 +2410,7 @@ extension SLKTextViewController: UIGestureRecognizerDelegate {
             return isKeyboardPanningEnabled && !ignoreTextInputbarAdjustment()
         }
 
-        return false;
+        return false
     }
 
 }
@@ -2449,25 +2429,3 @@ extension SLKTextViewController: UIAlertViewDelegate {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,17 +17,17 @@ extension String {
     func index(from: Int) -> Index {
         return self.index(startIndex, offsetBy: from)
     }
-    
+
     func substring(from: Int) -> String {
         let fromIndex = index(from: from)
         return substring(from: fromIndex)
     }
-    
+
     func substring(toIndex: Int) -> String {
         let substringIndex = index(from: toIndex)
         return substring(to: substringIndex)
     }
-    
+
     func substring(with range: Range<Int>) -> String {
         let startIndex = index(from: range.lowerBound)
         let endIndex = index(from: range.upperBound)

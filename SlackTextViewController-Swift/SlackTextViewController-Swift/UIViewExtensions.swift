@@ -65,21 +65,20 @@ extension UIView {
     ///   - secondItem: The second item in the relationship
     /// - Returns: A layout constraint
     func slk_constraintForAttribute(_ attribute: NSLayoutAttribute, firstItem: AnyObject?, secondItem: AnyObject?) -> NSLayoutConstraint? {
-        let filtered = constraints.filter() {
+        let filtered = constraints.filter {
             ($0.firstAttribute == attribute) &&
                 ($0.firstItem === firstItem) &&
                 ($0.secondItem === secondItem)
         }
         return filtered.first
     }
-    
 
     /// Returns the view constraints matching a specific layout attribute (top, bottom, left, right, leading, trailing, etc.)
     ///
     /// - Parameter attribute: attribute The layout attribute to use for searching
     /// - Returns: An array of matching constraints
     func slk_constraintsForAttribute(_ attribute: NSLayoutAttribute) -> [NSLayoutConstraint] {
-        return constraints.filter() { $0.firstAttribute == attribute }
+        return constraints.filter { $0.firstAttribute == attribute }
     }
-    
+
 }

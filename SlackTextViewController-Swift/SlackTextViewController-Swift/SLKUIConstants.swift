@@ -64,20 +64,20 @@ let SLKTextViewControllerDomain = "com.slack.TextViewController"
 /// - Returns:
 /// A float constant font size difference
 func slk_pointSizeDifference(for category: UIContentSizeCategory) -> CGFloat {
-    
-    if category == .extraSmall                        { return -3 }
-    if category == .small                             { return -2 }
-    if category == .medium                            { return -1 }
-    if category == .large                             { return -0 }
-    if category == .extraLarge                        { return 2 }
-    if category == .extraExtraLarge                   { return 4 }
-    if category == .extraExtraExtraLarge              { return 6 }
-    if category == .accessibilityMedium               { return 8 }
-    if category == .accessibilityLarge                { return 10 }
-    if category == .accessibilityExtraLarge           { return 11 }
-    if category == .accessibilityExtraExtraLarge      { return 12 }
+
+    if category == .extraSmall { return -3 }
+    if category == .small { return -2 }
+    if category == .medium { return -1 }
+    if category == .large { return -0 }
+    if category == .extraLarge { return 2 }
+    if category == .extraExtraLarge { return 4 }
+    if category == .extraExtraExtraLarge { return 6 }
+    if category == .accessibilityMedium { return 8 }
+    if category == .accessibilityLarge { return 10 }
+    if category == .accessibilityExtraLarge { return 11 }
+    if category == .accessibilityExtraExtraLarge { return 12 }
     if category == .accessibilityExtraExtraExtraLarge { return 13 }
-    
+
     return 0
 }
 
@@ -94,5 +94,5 @@ func slk_RectInvert(_ rect: CGRect) -> CGRect {
     invert.origin.y = rect.origin.x
     invert.size.width = rect.size.height
     invert.size.height = rect.size.width
-    return invert;
+    return invert
 }

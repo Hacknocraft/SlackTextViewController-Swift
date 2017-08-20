@@ -92,9 +92,9 @@ class SLKTextInputbar: UIToolbar {
             return _autoHideRightButton
         }
         set {
-            if (_autoHideRightButton == newValue) { return }
+            if _autoHideRightButton == newValue { return }
 
-            _autoHideRightButton = newValue;
+            _autoHideRightButton = newValue
 
             rightButtonWC.constant =  slk_appropriateRightButtonWidth
             rightMarginWC.constant = slk_appropriateRightButtonMargin
@@ -144,25 +144,23 @@ class SLKTextInputbar: UIToolbar {
         var height: CGFloat = 0.0
         let minimumHeight = minimumInputbarHeight
 
-        if (textView.numberOfLines == 1) {
-            height = minimumHeight;
-        }
-        else if (textView.numberOfLines < textView.maxNumberOfLines) {
+        if textView.numberOfLines == 1 {
+            height = minimumHeight
+        } else if textView.numberOfLines < textView.maxNumberOfLines {
             height = slk_inputBarHeightForLines(textView.numberOfLines)
-        }
-        else {
+        } else {
             height = slk_inputBarHeightForLines(textView.maxNumberOfLines)
         }
 
-        if (height < minimumHeight) {
-            height = minimumHeight;
+        if height < minimumHeight {
+            height = minimumHeight
         }
 
-        if (isEditing) {
-            height += self.editorContentViewHeight;
+        if isEditing {
+            height += self.editorContentViewHeight
         }
-        
-        return CGFloat(roundf(Float(height)));
+
+        return CGFloat(roundf(Float(height)))
     }
 
     // MARK: - Text Editing
@@ -217,13 +215,13 @@ class SLKTextInputbar: UIToolbar {
             return _isEditing
         }
         set {
-            if (_isEditing == newValue) { return }
+            if _isEditing == newValue { return }
 
-            _isEditing = newValue;
-            editorContentView.isHidden = !_isEditing;
+            _isEditing = newValue
+            editorContentView.isHidden = !_isEditing
 
-            contentViewHC.isActive = _isEditing;
-            
+            contentViewHC.isActive = _isEditing
+
             setNeedsLayout()
             super.layoutIfNeeded()
         }
@@ -266,32 +264,30 @@ class SLKTextInputbar: UIToolbar {
 
             let views: [String: Any] = ["rightButton": self.rightButton,
                                       "charCountLabel": self.charCountLabel]
-            let metrics = ["top" : self.contentInset.top,
-                           "bottom" : -self.slk_bottomMargin/2.0]
+            let metrics = ["top": self.contentInset.top,
+                           "bottom": -self.slk_bottomMargin/2.0]
 
             // Constraints are different depending of the counter's position type
-            if (counterPosition == .bottom) {
+            if counterPosition == .bottom {
                 charCountLabelVCs = NSLayoutConstraint.constraints(withVisualFormat: "V:[charCountLabel]-(bottom)-[rightButton]", options: [], metrics: metrics, views: views)
-            }
-            else {
+            } else {
                 charCountLabelVCs = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(top@750)-[charCountLabel]-(>=0)-|", options: [], metrics: metrics, views: views)
             }
-            
+
             addConstraints(charCountLabelVCs!)
         }
     }
 
     private var _counterPosition: SLKCounterPosition = .top
 
-
     /// YES if the maxmimum character count has been exceeded
     var limitExceeded: Bool {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        if (maxCharCount > 0 && text.length > maxCharCount) {
-            return true;
+        if maxCharCount > 0 && text.length > maxCharCount {
+            return true
         }
-        return false;
+        return false
     }
 
     /// The normal color used for character counter label. Default is lightGrayColor
@@ -331,7 +327,7 @@ class SLKTextInputbar: UIToolbar {
         super.init(frame: frame)
         slk_commonInit()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         slk_commonInit()
@@ -411,14 +407,14 @@ class SLKTextInputbar: UIToolbar {
     // MARK: - Getters
 
     private func slk_inputBarHeightForLines(_ numberOfLines: Int) -> CGFloat {
-        var height = textView.intrinsicContentSize.height;
+        var height = textView.intrinsicContentSize.height
         if let font = textView.font {
             height -= font.lineHeight
             height += CGFloat(roundf(Float(font.lineHeight) * Float(numberOfLines)))
         }
-        height += contentInset.top;
-        height += slk_bottomMargin;
-        return height;
+        height += contentInset.top
+        height += slk_bottomMargin
+        return height
     }
 
     private var slk_bottomMargin: CGFloat {
@@ -431,13 +427,13 @@ class SLKTextInputbar: UIToolbar {
         if !self.isEditing {
             return contentView.frame.height
         }
-        return 0.0;
+        return 0.0
     }
 
     private var slk_appropriateRightButtonWidth: CGFloat {
         if autoHideRightButton {
             if self.textView.text.length == 0 {
-                return 0.0;
+                return 0.0
             }
         }
         return rightButton.intrinsicContentSize.width
@@ -446,10 +442,10 @@ class SLKTextInputbar: UIToolbar {
     private var slk_appropriateRightButtonMargin: CGFloat {
         if autoHideRightButton {
             if textView.text.length == 0 {
-                return 0.0;
+                return 0.0
             }
         }
-        return contentInset.right;
+        return contentInset.right
     }
 
     // MARK: - Setters
@@ -457,7 +453,7 @@ class SLKTextInputbar: UIToolbar {
     override var backgroundColor: UIColor? {
         didSet {
             barTintColor = backgroundColor
-            editorContentView.backgroundColor = backgroundColor;
+            editorContentView.backgroundColor = backgroundColor
         }
     }
 
@@ -466,7 +462,7 @@ class SLKTextInputbar: UIToolbar {
         // The hidden render state is handled by the view controller.
         didSet {
             if !isEditing {
-                self.contentViewHC.isActive = isHidden;
+                self.contentViewHC.isActive = isHidden
 
                 super.setNeedsLayout()
                 super.layoutIfNeeded()
@@ -492,25 +488,25 @@ class SLKTextInputbar: UIToolbar {
     ///  Begins editing the text, by updating the 'editing' flag and the view constraints.
     func beginTextEditing() {
         if isEditing || isHidden {
-            return;
+            return
         }
 
-        isEditing = true;
+        isEditing = true
 
         slk_updateConstraintConstants()
 
-        if (!self.isFirstResponder) {
+        if !self.isFirstResponder {
             layoutIfNeeded()
         }
     }
 
     /// End editing the text, by updating the 'editing' flag and the view constraints
     func endTextEdition() {
-        if (!isEditing || isHidden) {
-            return;
+        if !isEditing || isHidden {
+            return
         }
 
-        isEditing = false;
+        isEditing = false
         slk_updateConstraintConstants()
     }
 
@@ -521,17 +517,16 @@ class SLKTextInputbar: UIToolbar {
 
         var counter = ""
 
-        if (self.counterStyle == .none) {
+        if self.counterStyle == .none {
             counter = "\(text.length)"
         }
-        if (self.counterStyle == .split) {
+        if self.counterStyle == .split {
             counter = "\(text.length)/\(maxCharCount)"
         }
-        if (self.counterStyle == .countdown) {
+        if self.counterStyle == .countdown {
             counter = "\(text.length - maxCharCount)"
         }
-        if (self.counterStyle == .countdownReversed)
-        {
+        if self.counterStyle == .countdownReversed {
             counter = "\(maxCharCount - text.length)"
         }
 
@@ -548,15 +543,14 @@ class SLKTextInputbar: UIToolbar {
         }
 
         // Updates the char counter label
-        if (maxCharCount > 0) {
+        if maxCharCount > 0 {
             slk_updateCounter()
         }
 
-        if (autoHideRightButton && !isEditing)
-        {
+        if autoHideRightButton && !isEditing {
             // Only updates if the width did change
-            if (rightButtonWC.constant == slk_appropriateRightButtonWidth) {
-                return;
+            if rightButtonWC.constant == slk_appropriateRightButtonWidth {
+                return
             }
 
             rightButtonWC.constant = slk_appropriateRightButtonWidth
@@ -567,8 +561,7 @@ class SLKTextInputbar: UIToolbar {
 
             if window != nil {
                 slk_animateLayoutIfNeeded(bounce: bounces, options: [.curveEaseInOut, .beginFromCurrentState, .allowUserInteraction], animations: nil)
-            }
-            else {
+            } else {
                 layoutIfNeeded()
             }
         }
@@ -599,10 +592,9 @@ class SLKTextInputbar: UIToolbar {
                                     "charCountLabel": self.charCountLabel,
                                     "contentView": self.contentView]
 
-        let metrics = ["top" : self.contentInset.top,
-                       "left" : self.contentInset.left,
-                       "right" : self.contentInset.right]
-
+        let metrics = ["top": self.contentInset.top,
+                       "left": self.contentInset.left,
+                       "right": self.contentInset.right]
 
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(left)-[leftButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|", options: [], metrics: metrics, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(>=0)-[leftButton(0)]-(0@750)-|", options: [], metrics: metrics, views: views))
@@ -633,37 +625,37 @@ class SLKTextInputbar: UIToolbar {
         textViewBottomMarginC.constant = slk_bottomMargin
 
         if isEditing {
-            editorContentViewHC.constant = editorContentViewHeight;
+            editorContentViewHC.constant = editorContentViewHeight
 
-            leftButtonWC.constant = zero;
-            leftButtonHC.constant = zero;
-            leftMarginWC.constant = zero;
-            leftButtonBottomMarginC.constant = zero;
+            leftButtonWC.constant = zero
+            leftButtonHC.constant = zero
+            leftMarginWC.constant = zero
+            leftButtonBottomMarginC.constant = zero
             rightButtonWC.constant = zero
             rightMarginWC.constant = zero
         } else {
-            self.editorContentViewHC.constant = zero;
+            self.editorContentViewHC.constant = zero
 
             guard let leftButtonSize = leftButton.image(for: leftButton.state)?.size else {
                 return
             }
 
-            if (leftButtonSize.width > 0) {
-                self.leftButtonHC.constant = CGFloat(roundf(Float(leftButtonSize.height)));
-                self.leftButtonBottomMarginC.constant = CGFloat(roundf(Float((self.intrinsicContentSize.height - leftButtonSize.height) / 2.0))) + self.slk_contentViewHeight / 2.0;
+            if leftButtonSize.width > 0 {
+                self.leftButtonHC.constant = CGFloat(roundf(Float(leftButtonSize.height)))
+                self.leftButtonBottomMarginC.constant = CGFloat(roundf(Float((self.intrinsicContentSize.height - leftButtonSize.height) / 2.0))) + self.slk_contentViewHeight / 2.0
             }
 
-            leftButtonWC.constant = CGFloat(roundf(Float(leftButtonSize.width)));
-            leftMarginWC.constant = (leftButtonSize.width > 0) ? self.contentInset.left : zero;
+            leftButtonWC.constant = CGFloat(roundf(Float(leftButtonSize.width)))
+            leftMarginWC.constant = (leftButtonSize.width > 0) ? self.contentInset.left : zero
 
             rightButtonWC.constant = slk_appropriateRightButtonWidth
             rightMarginWC.constant = slk_appropriateRightButtonMargin
 
-            let rightVerMargin = (self.intrinsicContentSize.height - self.slk_contentViewHeight - self.rightButton.intrinsicContentSize.height) / 2.0;
-            let rightVerBottomMargin = rightVerMargin + self.slk_contentViewHeight;
+            let rightVerMargin = (self.intrinsicContentSize.height - self.slk_contentViewHeight - self.rightButton.intrinsicContentSize.height) / 2.0
+            let rightVerBottomMargin = rightVerMargin + self.slk_contentViewHeight
 
-            rightButtonTopMarginC.constant = rightVerMargin;
-            rightButtonBottomMarginC.constant = rightVerBottomMargin;
+            rightButtonTopMarginC.constant = rightVerMargin
+            rightButtonBottomMarginC.constant = rightVerBottomMargin
         }
     }
 
@@ -684,11 +676,10 @@ class SLKTextInputbar: UIToolbar {
 
         if let obj = object as? CALayer, obj === layer && keyPath == "position" {
             if previousOrigin != frame.origin {
-                previousOrigin = frame.origin;
+                previousOrigin = frame.origin
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextInputbarDidMoveNotification), object: self, userInfo: ["origin": NSValue(cgPoint: previousOrigin)])
             }
-        }
-        else if let obj = object as? UIImageView, obj === leftButton.imageView && keyPath == "image" {
+        } else if let obj = object as? UIImageView, obj === leftButton.imageView && keyPath == "image" {
             guard let change = change,
                 let newImage = change[.newKey] as? UIImage,
                 let oldImage = change[.oldKey] as? UIImage else {
@@ -698,11 +689,9 @@ class SLKTextInputbar: UIToolbar {
             if newImage !== oldImage {
                 slk_updateConstraintConstants()
             }
-        }
-        else if let obj = object as? UILabel, obj === rightButton.titleLabel && keyPath == "font" {
+        } else if let obj = object as? UILabel, obj === rightButton.titleLabel && keyPath == "font" {
             slk_updateConstraintConstants()
-        }
-        else {
+        } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
