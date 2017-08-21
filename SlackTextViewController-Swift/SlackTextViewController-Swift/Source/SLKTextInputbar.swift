@@ -20,7 +20,7 @@ enum SLKCounterPosition {
     case bottom
 }
 
-private let SLKTextInputbarDidMoveNotification = "SLKTextInputbarDidMoveNotification"
+let SLKTextInputbarDidMoveNotification = "SLKTextInputbarDidMoveNotification"
 
 /// A custom tool bar encapsulating messaging controls
 class SLKTextInputbar: UIToolbar {

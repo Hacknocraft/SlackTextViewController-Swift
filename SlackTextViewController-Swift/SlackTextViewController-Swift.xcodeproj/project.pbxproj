@@ -13,12 +13,18 @@
 		4A08006C1F454CA00080BE23 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */; };
 		4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */; };
 		4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */; };
+		9DCE9F8E872FA28C29A868A0 /* Pods_SlackTextViewController_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20273EDC24D3DE23E74967A8 /* Pods_SlackTextViewController_Swift.framework */; };
+		FD1BF1641F4A88FF009FD71D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1BF1631F4A88FF009FD71D /* Assets.xcassets */; };
+		FD1BF16B1F4A8938009FD71D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1BF1691F4A8938009FD71D /* LaunchScreen.storyboard */; };
 		FDAD42B11F49C96E00D9707D /* CharacterSetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */; };
+		FDAD42BC1F4A693C00D9707D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42BB1F4A693C00D9707D /* MessageViewController.swift */; };
+		FDAD42BE1F4A698700D9707D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42BD1F4A698700D9707D /* Message.swift */; };
+		FDAD42C01F4A6CE200D9707D /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42BF1F4A6CE200D9707D /* MessageTextView.swift */; };
+		FDAD42C21F4A6F2800D9707D /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42C11F4A6F2800D9707D /* MessageTableViewCell.swift */; };
+		FDAD42C41F4A75F600D9707D /* TypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAD42C31F4A75F600D9707D /* TypingIndicatorView.swift */; };
 		FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */; };
 		FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0811EF38C8000BA6945 /* ViewController.swift */; };
 		FDBAD0851EF38C8000BA6945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0831EF38C8000BA6945 /* Main.storyboard */; };
-		FDBAD0871EF38C8000BA6945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0861EF38C8000BA6945 /* Assets.xcassets */; };
-		FDBAD08A1EF38C8000BA6945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */; };
 		FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */; };
 		FDBAD0951EF38D1100BA6945 /* SLKTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */; };
 		FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0991EF395A200BA6945 /* StringExtensions.swift */; };
@@ -30,20 +36,28 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20273EDC24D3DE23E74967A8 /* Pods_SlackTextViewController_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SlackTextViewController_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtensions.swift; sourceTree = "<group>"; };
 		4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResponderExtensions.swift; sourceTree = "<group>"; };
 		4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTypingIndicatorView.swift; sourceTree = "<group>"; };
 		4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewExtensions.swift; sourceTree = "<group>"; };
 		4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		7824C14BA6C3EA4F95F76E90 /* Pods-SlackTextViewController-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlackTextViewController-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlackTextViewController-Swift/Pods-SlackTextViewController-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		CA88F297D0D1F0D2662804C9 /* Pods-SlackTextViewController-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlackTextViewController-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SlackTextViewController-Swift/Pods-SlackTextViewController-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		FD1BF1631F4A88FF009FD71D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FD1BF1661F4A8906009FD71D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD1BF16A1F4A8938009FD71D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetExtensions.swift; sourceTree = "<group>"; };
+		FDAD42BB1F4A693C00D9707D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		FDAD42BD1F4A698700D9707D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		FDAD42BF1F4A6CE200D9707D /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
+		FDAD42C11F4A6F2800D9707D /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		FDAD42C31F4A75F600D9707D /* TypingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorView.swift; sourceTree = "<group>"; };
 		FDBAD07C1EF38C8000BA6945 /* SlackTextViewController-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SlackTextViewController-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDBAD0811EF38C8000BA6945 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FDBAD0841EF38C8000BA6945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FDBAD0861EF38C8000BA6945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FDBAD0891EF38C8000BA6945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FDBAD08B1EF38C8000BA6945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKInputAccessoryView.swift; sourceTree = "<group>"; };
 		FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextInput.swift; sourceTree = "<group>"; };
 		FDBAD0991EF395A200BA6945 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -59,12 +73,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DCE9F8E872FA28C29A868A0 /* Pods_SlackTextViewController_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB991839F991960194BC6134 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA88F297D0D1F0D2662804C9 /* Pods-SlackTextViewController-Swift.debug.xcconfig */,
+				7824C14BA6C3EA4F95F76E90 /* Pods-SlackTextViewController-Swift.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EF7944A472885A858C9391F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20273EDC24D3DE23E74967A8 /* Pods_SlackTextViewController_Swift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FDAD42B51F4A660F00D9707D /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,11 +127,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		FDAD42BA1F4A68E100D9707D /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD0811EF38C8000BA6945 /* ViewController.swift */,
+				FDBAD0831EF38C8000BA6945 /* Main.storyboard */,
+				FDAD42BB1F4A693C00D9707D /* MessageViewController.swift */,
+				FDAD42BD1F4A698700D9707D /* Message.swift */,
+				FDAD42BF1F4A6CE200D9707D /* MessageTextView.swift */,
+				FDAD42C11F4A6F2800D9707D /* MessageTableViewCell.swift */,
+				FDAD42C31F4A75F600D9707D /* TypingIndicatorView.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		FDBAD0731EF38C8000BA6945 = {
 			isa = PBXGroup;
 			children = (
 				FDBAD07E1EF38C8000BA6945 /* SlackTextViewController-Swift */,
 				FDBAD07D1EF38C8000BA6945 /* Products */,
+				CB991839F991960194BC6134 /* Pods */,
+				EF7944A472885A858C9391F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,23 +162,14 @@
 		FDBAD07E1EF38C8000BA6945 /* SlackTextViewController-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				FD1BF1631F4A88FF009FD71D /* Assets.xcassets */,
+				FD1BF1691F4A8938009FD71D /* LaunchScreen.storyboard */,
+				FD1BF1661F4A8906009FD71D /* Info.plist */,
 				FDAD42B51F4A660F00D9707D /* Source */,
 				FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */,
-				FDBAD0811EF38C8000BA6945 /* ViewController.swift */,
-				FDBAD0911EF38C8B00BA6945 /* Source1 */,
-				FDBAD0831EF38C8000BA6945 /* Main.storyboard */,
-				FDBAD0861EF38C8000BA6945 /* Assets.xcassets */,
-				FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */,
-				FDBAD08B1EF38C8000BA6945 /* Info.plist */,
+				FDAD42BA1F4A68E100D9707D /* Demo */,
 			);
 			path = "SlackTextViewController-Swift";
-			sourceTree = "<group>";
-		};
-		FDBAD0911EF38C8B00BA6945 /* Source1 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Source1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,10 +179,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDBAD08E1EF38C8000BA6945 /* Build configuration list for PBXNativeTarget "SlackTextViewController-Swift" */;
 			buildPhases = (
+				B7BC60FE0D4F0FB072C135C0 /* [CP] Check Pods Manifest.lock */,
 				FDBAD0781EF38C8000BA6945 /* Sources */,
 				FDBAD0791EF38C8000BA6945 /* Frameworks */,
 				FDBAD07A1EF38C8000BA6945 /* Resources */,
 				FDAD42B21F49CE1700D9707D /* Swiftlint */,
+				9A045DAEAC419A5453F64C26 /* [CP] Embed Pods Frameworks */,
+				6DFF8AD5BA19EB69D734E3B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,8 +236,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDBAD08A1EF38C8000BA6945 /* LaunchScreen.storyboard in Resources */,
-				FDBAD0871EF38C8000BA6945 /* Assets.xcassets in Resources */,
+				FD1BF16B1F4A8938009FD71D /* LaunchScreen.storyboard in Resources */,
+				FD1BF1641F4A88FF009FD71D /* Assets.xcassets in Resources */,
 				FDBAD0851EF38C8000BA6945 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +245,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6DFF8AD5BA19EB69D734E3B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SlackTextViewController-Swift/Pods-SlackTextViewController-Swift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A045DAEAC419A5453F64C26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SlackTextViewController-Swift/Pods-SlackTextViewController-Swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7BC60FE0D4F0FB072C135C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		FDAD42B21F49CE1700D9707D /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,7 +302,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -225,20 +312,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDBAD0951EF38D1100BA6945 /* SLKTextInput.swift in Sources */,
+				FDAD42C01F4A6CE200D9707D /* MessageTextView.swift in Sources */,
 				FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */,
 				4A0800681F4524CC0080BE23 /* UIResponderExtensions.swift in Sources */,
 				4A08006A1F4535700080BE23 /* SLKTypingIndicatorView.swift in Sources */,
 				FDFE00AA1F469875000E5164 /* SLKBaseTypingIndicatorView.swift in Sources */,
 				4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */,
 				4A0800661F45216E0080BE23 /* UIScrollViewExtensions.swift in Sources */,
+				FDAD42BE1F4A698700D9707D /* Message.swift in Sources */,
 				FDBAD09A1EF395A200BA6945 /* StringExtensions.swift in Sources */,
 				FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */,
 				FDBAD0821EF38C8000BA6945 /* ViewController.swift in Sources */,
+				FDAD42BC1F4A693C00D9707D /* MessageViewController.swift in Sources */,
 				4A08006C1F454CA00080BE23 /* ArrayExtensions.swift in Sources */,
+				FDAD42C21F4A6F2800D9707D /* MessageTableViewCell.swift in Sources */,
 				FDFE00A41F45C612000E5164 /* SLKTextViewController.swift in Sources */,
 				4AB894151F441B9600C8CAF6 /* UIViewExtensions.swift in Sources */,
 				FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */,
 				FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */,
+				FDAD42C41F4A75F600D9707D /* TypingIndicatorView.swift in Sources */,
 				FDAD42B11F49C96E00D9707D /* CharacterSetExtensions.swift in Sources */,
 				FDBAD0801EF38C8000BA6945 /* AppDelegate.swift in Sources */,
 			);
@@ -247,20 +339,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		FD1BF1691F4A8938009FD71D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD1BF16A1F4A8938009FD71D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		FDBAD0831EF38C8000BA6945 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FDBAD0841EF38C8000BA6945 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FDBAD0891EF38C8000BA6945 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -363,6 +455,7 @@
 		};
 		FDBAD08F1EF38C8000BA6945 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA88F297D0D1F0D2662804C9 /* Pods-SlackTextViewController-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HN63343AHN;
@@ -376,6 +469,7 @@
 		};
 		FDBAD0901EF38C8000BA6945 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7824C14BA6C3EA4F95F76E90 /* Pods-SlackTextViewController-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HN63343AHN;

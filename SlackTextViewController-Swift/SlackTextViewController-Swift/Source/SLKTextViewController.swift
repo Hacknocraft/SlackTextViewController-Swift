@@ -312,7 +312,7 @@ class SLKTextViewController: UIViewController {
     /// Only supported pastable medias configured in SLKTextView will be forwarded (take a look at SLKPastableMediaType).
     ///
     /// - Parameter userInfo: The payload containing the media data, content and media types.
-    func didPasteMediaContent(userInfo: [String: Any]) {
+    func didPasteMediaContent(userInfo: [AnyHashable: Any]) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -547,7 +547,7 @@ class SLKTextViewController: UIViewController {
     var foundPrefix: String?
 
     /// The range of the found prefix in the text view content.
-    var foundPrefixRange: NSRange?
+    var foundPrefixRange = NSRange(location: 0, length: 0)
 
     /// The recently found word at the text view's caret position.
     var foundWord: String?
@@ -711,8 +711,7 @@ class SLKTextViewController: UIViewController {
     ///   - keepPrefix: YES if the prefix shouldn't be overidden.
     func acceptAutoCompletion(string: String?, keepPrefix: Bool) {
         guard let string = string, !string.isEmpty,
-            let foundWord = self.foundWord,
-            let foundPrefixRange = foundPrefixRange else {
+            let foundWord = self.foundWord else {
                 return
         }
 
@@ -1044,7 +1043,7 @@ class SLKTextViewController: UIViewController {
     ///
     /// - Parameter decoder: An unarchiver object.
     /// - Returns: The tableView style to be used in the new instantiated tableView.
-    static func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
+    class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
         return .plain
     }
 
@@ -2019,8 +2018,7 @@ class SLKTextViewController: UIViewController {
     }
 
     private func slk_handleProcessedWord(_ word: String, wordRange: NSRange) {
-        guard let foundPrefixRange = foundPrefixRange,
-            let foundPrefix = foundPrefix,
+        guard let foundPrefix = foundPrefix,
             let foundWord = foundWord else {
                 return
         }

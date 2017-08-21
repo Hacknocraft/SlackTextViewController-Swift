@@ -146,7 +146,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The supported media types allowed to be pasted in the text view, such as images or videos. Default is None
-    let pastableMediaTypes: SLKPastableMediaTypes = .none
+    var pastableMediaTypes: SLKPastableMediaTypes = .none
 
     /// YES if the text view is and can still expand it self, depending if the maximum number of lines are reached
     var isExpanding: Bool {

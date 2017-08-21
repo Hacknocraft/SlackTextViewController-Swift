@@ -1,0 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+target 'SlackTextViewController-Swift' do
+use_frameworks!
+
+pod 'LoremIpsum', '~> 1.0'
+
+end
+
