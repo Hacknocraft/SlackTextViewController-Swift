@@ -86,24 +86,22 @@ class SLKTextViewController: UIViewController {
     /// This allows the table view to start from the bottom like any typical messaging interface.
     /// If inverted, you must assign the same transform property to your cells to match the orientation (ie: cell.transform = tableView.transform;)
     /// Inverting the table view will enable some great features such as content offset corrections automatically when resizing the text input and/or showing autocompletion
-    var isInverted: Bool {
-        get {
-            return _isInverted
-        }
-        set {
-            if _isInverted == newValue { return }
-
-            _isInverted = newValue
-
-            scrollViewProxy?.transform = newValue ? CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0) : .identity
+    var isInverted: Bool = true {
+        didSet {
+            scrollViewProxy?.transform = isInverted ? CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0) : .identity
         }
     }
-    private var _isInverted = true
 
     /// YES if the view controller is presented inside of a popover controller. If YES, the keyboard won't move the text input bar and tapping on the tableView/collectionView will not cause the keyboard to be dismissed. This property is compatible only with iPad.
     var isPresentedInPopover: Bool {
-        return self.isPresentedInPopover && slk_IsIpad
+        get {
+            return _isPresentedInPopover && slk_IsIpad
+        }
+        set {
+            _isPresentedInPopover = newValue
+        }
     }
+    private var _isPresentedInPopover = false
 
     /// The current keyboard status (will/did hide, will/did show)
     private(set) var keyboardStatus: SLKKeyboardStatus = .none
@@ -931,7 +929,7 @@ class SLKTextViewController: UIViewController {
     /// - Parameter tableViewStyle: A constant that specifies the style of main table view that the controller object is to manage (UITableViewStylePlain or UITableViewStyleGrouped).
     init(tableViewStyle: UITableViewStyle) {
         super.init(nibName: nil, bundle: nil)
-        self._scrollViewProxy = tableView(style: tableViewStyle)
+        self.scrollViewProxy = tableView(style: tableViewStyle)
         slk_commonInit()
     }
 
@@ -941,7 +939,7 @@ class SLKTextViewController: UIViewController {
     /// - Parameter collectionViewLayout: The layout object to associate with the collection view. The layout controls how the collection view presents its cells and supplementary views.
     init(collectionViewLayout: UICollectionViewLayout) {
         super.init(nibName: nil, bundle: nil)
-        self._scrollViewProxy = collectionView(layout: collectionViewLayout)
+        self.scrollViewProxy = collectionView(layout: collectionViewLayout)
         slk_commonInit()
     }
 
@@ -952,7 +950,7 @@ class SLKTextViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.scrollView = scrollView
         self.scrollView?.translatesAutoresizingMaskIntoConstraints = false
-        self._scrollViewProxy = self.scrollView
+        self.scrollViewProxy = self.scrollView
         slk_commonInit()
     }
 
@@ -963,21 +961,24 @@ class SLKTextViewController: UIViewController {
         let collectionViewLayout = type(of: self).collectionViewLayout(for: aDecoder)
 
         if let layout = collectionViewLayout {
-            _scrollViewProxy = collectionView(layout: layout)
+            scrollViewProxy = collectionView(layout: layout)
         } else {
-            _scrollViewProxy = tableView(style: tableViewStyle)
+            scrollViewProxy = tableView(style: tableViewStyle)
         }
 
         slk_commonInit()
     }
 
-    override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.init(tableViewStyle: .plain)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        self.scrollViewProxy = tableView(style: .plain)
+        slk_commonInit()
     }
 
     private func slk_commonInit() {
         slk_registerNotifications()
 
+        isInverted = true // set isInverted again to set scrollViewProxy?.transform
         automaticallyAdjustsScrollViewInsets = true
         extendedLayoutIncludesOpaqueBars = true
     }
@@ -1063,6 +1064,7 @@ class SLKTextViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.clipsToBounds = false
+        self.tableView = tableView
         return tableView
     }
 
@@ -1209,7 +1211,7 @@ class SLKTextViewController: UIViewController {
 
         var topBarsHeight = nav.navigationBar.frame.height
 
-        if slk_IsIphone && slk_IsLandscape && slk_IsIOS8AndHigh || (slk_IsIpad && modalPresentationStyle == .formSheet) || isPresentedInPopover {
+        if (slk_IsIphone && slk_IsLandscape && slk_IsIOS8AndHigh) || (slk_IsIpad && modalPresentationStyle == .formSheet) || isPresentedInPopover {
             return topBarsHeight
         }
 

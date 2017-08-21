@@ -32,19 +32,6 @@ class MessageViewController: SLKTextViewController {
 
     // MARK: - Initialization
 
-    override class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
-        return .plain
-    }
-
-    func commonInit() {
-
-        if let tableView = self.tableView {
-            NotificationCenter.default.addObserver(tableView, selector: #selector(UITableView.reloadData), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
-        }
-
-        NotificationCenter.default.addObserver(self, selector: #selector(MessageViewController.textInputbarDidMove(_:)), name: NSNotification.Name(rawValue: SLKTextInputbarDidMoveNotification), object: nil)
-    }
-
     override func viewDidLoad() {
 
         // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
@@ -101,6 +88,19 @@ class MessageViewController: SLKTextViewController {
         textView.registerMarkdownFormattingSymbol("`", title: "Code")
         textView.registerMarkdownFormattingSymbol("```", title: "Preformatted")
         textView.registerMarkdownFormattingSymbol(">", title: "Quote")
+    }
+
+    func commonInit() {
+
+        if let tableView = tableView {
+            NotificationCenter.default.addObserver(tableView, selector: #selector(UITableView.reloadData), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(MessageViewController.textInputbarDidMove(_:)), name: NSNotification.Name(rawValue: SLKTextInputbarDidMoveNotification), object: nil)
+    }
+
+    override class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
+        return .plain
     }
 
     // MARK: - Lifeterm
@@ -162,32 +162,31 @@ class MessageViewController: SLKTextViewController {
     override func didPressLeftButton(sender: Any!) {
         super.didPressLeftButton(sender: sender)
 
-        self.dismissKeyboard(animated: true)
-        self.performSegue(withIdentifier: "Push", sender: nil)
+        dismissKeyboard(animated: true)
+        performSegue(withIdentifier: "Push", sender: nil)
     }
 
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
     override func didPressRightButton(sender: Any!) {
-
         // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
-        self.textView.refreshFirstResponder()
+        textView.refreshFirstResponder()
 
-        let message = Message(username: LoremIpsum.name(), text: self.textView.text)
+        let message = Message(username: LoremIpsum.name(), text: textView.text)
 
         let indexPath = IndexPath(row: 0, section: 0)
-        let rowAnimation: UITableViewRowAnimation = self.isInverted ? .bottom : .top
-        let scrollPosition: UITableViewScrollPosition = self.isInverted ? .bottom : .top
+        let rowAnimation: UITableViewRowAnimation = isInverted ? .bottom : .top
+        let scrollPosition: UITableViewScrollPosition = isInverted ? .bottom : .top
 
         tableView?.beginUpdates()
-        self.messages.insert(message, at: 0)
-        self.tableView?.insertRows(at: [indexPath], with: rowAnimation)
-        self.tableView?.endUpdates()
+        messages.insert(message, at: 0)
+        tableView?.insertRows(at: [indexPath], with: rowAnimation)
+        tableView?.endUpdates()
 
-        self.tableView?.scrollToRow(at: indexPath, at: scrollPosition, animated: true)
+        tableView?.scrollToRow(at: indexPath, at: scrollPosition, animated: true)
 
         // Fixes the cell from blinking (because of the transform, when using translucent cells)
         // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-        self.tableView?.reloadRows(at: [indexPath], with: .automatic)
+        tableView?.reloadRows(at: [indexPath], with: .automatic)
 
         super.didPressRightButton(sender: sender)
     }
@@ -196,8 +195,8 @@ class MessageViewController: SLKTextViewController {
 
         guard let keyCommand = keyCommand else { return }
 
-        if keyCommand.input == UIKeyInputUpArrow && self.textView.text.characters.count == 0 {
-            self.editLastMessage(nil)
+        if keyCommand.input == UIKeyInputUpArrow && textView.text.characters.count == 0 {
+            editLastMessage(nil)
         } else {
             super.didPressArrowKey(keyCommand: keyCommand)
         }
@@ -228,8 +227,8 @@ class MessageViewController: SLKTextViewController {
     // Notifies the view controller when tapped on the right "Accept" button for commiting the edited text
     override func didCommitTextEditing(sender: Any) {
 
-        self.editingMessage.text = self.textView.text
-        self.tableView?.reloadData()
+        editingMessage.text = textView.text
+        tableView?.reloadData()
 
         super.didCommitTextEditing(sender: sender)
     }
@@ -261,28 +260,28 @@ class MessageViewController: SLKTextViewController {
         var array: [String] = []
         let wordPredicate = NSPredicate(format: "self BEGINSWITH[c] %@", word)
 
-        self.searchResult = nil
+        searchResult = nil
 
         if prefix == "@" {
             if word.characters.count > 0 {
-                array = self.users.filter { wordPredicate.evaluate(with: $0) }
+                array = users.filter { wordPredicate.evaluate(with: $0) }
             } else {
-                array = self.users
+                array = users
             }
         } else if prefix == "#" {
 
             if word.characters.count > 0 {
-                array = self.channels.filter { wordPredicate.evaluate(with: $0) }
+                array = channels.filter { wordPredicate.evaluate(with: $0) }
             } else {
-                array = self.channels
+                array = channels
             }
         } else if (prefix == ":" || prefix == "+:") && word.characters.count > 0 {
-            array = self.emojis.filter { wordPredicate.evaluate(with: $0) }
-        } else if prefix == "/" && self.foundPrefixRange.location == 0 {
+            array = emojis.filter { wordPredicate.evaluate(with: $0) }
+        } else if prefix == "/" && foundPrefixRange.location == 0 {
             if word.characters.count > 0 {
-                array = self.commands.filter { wordPredicate.evaluate(with: $0) }
+                array = commands.filter { wordPredicate.evaluate(with: $0) }
             } else {
-                array = self.commands
+                array = commands
             }
         }
 
@@ -290,21 +289,21 @@ class MessageViewController: SLKTextViewController {
 
         if array.count > 0 {
             let sortedArray = array.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
-            self.searchResult = sortedArray
+            searchResult = sortedArray
             show = sortedArray.count > 0
         }
 
-        self.showAutoCompletionView(show: show)
+        showAutoCompletionView(show: show)
     }
 
     override func heightForAutoCompletionView() -> CGFloat {
 
-        guard let searchResult = self.searchResult else {
+        guard let searchResult = searchResult else {
             return 0
         }
 
         guard let autoCompletionView = self.autoCompletionView,
-            let cellHeight = self.autoCompletionView?.delegate?.tableView?(autoCompletionView, heightForRowAt: IndexPath(row: 0, section: 0)) else {
+            let cellHeight = autoCompletionView.delegate?.tableView?(autoCompletionView, heightForRowAt: IndexPath(row: 0, section: 0)) else {
                 return 0
         }
 
@@ -313,20 +312,20 @@ class MessageViewController: SLKTextViewController {
 
 }
 
+// MARK: - Example's Configuration
 extension MessageViewController {
 
-    // MARK: - Example's Configuration
-
     func configureDataSource() {
-        let words = Int((arc4random() % 40)+1)
-        guard let name = LoremIpsum.name(),
-            let text = LoremIpsum.words(withNumber: words) else {
-                return
-        }
-
         var array = [Message]()
 
         for _ in 0..<100 {
+            let words = Int((arc4random() % 40)+1)
+
+            guard let name = LoremIpsum.name(),
+                let text = LoremIpsum.words(withNumber: words) else {
+                    continue
+            }
+
             let message = Message(username: name, text: text)
             array.append(message)
         }
@@ -343,7 +342,7 @@ extension MessageViewController {
         let typeItem = UIBarButtonItem(image: UIImage(named: "icn_typing"), style: .plain, target: self, action: #selector(MessageViewController.simulateUserTyping(_:)))
         let appendItem = UIBarButtonItem(image: UIImage(named: "icn_append"), style: .plain, target: self, action: #selector(MessageViewController.fillWithText(_:)))
         let pipItem = UIBarButtonItem(image: UIImage(named: "icn_pic"), style: .plain, target: self, action: #selector(MessageViewController.togglePIPWindow(_:)))
-        self.navigationItem.rightBarButtonItems = [arrowItem, pipItem, editItem, appendItem, typeItem]
+        navigationItem.rightBarButtonItems = [arrowItem, pipItem, editItem, appendItem, typeItem]
     }
 
     // MARK: - Action Methods
@@ -354,7 +353,7 @@ extension MessageViewController {
             return
         }
 
-        let hide = !self.isTextInputbarHidden
+        let hide = !isTextInputbarHidden
         let image = hide ? UIImage(named: "icn_arrow_up") : UIImage(named: "icn_arrow_down")
 
         setTextInputbarHidden(hide, animated: true)
@@ -376,7 +375,7 @@ extension MessageViewController {
 
     func simulateUserTyping(_ sender: AnyObject) {
 
-        if !self.canShowTypingIndicator() {
+        if !canShowTypingIndicator() {
             return
         }
 
@@ -423,9 +422,9 @@ extension MessageViewController {
 
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
-            self.navigationController?.present(alertController, animated: true, completion: nil)
+            navigationController?.present(alertController, animated: true, completion: nil)
         } else {
-            self.editCellMessage(gesture)
+            editCellMessage(gesture)
         }
     }
 
@@ -450,7 +449,7 @@ extension MessageViewController {
             sentences = 1
         }
 
-        self.editText(LoremIpsum.sentences(withNumber: sentences))
+        editText(LoremIpsum.sentences(withNumber: sentences))
     }
 
     func editLastMessage(_ sender: AnyObject?) {
@@ -459,7 +458,7 @@ extension MessageViewController {
             return
         }
 
-        guard let tableView = self.tableView,
+        guard let tableView = tableView,
             textView.text.characters.count == 0 else {
                 return
         }
@@ -469,7 +468,7 @@ extension MessageViewController {
 
         let lastMessage = messages[lastRowIndex]
 
-        self.editText(lastMessage.text)
+        editText(lastMessage.text)
 
         tableView.scrollToRow(at: IndexPath(row: lastRowIndex, section: lastSectionIndex), at: .bottom, animated: true)
     }
@@ -495,7 +494,7 @@ extension MessageViewController {
         pipWindow?.isHidden = false
         pipWindow?.alpha = 0.0
 
-        UIApplication.shared.keyWindow?.addSubview(self.pipWindow!)
+        UIApplication.shared.keyWindow?.addSubview(pipWindow!)
 
         UIView.animate(withDuration: 0.25, animations: { [unowned self] () -> Void in
             self.pipWindow?.alpha = 1.0
@@ -514,7 +513,7 @@ extension MessageViewController {
 
     func textInputbarDidMove(_ note: Notification) {
 
-        guard let pipWindow = self.pipWindow else {
+        guard let pipWindow = pipWindow else {
             return
         }
 
@@ -545,10 +544,10 @@ extension MessageViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if tableView == self.tableView {
-            return self.messages.count
+        if tableView == tableView {
+            return messages.count
         } else {
-            if let searchResult = self.searchResult {
+            if let searchResult = searchResult {
                 return searchResult.count
             }
         }
@@ -558,16 +557,16 @@ extension MessageViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if tableView == self.tableView {
-            return self.messageCellForRowAtIndexPath(indexPath)
+        if tableView == tableView {
+            return messageCellForRowAtIndexPath(indexPath)
         } else {
-            return self.autoCompletionCellForRowAtIndexPath(indexPath)
+            return autoCompletionCellForRowAtIndexPath(indexPath)
         }
     }
 
     func messageCellForRowAtIndexPath(_ indexPath: IndexPath) -> MessageTableViewCell {
 
-        guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: MessageTableViewCell.kMessengerCellIdentifier) as? MessageTableViewCell else {
+        guard let cell = tableView?.dequeueReusableCell(withIdentifier: MessageTableViewCell.kMessengerCellIdentifier) as? MessageTableViewCell else {
             return MessageTableViewCell()
         }
 
@@ -576,7 +575,7 @@ extension MessageViewController {
             cell.addGestureRecognizer(longPress)
         }
 
-        let message = self.messages[indexPath.row]
+        let message = messages[indexPath.row]
 
         cell.titleLabel.text = message.username
         cell.bodyLabel.text = message.text
@@ -586,7 +585,7 @@ extension MessageViewController {
 
         // Cells must inherit the table view's transform
         // This is very important, since the main table view may be inverted
-        if let tableView = self.tableView {
+        if let tableView = tableView {
             cell.transform = tableView.transform
         }
 
@@ -595,17 +594,17 @@ extension MessageViewController {
 
     func autoCompletionCellForRowAtIndexPath(_ indexPath: IndexPath) -> MessageTableViewCell {
 
-        guard let cell = self.autoCompletionView?.dequeueReusableCell(withIdentifier: MessageTableViewCell.kAutoCompletionCellIdentifier) as? MessageTableViewCell else {
+        guard let cell = autoCompletionView?.dequeueReusableCell(withIdentifier: MessageTableViewCell.kAutoCompletionCellIdentifier) as? MessageTableViewCell else {
             return MessageTableViewCell()
         }
         cell.indexPath = indexPath
         cell.selectionStyle = .default
 
-        guard let searchResult = self.searchResult else {
+        guard let searchResult = searchResult else {
             return cell
         }
 
-        guard let prefix = self.foundPrefix else {
+        guard let prefix = foundPrefix else {
             return cell
         }
 
@@ -624,8 +623,8 @@ extension MessageViewController {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        if tableView == self.tableView {
-            let message = self.messages[(indexPath as NSIndexPath).row]
+        if tableView == tableView {
+            let message = messages[(indexPath as NSIndexPath).row]
 
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineBreakMode = .byWordWrapping
@@ -666,17 +665,17 @@ extension MessageViewController {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if tableView == self.autoCompletionView {
+        if tableView == autoCompletionView {
 
-            guard let searchResult = self.searchResult else {
+            guard let searchResult = searchResult else {
                 return
             }
 
             var item = searchResult[(indexPath as NSIndexPath).row]
 
-            if self.foundPrefix == "@" && self.foundPrefixRange.location == 0 {
+            if foundPrefix == "@" && foundPrefixRange.location == 0 {
                 item += ":"
-            } else if self.foundPrefix == ":" || self.foundPrefix == "+:" {
+            } else if foundPrefix == ":" || foundPrefix == "+:" {
                 item += ":"
             }
 

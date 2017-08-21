@@ -101,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				FDAD42B81F4A666700D9707D /* Extensions */,
+				FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */,
 				FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */,
 				FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */,
 				FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */,
@@ -108,7 +109,6 @@
 				4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */,
 				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
 				4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */,
-				FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */,
 				FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */,
 			);
 			path = Source;

@@ -545,7 +545,7 @@ class SLKTextView: UITextView, SLKTextInput {
         }
         let dynamicFont = UIFont(name: name, size: size)
 
-        font = dynamicFont
+        super.font = dynamicFont
 
         // Updates the placeholder font too
         placeholderLabel.font = dynamicFont
