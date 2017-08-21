@@ -578,8 +578,8 @@ extension MessageViewController {
 
         let message = self.messages[indexPath.row]
 
-        cell.titleLabel?.text = message.username
-        cell.bodyLabel?.text = message.text
+        cell.titleLabel.text = message.username
+        cell.bodyLabel.text = message.text
 
         cell.indexPath = indexPath
         cell.isUsedForMessage = true
@@ -617,7 +617,7 @@ extension MessageViewController {
             text = ":\(text):"
         }
 
-        cell.titleLabel?.text = text
+        cell.titleLabel.text = text
 
         return cell
     }
