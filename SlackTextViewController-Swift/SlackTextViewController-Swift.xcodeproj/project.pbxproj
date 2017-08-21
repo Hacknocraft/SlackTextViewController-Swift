@@ -65,6 +65,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FDAD42B51F4A660F00D9707D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				FDAD42B81F4A666700D9707D /* Extensions */,
+				FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */,
+				FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */,
+				FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */,
+				FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */,
+				4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */,
+				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
+				4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */,
+				FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */,
+				FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		FDAD42B81F4A666700D9707D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FDBAD0991EF395A200BA6945 /* StringExtensions.swift */,
+				4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */,
+				4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */,
+				4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */,
+				4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */,
+				FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FDBAD0731EF38C8000BA6945 = {
 			isa = PBXGroup;
 			children = (
@@ -84,9 +114,10 @@
 		FDBAD07E1EF38C8000BA6945 /* SlackTextViewController-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				FDBAD0911EF38C8B00BA6945 /* Source */,
+				FDAD42B51F4A660F00D9707D /* Source */,
 				FDBAD07F1EF38C8000BA6945 /* AppDelegate.swift */,
 				FDBAD0811EF38C8000BA6945 /* ViewController.swift */,
+				FDBAD0911EF38C8B00BA6945 /* Source1 */,
 				FDBAD0831EF38C8000BA6945 /* Main.storyboard */,
 				FDBAD0861EF38C8000BA6945 /* Assets.xcassets */,
 				FDBAD0881EF38C8000BA6945 /* LaunchScreen.storyboard */,
@@ -95,34 +126,11 @@
 			path = "SlackTextViewController-Swift";
 			sourceTree = "<group>";
 		};
-		FDBAD0911EF38C8B00BA6945 /* Source */ = {
+		FDBAD0911EF38C8B00BA6945 /* Source1 */ = {
 			isa = PBXGroup;
 			children = (
-				FDBAD0961EF3941500BA6945 /* Extensions */,
-				FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */,
-				FDBAD0921EF38CC600BA6945 /* SLKInputAccessoryView.swift */,
-				FDBAD0941EF38D1100BA6945 /* SLKTextInput.swift */,
-				FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */,
-				4A78F7A61EF4AC14008DC5D8 /* SLKTextViewExtensions.swift */,
-				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
-				4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */,
-				FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */,
-				FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */,
 			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		FDBAD0961EF3941500BA6945 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				FDBAD0991EF395A200BA6945 /* StringExtensions.swift */,
-				4AB894141F441B9600C8CAF6 /* UIViewExtensions.swift */,
-				4A0800651F45216E0080BE23 /* UIScrollViewExtensions.swift */,
-				4A0800671F4524CC0080BE23 /* UIResponderExtensions.swift */,
-				4A08006B1F454CA00080BE23 /* ArrayExtensions.swift */,
-				FDAD42B01F49C96E00D9707D /* CharacterSetExtensions.swift */,
-			);
-			name = Extensions;
+			name = Source1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
