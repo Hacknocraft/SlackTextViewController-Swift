@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import ObjectiveC
+
+/// Feature flagged while waiting to implement a more reliable technique.
+private let SLKBottomPanningEnabled = false
 
 //  UIKeyboard notification replacement, posting reliably only when showing/hiding the keyboard (not when resizing keyboard, or with inputAccessoryView reloads, etc).
 // Only triggered when using SLKTextViewController's text view.
@@ -43,7 +45,6 @@ open class SLKTextViewController: UIViewController {
     /// The default typing indicator used to display user names horizontally.
     open private(set) lazy var typingIndicatorView: SLKTypingIndicatorView? = self.makeTypingIndicatorView()
 
-    // TODO: - need to inherit from UIView
     /// The custom typing indicator view. Default is kind of SLKTypingIndicatorView.
     /// To customize the typing indicator view, you will need to call -registerClassForTypingIndicatorView: nside of any initialization method.
     /// To interact with it directly, you will need to cast the return value of -typingIndicatorProxyView to the appropriate type.
@@ -456,10 +457,6 @@ open class SLKTextViewController: UIViewController {
 
     // MARK: - Text Edition
 
-    // TODO: - isEditing exists
-    /// YES if the text editing mode is active.
-    //    private(set) var editing = false
-
     /// Re-uses the text layout for edition, displaying an accessory view on top of the text input bar with options (cancel & save).
     /// You can override this method to perform additional tasks
     /// You MUST call super at some point in your implementation.
@@ -867,10 +864,6 @@ open class SLKTextViewController: UIViewController {
     }
 
     // MARK: - Private Properties
-
-    // TODO: - need improvement
-    /// Feature flagged while waiting to implement a more reliable technique.
-    private let SLKBottomPanningEnabled = false
 
     fileprivate var kSLKAlertViewClearTextTag: Int {
         return NSStringFromClass(SLKTextViewController.self).hash
@@ -1443,7 +1436,7 @@ open class SLKTextViewController: UIViewController {
         isMovingKeyboard = false
     }
 
-    private func slk_didPostSLKKeyboardNotification(_ noti: Notification) {
+    @objc private func slk_didPostSLKKeyboardNotification(_ noti: Notification) {
         guard let object = noti.object as? SLKTextView, object === textView else {
             return
         }
@@ -1588,25 +1581,23 @@ open class SLKTextViewController: UIViewController {
 
         if !textView.isFirstResponder || (keyboardHC.constant == bottomMargin && keyboardStatus == .didHide) {
 
-            #if SLKBottomPanningEnabled
+            if SLKBottomPanningEnabled {
 
                 if gesture.view === scrollViewProxy {
                     if gestureVelocity.y > 0 {
                         return
-                    } else if (isInverted && !scrollViewProxy?.slk_isAtTop) || (!isInverted && scrollViewProxy?.slk_isAtBottom) {
+                    } else if (isInverted && !scrollViewProxy!.slk_isAtTop) || (!isInverted && !scrollViewProxy!.slk_isAtBottom) {
                         return
                     }
                 }
                 presenting = true
 
-            #else
-
+            } else {
                 if gesture.view === textInputbar && gestureVelocity.y < 0 {
                     presentKeyboard(animated: true)
                 }
                 return
-
-            #endif
+            }
         }
 
         switch gesture.state {
@@ -2079,12 +2070,11 @@ open class SLKTextViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(slk_didShowOrHideKeyboard(noti:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         notificationCenter.addObserver(self, selector: #selector(slk_didShowOrHideKeyboard(noti:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
 
-        // TODO: need to fix
         #if SLK_KEYBOARD_NOTIFICATION_DEBUG
-            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: SLKKeyboardWillShowNotification, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: SLKKeyboardDidShowNotification, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: SLKKeyboardWillHideNotification, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: SLKKeyboardDidHideNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: NSNotification.Name(rawValue: SLKKeyboardWillShowNotification), object: nil)
+            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: NSNotification.Name(rawValue: SLKKeyboardDidShowNotification), object: nil)
+            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: NSNotification.Name(rawValue: SLKKeyboardWillHideNotification), object: nil)
+            notificationCenter.addObserver(self, selector: #selector(slk_didPostSLKKeyboardNotification(_:)), name: NSNotification.Name(rawValue: SLKKeyboardDidHideNotification), object: nil)
         #endif
 
         // TextView notifications slk_willChangeTextViewText
@@ -2110,12 +2100,11 @@ open class SLKTextViewController: UIViewController {
         notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
 
-        // TODO: need to fix
         #if SLK_KEYBOARD_NOTIFICATION_DEBUG
-            notificationCenter.removeObserver(self, name: SLKKeyboardWillShowNotification, object: nil)
-            notificationCenter.removeObserver(self, name: SLKKeyboardDidShowNotification, object: nil)
-            notificationCenter.removeObserver(self, name: SLKKeyboardWillHideNotification, object: nil)
-            notificationCenter.removeObserver(self, name: SLKKeyboardDidHideNotification, object: nil)
+            notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: SLKKeyboardWillShowNotification), object: nil)
+            notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: SLKKeyboardDidShowNotification), object: nil)
+            notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: SLKKeyboardWillHideNotification), object: nil)
+            notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: SLKKeyboardDidHideNotification), object: nil)
         #endif
 
         // TextView notifications

@@ -8,7 +8,7 @@
 
 import UIKit
 
-// TODO: add document here
+/// A base class which conform to `SLKTypingIndicatorProtocol` for typing indicator view. To use a custom typing indicator view, subclass from the class.
 open class SLKBaseTypingIndicatorView: UIView {
 
 }

@@ -299,11 +299,3 @@ open class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
     }
 
 }
-
-// MARK: - SLKTypingIndicatorProtocol
-protocol SLKTypingIndicatorProtocol: class {
-
-    var isVisible: Bool {get set}
-
-    func dismissIndicator()
-}

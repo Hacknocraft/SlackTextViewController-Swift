@@ -31,6 +31,7 @@
 		FDBAD0A01EF3A89F00BA6945 /* SLKTextInputbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */; };
 		FDBAD0A21EF3AFF900BA6945 /* SLKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */; };
 		FDBAD0A61EF3D58200BA6945 /* SLKUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */; };
+		FDF501E81F4C43CD00EC0FD2 /* SLKTypingIndicatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF501E71F4C43CD00EC0FD2 /* SLKTypingIndicatorProtocol.swift */; };
 		FDFE00A41F45C612000E5164 /* SLKTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */; };
 		FDFE00AA1F469875000E5164 /* SLKBaseTypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextInputbar.swift; sourceTree = "<group>"; };
 		FDBAD0A11EF3AFF900BA6945 /* SLKTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextView.swift; sourceTree = "<group>"; };
 		FDBAD0A51EF3D58200BA6945 /* SLKUIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKUIConstants.swift; sourceTree = "<group>"; };
+		FDF501E71F4C43CD00EC0FD2 /* SLKTypingIndicatorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTypingIndicatorProtocol.swift; sourceTree = "<group>"; };
 		FDFE00A31F45C612000E5164 /* SLKTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKTextViewController.swift; sourceTree = "<group>"; };
 		FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLKBaseTypingIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 				FDBAD09F1EF3A89F00BA6945 /* SLKTextInputbar.swift */,
 				4A0800691F4535700080BE23 /* SLKTypingIndicatorView.swift */,
 				FDFE00A91F469875000E5164 /* SLKBaseTypingIndicatorView.swift */,
+				FDF501E71F4C43CD00EC0FD2 /* SLKTypingIndicatorProtocol.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				FDBAD0931EF38CC600BA6945 /* SLKInputAccessoryView.swift in Sources */,
 				4A0800681F4524CC0080BE23 /* UIResponderExtensions.swift in Sources */,
 				4A08006A1F4535700080BE23 /* SLKTypingIndicatorView.swift in Sources */,
+				FDF501E81F4C43CD00EC0FD2 /* SLKTypingIndicatorProtocol.swift in Sources */,
 				FDFE00AA1F469875000E5164 /* SLKBaseTypingIndicatorView.swift in Sources */,
 				4A78F7A71EF4AC14008DC5D8 /* SLKTextViewExtensions.swift in Sources */,
 				4A0800661F45216E0080BE23 /* UIScrollViewExtensions.swift in Sources */,
@@ -462,6 +466,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacknocraft.www.SlackTextViewController-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SLK_KEYBOARD_NOTIFICATION_DEBUG";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;

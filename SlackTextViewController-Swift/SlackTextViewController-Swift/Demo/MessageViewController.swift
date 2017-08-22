@@ -38,7 +38,7 @@ class MessageViewController: SLKTextViewController {
         registerClassForTextView(aClass: MessageTextView.self)
 
         if DEBUG_CUSTOM_TYPING_INDICATOR == true {
-            // Register a UIView subclass, conforming to SLKTypingIndicatorProtocol, to use a custom typing indicator view.
+            // Register a UIView subclass, subclass from SLKBaseTypingIndicatorView, to use a custom typing indicator view.
             registerClassForTypingIndicatorView(aClass: TypingIndicatorView.self)
         }
 
