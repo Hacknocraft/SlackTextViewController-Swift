@@ -95,30 +95,36 @@ open class SLKTextView: UITextView, SLKTextInput {
 
     /// The maximum number of lines before enabling scrolling. Default is 0 wich means limitless. If dynamic type is enabled, the maximum number of lines will be calculated proportionally to the user preferred font size
     open var maxNumberOfLines: Int {
-        var numberOfLines = 0
+        get {
+            var numberOfLines = _maxNumberOfLines
 
-        if slk_IsLandscape {
-            if slk_IsIphone4 || slk_IsIphone5 {
-                numberOfLines = 2 // 2 lines max on smaller iPhones
-            } else if slk_IsIphone {
-                numberOfLines /= 2 // Half size on larger iPhone
-            }
-        }
-
-        if isDynamicTypeEnabled {
-            let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory
-            let pointSizeDifference = slk_pointSizeDifference(for: contentSizeCategory)
-            var factor = pointSizeDifference / initialFontSize
-
-            if fabs(factor) > 0.75 {
-                factor = 0.75
+            if slk_IsLandscape {
+                if slk_IsIphone4 || slk_IsIphone5 {
+                    numberOfLines = 2 // 2 lines max on smaller iPhones
+                } else if slk_IsIphone {
+                    numberOfLines /= 2 // Half size on larger iPhone
+                }
             }
 
-            numberOfLines -= Int(floorf(Float(CGFloat(numberOfLines) * factor))) // Calculates a dynamic number of lines depending of the user preferred font size
-        }
+            if isDynamicTypeEnabled {
+                let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory
+                let pointSizeDifference = slk_pointSizeDifference(for: contentSizeCategory)
+                var factor = pointSizeDifference / initialFontSize
 
-        return numberOfLines
+                if fabs(factor) > 0.75 {
+                    factor = 0.75
+                }
+
+                numberOfLines -= Int(floorf(Float(CGFloat(numberOfLines) * factor))) // Calculates a dynamic number of lines depending of the user preferred font size
+            }
+            
+            return numberOfLines
+        }
+        set {
+            _maxNumberOfLines = newValue
+        }
     }
+    private var _maxNumberOfLines = 0
 
     /// The current displayed number of lines
     open var numberOfLines: Int {

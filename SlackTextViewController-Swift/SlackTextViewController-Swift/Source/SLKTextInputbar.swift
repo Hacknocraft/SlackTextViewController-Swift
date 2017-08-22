@@ -33,20 +33,7 @@ open class SLKTextInputbar: UIToolbar {
      - For iPhone 5 & 6   (>=568pts): 6 lines
      - For iPad           (>=768pts): 8 lines
      */
-    open lazy var textView: SLKTextView = {
-        let textView = SLKTextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont.systemFont(ofSize: 15)
-        textView.keyboardType = .twitter
-        textView.returnKeyType = .default
-        textView.enablesReturnKeyAutomatically = true
-        textView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
-        textView.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 0)
-        textView.layer.cornerRadius = 5
-        textView.layer.borderWidth = 0.5
-        textView.layer.borderColor = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 205.0/255.0, alpha: 1).cgColor
-        return textView
-    }()
+    open lazy var textView: SLKTextView = self.makeTextView()
 
     /// Optional view to host outlets under the text view, adjusting its height based on its subviews. Non-visible by default. Subviews' layout should be configured using auto-layout as well.
     open lazy var contentView: UIView = {
@@ -406,6 +393,22 @@ open class SLKTextInputbar: UIToolbar {
 
     // MARK: - Getters
 
+    private func makeTextView() -> SLKTextView {
+        let textView = SLKTextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.systemFont(ofSize: 15)
+        textView.maxNumberOfLines = slk_defaultNumberOfLines
+        textView.keyboardType = .twitter
+        textView.returnKeyType = .default
+        textView.enablesReturnKeyAutomatically = true
+        textView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
+        textView.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 0)
+        textView.layer.cornerRadius = 5
+        textView.layer.borderWidth = 0.5
+        textView.layer.borderColor = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 205.0/255.0, alpha: 1).cgColor
+        return textView
+    }
+
     private func slk_inputBarHeightForLines(_ numberOfLines: Int) -> CGFloat {
         var height = textView.intrinsicContentSize.height
         if let font = textView.font {
@@ -446,6 +449,16 @@ open class SLKTextInputbar: UIToolbar {
             }
         }
         return contentInset.right
+    }
+
+    private var slk_defaultNumberOfLines: Int {
+        if slk_IsIpad {
+            return 8
+        } else if slk_IsIphone4 {
+            return 4
+        } else {
+            return 6
+        }
     }
 
     // MARK: - Setters
