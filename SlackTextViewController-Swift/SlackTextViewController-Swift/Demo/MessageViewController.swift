@@ -163,7 +163,7 @@ class MessageViewController: SLKTextViewController {
         super.didPressLeftButton(sender: sender)
 
         dismissKeyboard(animated: true)
-        performSegue(withIdentifier: "Push", sender: nil)
+//        performSegue(withIdentifier: "Push", sender: nil)
     }
 
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.

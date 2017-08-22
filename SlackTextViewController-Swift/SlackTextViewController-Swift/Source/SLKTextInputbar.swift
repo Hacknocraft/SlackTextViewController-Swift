@@ -614,6 +614,7 @@ class SLKTextInputbar: UIToolbar {
         leftButtonHC = slk_constraintForAttribute(.height, firstItem: leftButton, secondItem: nil)
         leftButtonBottomMarginC = slk_constraintForAttribute(.bottom, firstItem: self, secondItem: leftButton)
         leftMarginWC = slk_constraintsForAttribute(.leading).first
+
         rightButtonWC = slk_constraintForAttribute(.width, firstItem: rightButton, secondItem: nil)
         rightMarginWC = slk_constraintsForAttribute(.trailing).first
         rightButtonTopMarginC = slk_constraintForAttribute(.top, firstItem: rightButton, secondItem: self)
@@ -680,15 +681,14 @@ class SLKTextInputbar: UIToolbar {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextInputbarDidMoveNotification), object: self, userInfo: ["origin": NSValue(cgPoint: previousOrigin)])
             }
         } else if let obj = object as? UIImageView, obj === leftButton.imageView && keyPath == "image" {
-            guard let change = change,
-                let newImage = change[.newKey] as? UIImage,
-                let oldImage = change[.oldKey] as? UIImage else {
-                    return
-            }
 
-            if newImage !== oldImage {
+            let newImage = change?[.newKey] as? UIImage
+            let oldImage = change?[.oldKey] as? UIImage
+
+            if newImage != oldImage {
                 slk_updateConstraintConstants()
             }
+
         } else if let obj = object as? UILabel, obj === rightButton.titleLabel && keyPath == "font" {
             slk_updateConstraintConstants()
         } else {

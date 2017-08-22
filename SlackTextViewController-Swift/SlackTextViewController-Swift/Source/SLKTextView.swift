@@ -304,7 +304,7 @@ class SLKTextView: UITextView, SLKTextInput {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.placeholderLabel.isHidden = slk_shouldHidePlaceholder()
+        placeholderLabel.isHidden = slk_shouldHidePlaceholder()
 
         if !placeholderLabel.isHidden {
 
@@ -475,15 +475,10 @@ class SLKTextView: UITextView, SLKTextInput {
         var rect: CGRect = .zero
         rect.size.height = placeholderLabel.sizeThatFits(bounds.size).height
         rect.size.width = textContainer.size.width - padding * 2.0
+        rect.origin = UIEdgeInsetsInsetRect(bounds, self.textContainerInset).origin
         rect.origin.x += padding
 
         return rect
-    }
-
-    // MARK: - Setters
-
-    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        super.setContentOffset(CGPoint(x: 0, y: contentOffset.y), animated: animated)
     }
 
     // MARK: - UITextView Overrides
@@ -555,6 +550,14 @@ class SLKTextView: UITextView, SLKTextInput {
         didSet {
             // Updates the placeholder text alignment too
             placeholderLabel.textAlignment = textAlignment
+        }
+    }
+
+    override var contentOffset: CGPoint {
+        didSet {
+            // At times during a layout pass, the content offset's x value may change.
+            // Since we only care about vertical offset, let's override its horizontal value to avoid other layout issues.
+            super.contentOffset = CGPoint(x: 0, y: contentOffset.y)
         }
     }
 
