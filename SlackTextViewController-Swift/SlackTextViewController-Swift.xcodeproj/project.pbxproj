@@ -208,7 +208,6 @@
 				TargetAttributes = {
 					FDBAD07B1EF38C8000BA6945 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = HN63343AHN;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -458,7 +457,7 @@
 			baseConfigurationReference = CA88F297D0D1F0D2662804C9 /* Pods-SlackTextViewController-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HN63343AHN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "SlackTextViewController-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacknocraft.www.SlackTextViewController-Swift";
@@ -472,7 +471,7 @@
 			baseConfigurationReference = 7824C14BA6C3EA4F95F76E90 /* Pods-SlackTextViewController-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HN63343AHN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "SlackTextViewController-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacknocraft.www.SlackTextViewController-Swift";

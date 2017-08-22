@@ -300,11 +300,11 @@ open class SLKTextInputbar: UIToolbar {
 
     private var _charCountLabel: UILabel!
     private var previousOrigin: CGPoint = .zero
-    private var textViewClass: AnyClass?
+    private var textViewClass: SLKTextView.Type?
 
     // MARK: - Initialization
 
-    public init(textViewClass: AnyClass?) {
+    public init(textViewClass: SLKTextView.Type?) {
         self.textViewClass = textViewClass
         super.init(frame: .zero)
         slk_commonInit()
@@ -394,7 +394,8 @@ open class SLKTextInputbar: UIToolbar {
     // MARK: - Getters
 
     private func makeTextView() -> SLKTextView {
-        let textView = SLKTextView()
+        let textViewClass = self.textViewClass ?? SLKTextView.self
+        let textView = textViewClass.init()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.maxNumberOfLines = slk_defaultNumberOfLines

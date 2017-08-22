@@ -14,7 +14,7 @@ class MessageTextView: SLKTextView {
         super.init(frame: frame, textContainer: textContainer)
         // Do something
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

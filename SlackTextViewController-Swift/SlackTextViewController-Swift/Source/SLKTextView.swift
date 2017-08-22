@@ -326,10 +326,8 @@ open class SLKTextView: UITextView, SLKTextInput {
 
     private func slk_pastedItem() -> Any? {
 
-        guard let contentType = slk_pasteboardContentType() else { return nil }
-
-        if let data = UIPasteboard.general.data(forPasteboardType: contentType) {
-
+        if let contentType = slk_pasteboardContentType(),
+            let data = UIPasteboard.general.data(forPasteboardType: contentType) {
             let mediaType = slk_pastableMediaType(from: contentType)
             let userInfo: [String: Any] = [SLKTextViewPastedItemContentType: contentType,
                                            SLKTextViewPastedItemMediaType: mediaType,

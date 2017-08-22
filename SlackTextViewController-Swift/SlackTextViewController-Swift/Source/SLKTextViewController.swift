@@ -920,7 +920,7 @@ open class SLKTextViewController: UIViewController {
     private var isTransitioning = false
 
     // Optional classes to be used instead of the default ones.
-    private var textViewClass: AnyClass?
+    private var textViewClass: SLKTextView.Type?
     private var typingIndicatorViewClass: SLKBaseTypingIndicatorView.Type?
 
     // MARK: - Initializers
@@ -1119,7 +1119,7 @@ open class SLKTextViewController: UIViewController {
     }
 
     private func makeTypingIndicatorProxyView() -> SLKBaseTypingIndicatorView {
-        let aClass: SLKBaseTypingIndicatorView.Type = self.typingIndicatorViewClass ?? SLKTypingIndicatorView.self
+        let aClass = self.typingIndicatorViewClass ?? SLKTypingIndicatorView.self
         let typingIndicatorProxyView = aClass.init()
         typingIndicatorProxyView.translatesAutoresizingMaskIntoConstraints = false
         typingIndicatorProxyView.isHidden = true
