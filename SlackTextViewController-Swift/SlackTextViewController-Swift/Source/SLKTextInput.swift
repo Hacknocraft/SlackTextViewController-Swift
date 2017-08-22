@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Searches for any matching string prefix at the text input's caret position. When nothing found, the completion block returns nil values.
-protocol SLKTextInput: UITextInput {
+public protocol SLKTextInput: UITextInput {
 
     /// Searches for any matching string prefix at the text input's caret position. When nothing found, the completion block returns nil values
     /// - Parameters:
@@ -38,7 +38,7 @@ extension SLKTextInput {
 
     // MARK: - Default implementations
 
-    func lookForPrefixes(_ prefixes: Set<String>, completion: (String?, String?, NSRange) -> Void) {
+    public func lookForPrefixes(_ prefixes: Set<String>, completion: (String?, String?, NSRange) -> Void) {
 
         var wordRange = NSRange(location: 0, length: 0)
 
@@ -54,13 +54,13 @@ extension SLKTextInput {
 
     }
 
-    func wordAtCaretRange(_ range: inout NSRange) -> String? {
+    public func wordAtCaretRange(_ range: inout NSRange) -> String? {
 
         return wordAtRange(slk_caretRange, rangeInText: &range)
     }
 
     @discardableResult
-    func wordAtRange(_ range: NSRange, rangeInText: inout NSRange) -> String? {
+    public func wordAtRange(_ range: NSRange, rangeInText: inout NSRange) -> String? {
         let location = range.location
 
         if location == NSNotFound {
@@ -115,7 +115,7 @@ extension SLKTextInput {
 
     // MARK: - Private methods
 
-    var slk_text: String? {
+    private var slk_text: String? {
 
         if let range = textRange(from: beginningOfDocument, to: endOfDocument) {
             return text(in: range)
@@ -124,7 +124,7 @@ extension SLKTextInput {
         return nil
     }
 
-    var slk_caretRange: NSRange {
+    private var slk_caretRange: NSRange {
 
         if let selectedRange = selectedTextRange {
 

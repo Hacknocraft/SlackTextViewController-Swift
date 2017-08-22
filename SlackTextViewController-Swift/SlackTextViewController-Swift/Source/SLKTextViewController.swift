@@ -11,12 +11,12 @@ import ObjectiveC
 
 //  UIKeyboard notification replacement, posting reliably only when showing/hiding the keyboard (not when resizing keyboard, or with inputAccessoryView reloads, etc).
 // Only triggered when using SLKTextViewController's text view.
-let SLKKeyboardWillShowNotification = "SLKKeyboardWillShowNotification"
-let SLKKeyboardDidShowNotification  = "SLKKeyboardDidShowNotification"
-let SLKKeyboardWillHideNotification = "SLKKeyboardWillHideNotification"
-let SLKKeyboardDidHideNotification  = "SLKKeyboardDidHideNotification"
+public let SLKKeyboardWillShowNotification = "SLKKeyboardWillShowNotification"
+public let SLKKeyboardDidShowNotification  = "SLKKeyboardDidShowNotification"
+public let SLKKeyboardWillHideNotification = "SLKKeyboardWillHideNotification"
+public let SLKKeyboardDidHideNotification  = "SLKKeyboardDidHideNotification"
 
-enum SLKKeyboardStatus {
+public enum SLKKeyboardStatus {
     case none
     case didHide
     case willShow
@@ -24,76 +24,76 @@ enum SLKKeyboardStatus {
     case willHide
 }
 
-class SLKTextViewController: UIViewController {
+open class SLKTextViewController: UIViewController {
 
     // MARK: - Pbulic Properties
 
     /// The main table view managed by the controller object. Created by default initializing with -init or initWithNibName:bundle:
-    private(set) var tableView: UITableView?
+    open private(set) var tableView: UITableView?
 
     /// The main collection view managed by the controller object. Not nil if the controller is initialised with -initWithCollectionViewLayout:
-    private(set) var collectionView: UICollectionView?
+    open private(set) var collectionView: UICollectionView?
 
     /// The main scroll view managed by the controller object. Not nil if the controller is initialised with -initWithScrollView:
-    private(set) var scrollView: UIScrollView?
+    open private(set) var scrollView: UIScrollView?
 
     /// The bottom toolbar containing a text view and buttons.
-    private(set) lazy var textInputbar: SLKTextInputbar = self.makeTextInputbar()
+    open private(set) lazy var textInputbar: SLKTextInputbar = self.makeTextInputbar()
 
     /// The default typing indicator used to display user names horizontally.
-    private(set) lazy var typingIndicatorView: SLKTypingIndicatorView? = self.makeTypingIndicatorView()
+    open private(set) lazy var typingIndicatorView: SLKTypingIndicatorView? = self.makeTypingIndicatorView()
 
     // TODO: - need to inherit from UIView
     /// The custom typing indicator view. Default is kind of SLKTypingIndicatorView.
     /// To customize the typing indicator view, you will need to call -registerClassForTypingIndicatorView: nside of any initialization method.
     /// To interact with it directly, you will need to cast the return value of -typingIndicatorProxyView to the appropriate type.
-    private(set) lazy var typingIndicatorProxyView: SLKBaseTypingIndicatorView = self.makeTypingIndicatorProxyView()
+    open private(set) lazy var typingIndicatorProxyView: SLKBaseTypingIndicatorView = self.makeTypingIndicatorProxyView()
 
     /// A single tap gesture used to dismiss the keyboard. SLKTextViewController is its delegate.
-    private(set) var singleTapGesture: UIGestureRecognizer!
+    open private(set) var singleTapGesture: UIGestureRecognizer!
 
     /// A vertical pan gesture used for bringing the keyboard from the bottom. SLKTextViewController is its delegate.
-    private(set) var verticalPanGesture: UIPanGestureRecognizer!
+    open private(set) var verticalPanGesture: UIPanGestureRecognizer!
 
     /// YES if animations should have bouncy effects. Default is YES.
-    var bounces = true {
+    open var bounces = true {
         didSet {
             textInputbar.bounces = bounces
         }
     }
 
     /// YES if text view's content can be cleaned with a shake gesture. Default is NO.
-    var shakeToClearEnabled = false
+    open var shakeToClearEnabled = false
 
     /// YES if keyboard can be dismissed gradually with a vertical panning gesture. Default is YES.
     /// This feature doesn't work on iOS 9 due to no legit alternatives to detect the keyboard view.
     /// Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
-    var isKeyboardPanningEnabled = true
+    open var isKeyboardPanningEnabled = true
 
     /// YES if an external keyboard has been detected (this value updates only when the text view becomes first responder).
-    private(set) var isExternalKeyboardDetected = false
+    open private(set) var isExternalKeyboardDetected = false
 
     /// YES if the keyboard has been detected as undocked or split (iPad Only).
-    private(set) var isKeyboardUndocked = false
+    open private(set) var isKeyboardUndocked = false
 
     /// YES if after right button press, the text view is cleared out. Default is YES.
-    var shouldClearTextAtRightButtonPress = true
+    open var shouldClearTextAtRightButtonPress = true
 
     /// YES if the scrollView should scroll to bottom when the keyboard is shown. Default is NO.
-    var shouldScrollToBottomAfterKeyboardShows = false
+    open var shouldScrollToBottomAfterKeyboardShows = false
 
     /// YES if the main table view is inverted. Default is YES.
     /// This allows the table view to start from the bottom like any typical messaging interface.
     /// If inverted, you must assign the same transform property to your cells to match the orientation (ie: cell.transform = tableView.transform;)
     /// Inverting the table view will enable some great features such as content offset corrections automatically when resizing the text input and/or showing autocompletion
-    var isInverted: Bool = true {
+    open var isInverted: Bool = true {
         didSet {
             scrollViewProxy?.transform = isInverted ? CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0) : .identity
         }
     }
 
     /// YES if the view controller is presented inside of a popover controller. If YES, the keyboard won't move the text input bar and tapping on the tableView/collectionView will not cause the keyboard to be dismissed. This property is compatible only with iPad.
-    var isPresentedInPopover: Bool {
+    open var isPresentedInPopover: Bool {
         get {
             return _isPresentedInPopover && slk_IsIpad
         }
@@ -104,16 +104,18 @@ class SLKTextViewController: UIViewController {
     private var _isPresentedInPopover = false
 
     /// The current keyboard status (will/did hide, will/did show)
-    private(set) var keyboardStatus: SLKKeyboardStatus = .none
+    open private(set) var keyboardStatus: SLKKeyboardStatus = .none
 
     /// Convenience accessors (accessed through the text input bar).
-    var textView: SLKTextView {
+    open var textView: SLKTextView {
         return textInputbar.textView
     }
-    var leftButton: UIButton {
+
+    open var leftButton: UIButton {
         return textInputbar.leftButton
     }
-    var rightButton: UIButton {
+
+    open var rightButton: UIButton {
         return textInputbar.rightButton
     }
 
@@ -124,7 +126,7 @@ class SLKTextViewController: UIViewController {
     /// You SHOULD call super to inherit some conditionals.
     ///
     /// - Parameter animated: YES if the keyboard should show using an animation.
-    func presentKeyboard(animated: Bool) {
+    open func presentKeyboard(animated: Bool) {
         // Skips if already first responder
         if textView.isFirstResponder {  return }
 
@@ -142,7 +144,7 @@ class SLKTextViewController: UIViewController {
     /// You SHOULD call super to inherit some conditionals.
     ///
     /// - Parameter animated: YES if the keyboard should be dismissed using an animation.
-    func dismissKeyboard(animated: Bool) {
+    open func dismissKeyboard(animated: Bool) {
         // Dismisses the keyboard from any first responder in the window.
         if !textView.isFirstResponder && keyboardHC.constant > 0 {
             view.window?.endEditing(false)
@@ -163,7 +165,7 @@ class SLKTextViewController: UIViewController {
     ///
     /// - Parameter responder: The current first responder object
     /// - Returns: YES so the text input bar still move up/down.
-    func forceTextInputbarAdjustment(for responder: UIResponder?) -> Bool {
+    open func forceTextInputbarAdjustment(for responder: UIResponder?) -> Bool {
         return false
     }
 
@@ -172,7 +174,7 @@ class SLKTextViewController: UIViewController {
     /// You SHOULD call super to inherit some conditionals.
     ///
     /// - Returns: YES so the text input bar still move up/down.
-    func ignoreTextInputbarAdjustment() -> Bool {
+    open func ignoreTextInputbarAdjustment() -> Bool {
         if isExternalKeyboardDetected && isKeyboardUndocked {
             return true
         }
@@ -185,7 +187,7 @@ class SLKTextViewController: UIViewController {
     /// You don't need call super since this method doesn't do anything.
     ///
     /// - Parameter status: The new keyboard status.
-    func didChangeKeyboardStatus(_ status: SLKKeyboardStatus) {
+    open func didChangeKeyboardStatus(_ status: SLKKeyboardStatus) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -194,7 +196,7 @@ class SLKTextViewController: UIViewController {
     ///  Notifies the view controller that the text will update.
     /// You can override this method to perform additional tasks associated with text changes.
     /// You MUST call super at some point in your implementation.
-    func textWillUpdate() {
+    open func textWillUpdate() {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -203,7 +205,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter animated: If YES, the text input bar will be resized using an animation.
-    func textDidUpdate(animated: Bool) {
+    open func textDidUpdate(animated: Bool) {
         if isTextInputbarHidden { return }
 
         let inputbarHeight = textInputbar.appropriateHeight
@@ -249,7 +251,7 @@ class SLKTextViewController: UIViewController {
     /// Use this method a replacement of UITextViewDelegate's -textViewDidChangeSelection: which is not reliable enough when using third-party keyboards (they don't forward events properly sometimes).
     /// You can override this method to perform additional tasks associated with text changes.
     /// You MUST call super at some point in your implementation.
-    func textSelectionDidChange() {
+    open func textSelectionDidChange() {
         // The text view must be first responder
         if !textView.isFirstResponder || keyboardStatus != .didShow { return }
 
@@ -272,7 +274,7 @@ class SLKTextViewController: UIViewController {
     /// You don't need call super since this method doesn't do anything.
     ///
     /// - Parameter sender: The object calling this method.
-    func didPressLeftButton(sender: Any?) {
+    open func didPressLeftButton(sender: Any?) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -281,7 +283,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter sender: The object calling this method.
-    func didPressRightButton(sender: Any?) {
+    open func didPressRightButton(sender: Any?) {
         if shouldClearTextAtRightButtonPress {
             // Clears the text and the undo manager
             textView.slk_clearText(clearUndo: true)
@@ -295,7 +297,7 @@ class SLKTextViewController: UIViewController {
     /// You can override this method to perform additional tasks. You SHOULD call super to inherit some conditionals.
     ///
     /// - Returns: YES if the right button can be pressed.
-    func canPressRightButton() -> Bool {
+    open func canPressRightButton() -> Bool {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if text.length > 0 && !textInputbar.limitExceeded {
@@ -310,7 +312,7 @@ class SLKTextViewController: UIViewController {
     /// Only supported pastable medias configured in SLKTextView will be forwarded (take a look at SLKPastableMediaType).
     ///
     /// - Parameter userInfo: The payload containing the media data, content and media types.
-    func didPasteMediaContent(userInfo: [AnyHashable: Any]) {
+    open func didPasteMediaContent(userInfo: [AnyHashable: Any]) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -319,7 +321,7 @@ class SLKTextViewController: UIViewController {
     /// You SHOULD call super to inherit some conditionals.
     ///
     /// - Returns: YES if the typing indicator view should be presented.
-    func canShowTypingIndicator() -> Bool {
+    open func canShowTypingIndicator() -> Bool {
         // Don't show if the text is being edited or auto-completed.
         if textInputbar.isEditing || isAutoCompleting {
             return false
@@ -331,7 +333,7 @@ class SLKTextViewController: UIViewController {
     /// Notifies the view controller when the user has shaked the device for undoing text typing.
     /// You can override this method to perform additional tasks associated with the shake gesture.
     /// Calling super will prompt a system alert view with undo option. This will not be called if 'undoShakingEnabled' is set to NO and/or if the text view's content is empty.
-    func willRequestUndo() {
+    open func willRequestUndo() {
         let title = NSLocalizedString("Undo Typing", comment: "")
         let acceptTitle = NSLocalizedString("Undo", comment: "")
         let cancelTitle = NSLocalizedString("Cancel", comment: "")
@@ -368,7 +370,7 @@ class SLKTextViewController: UIViewController {
     // You MUST call super at some point in your implementation.
     ///
     /// - Parameter keyCommand: The UIKeyCommand object being recognized.
-    func didPressReturnKey(keyCommand: UIKeyCommand?) {
+    open func didPressReturnKey(keyCommand: UIKeyCommand?) {
         if textInputbar.isEditing {
             didCommitTextEditing(sender: keyCommand as Any)
         } else {
@@ -381,7 +383,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter keyCommand: The UIKeyCommand object being recognized.
-    func didPressEscapeKey(keyCommand: UIKeyCommand?) {
+    open func didPressEscapeKey(keyCommand: UIKeyCommand?) {
         if isAutoCompleting {
             cancelAutoCompletion()
         } else if textInputbar.isEditing {
@@ -401,7 +403,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter keyCommand: The UIKeyCommand object being recognized.
-    func didPressArrowKey(keyCommand: UIKeyCommand?) {
+    open func didPressArrowKey(keyCommand: UIKeyCommand?) {
         if let keyCommand = keyCommand {
             textView.didPressArrowKey(keyCommand: keyCommand)
         }
@@ -410,7 +412,7 @@ class SLKTextViewController: UIViewController {
     // MARK: - Text Input Bar Adjustment
 
     /// YES if the text inputbar is hidden. Default is NO.
-    var isTextInputbarHidden: Bool {
+    open var isTextInputbarHidden: Bool {
         get {
             return _isTextInputbarHidden
         }
@@ -426,7 +428,7 @@ class SLKTextViewController: UIViewController {
     /// - Parameters:
     ///   - hidden: Specify YES to hide the toolbar or NO to show it.
     ///   - animated: Specify YES if you want the toolbar to be animated on or off the screen.
-    func setTextInputbarHidden(_ hidden: Bool, animated: Bool) {
+    open func setTextInputbarHidden(_ hidden: Bool, animated: Bool) {
         if _isTextInputbarHidden == hidden { return }
 
         textInputbar.isHidden = hidden
@@ -463,7 +465,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter text: The string text to edit.
-    func editText(_ text: String) {
+    open func editText(_ text: String) {
         let attributedText = textView.slk_defaultAttributedString(for: text)
         editAttributedText(attributedText)
     }
@@ -473,7 +475,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter attributedText: The attributed text to edit.
-    func editAttributedText(_ attributedText: NSAttributedString) {
+    open func editAttributedText(_ attributedText: NSAttributedString) {
         if !textInputbar.canEditText(attributedText.string) { return }
 
         // Caches the current text, in case the user cancels the edition
@@ -495,7 +497,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter sender: The object calling this method.
-    func didCommitTextEditing(sender: Any) {
+    open func didCommitTextEditing(sender: Any) {
         if !textInputbar.isEditing { return }
 
         textInputbar.endTextEdition()
@@ -509,7 +511,7 @@ class SLKTextViewController: UIViewController {
     /// You MUST call super at some point in your implementation.
     ///
     /// - Parameter sender: The object calling this method.
-    func didCancelTextEditing(sender: Any) {
+    open func didCancelTextEditing(sender: Any) {
         if !textInputbar.isEditing { return }
 
         textInputbar.endTextEdition()
@@ -524,10 +526,10 @@ class SLKTextViewController: UIViewController {
     // MARK: - Text Auto-Completion
 
     /// The table view used to display autocompletion results.
-    fileprivate(set) lazy var autoCompletionView: UITableView? = self.makeAutoCompletionView()
+    open fileprivate(set) lazy var autoCompletionView: UITableView? = self.makeAutoCompletionView()
 
     /// YES if the autocompletion mode is active.
-    private(set) var isAutoCompleting: Bool {
+    open private(set) var isAutoCompleting: Bool {
         get {
             return _isAutoCompleting
         }
@@ -542,23 +544,23 @@ class SLKTextViewController: UIViewController {
     private var _isAutoCompleting = false
 
     /// The recently found prefix symbol used as prefix for autocompletion mode.
-    var foundPrefix: String?
+    open var foundPrefix: String?
 
     /// The range of the found prefix in the text view content.
-    var foundPrefixRange = NSRange(location: 0, length: 0)
+    open var foundPrefixRange = NSRange(location: 0, length: 0)
 
     /// The recently found word at the text view's caret position.
-    var foundWord: String?
+    open var foundWord: String?
 
     /// An array containing all the registered prefix strings for autocompletion.
-    private(set) var registeredPrefixes = Set<String>()
+    open private(set) var registeredPrefixes = Set<String>()
 
     /// Registers any string prefix for autocompletion detection, like for user mentions or hashtags autocompletion.
     /// The prefix must be valid string (i.e: '@', '#', '\', and so on).
     //. Prefixes can be of any length.
     ///
     /// - Parameter prefixes: An array of prefix strings.
-    func registerPrefixesForAutoCompletion(prefixes: [String]?) {
+    open func registerPrefixesForAutoCompletion(prefixes: [String]?) {
 
     }
 
@@ -567,7 +569,7 @@ class SLKTextViewController: UIViewController {
     /// You SHOULD call super to inherit some conditionals.
     ///
     /// - Returns: YES if the controller is allowed to process the text for auto-completion.
-    func shouldProcessTextForAutoCompletion() -> Bool {
+    open func shouldProcessTextForAutoCompletion() -> Bool {
         if registeredPrefixes.isEmpty {
             return false
         }
@@ -580,7 +582,7 @@ class SLKTextViewController: UIViewController {
     /// You can override this method to avoid disabling in some cases.
     ///
     /// - Returns: YES if the controller should not hide the quick type bar.
-    func shouldDisableTypingSuggestionForAutoCompletion() -> Bool {
+    open func shouldDisableTypingSuggestionForAutoCompletion() -> Bool {
         if registeredPrefixes.isEmpty {
             return false
         }
@@ -597,7 +599,7 @@ class SLKTextViewController: UIViewController {
     /// - Parameters:
     ///   - prefix: The detected prefix
     ///   - word: The derected word
-    func didChangeAutoCompletion(prefix: String, word: String) {
+    open func didChangeAutoCompletion(prefix: String, word: String) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
@@ -605,7 +607,7 @@ class SLKTextViewController: UIViewController {
     /// Right before the view is shown, -reloadData is called. So avoid calling it manually.
     ///
     /// - Parameter show: YES if the autocompletion view should be shown.
-    func showAutoCompletionView(show: Bool) {
+    open func showAutoCompletionView(show: Bool) {
         // Reloads the tableview before showing/hiding
         if show {
             autoCompletionView?.reloadData()
@@ -651,7 +653,7 @@ class SLKTextViewController: UIViewController {
     ///   - prefix: A prefix that is used to trigger autocompletion
     ///   - word: A word to search for autocompletion
     ///   - prefixRange: The range in which prefix spans.
-    func showAutoCompletionView(prefix: String, word: String, prefixRange: NSRange) {
+    open func showAutoCompletionView(prefix: String, word: String, prefixRange: NSRange) {
         guard registeredPrefixes.contains(prefix) else { return }
 
         foundPrefix = prefix
@@ -665,7 +667,7 @@ class SLKTextViewController: UIViewController {
     /// You can override this method to return a custom height.
     ///
     /// - Returns: The autocompletion view's height.
-    func heightForAutoCompletionView() -> CGFloat {
+    open func heightForAutoCompletionView() -> CGFloat {
         return 0
     }
 
@@ -673,7 +675,7 @@ class SLKTextViewController: UIViewController {
     /// You can override this method to return a custom max height.
     ///
     /// - Returns: The autocompletion view's max height.
-    func maximumHeightForAutoCompletionView() -> CGFloat {
+    open func maximumHeightForAutoCompletionView() -> CGFloat {
         var maxiumumHeight = SLKAutoCompletionViewDefaultHeight
 
         if self.isAutoCompleting {
@@ -689,7 +691,7 @@ class SLKTextViewController: UIViewController {
     }
 
     /// Cancels and hides the autocompletion view, animated.
-    func cancelAutoCompletion() {
+    open func cancelAutoCompletion() {
         slk_invalidateAutoCompletion()
         slk_hideAutoCompletionViewIfNeeded()
     }
@@ -698,7 +700,7 @@ class SLKTextViewController: UIViewController {
     /// This method is a convinience of -acceptAutoCompletionWithString:keepPrefix:
     ///
     /// - Parameter string: The string to be used for replacing autocompletion placeholders.
-    func acceptAutoCompletion(string: String?) {
+    open func acceptAutoCompletion(string: String?) {
         acceptAutoCompletion(string: string, keepPrefix: true)
     }
 
@@ -707,7 +709,7 @@ class SLKTextViewController: UIViewController {
     /// - Parameters:
     ///   - string: The string to be used for replacing autocompletion placeholders.
     ///   - keepPrefix: YES if the prefix shouldn't be overidden.
-    func acceptAutoCompletion(string: String?, keepPrefix: Bool) {
+    open func acceptAutoCompletion(string: String?, keepPrefix: Bool) {
         guard let string = string, !string.isEmpty,
             let foundWord = self.foundWord else {
                 return
@@ -741,19 +743,19 @@ class SLKTextViewController: UIViewController {
     /// You don't need to call super since this method doesn't do anything.
     ///
     /// - Returns: The string key for which to enable text caching.
-    func keyForTextCaching() -> String? {
+    open func keyForTextCaching() -> String? {
         // No implementation here. Meant to be overriden in subclass.
         return nil
     }
 
     /// Removes the current view controller's cached text.
     /// To enable this, you must return a valid key string in -keyForTextCaching.
-    func clearCachedText() {
+    open func clearCachedText() {
         slk_cacheAttributedTextToDisk(nil)
     }
 
     /// Removes all the cached text from disk.
-    static func clearAllCachedText() {
+    open static func clearAllCachedText() {
         var cachedKeys: [String] = []
 
         for key in UserDefaults.standard.dictionaryRepresentation().keys
@@ -773,7 +775,7 @@ class SLKTextViewController: UIViewController {
     }
 
     /// Caches text to disk.
-    func cacheTextView() {
+    open func cacheTextView() {
         slk_cacheAttributedTextToDisk(textView.attributedText)
     }
 
@@ -851,7 +853,7 @@ class SLKTextViewController: UIViewController {
     /// You need to call this method inside of any initialization method.
     ///
     /// - Parameter aClass: A SLKTextView subclass
-    func registerClassForTextView(aClass: SLKTextView.Type) {
+    open func registerClassForTextView(aClass: SLKTextView.Type) {
         textViewClass = aClass
     }
 
@@ -860,7 +862,7 @@ class SLKTextViewController: UIViewController {
     /// Make sure to conform to SLKTypingIndicatorProtocol and implement the required methods.
     ///
     /// - Parameter aClass: A subclass of SLKBaseTypingIndicatorView.
-    func registerClassForTypingIndicatorView(aClass: SLKBaseTypingIndicatorView.Type) {
+    open func registerClassForTypingIndicatorView(aClass: SLKBaseTypingIndicatorView.Type) {
         typingIndicatorViewClass = aClass
     }
 
@@ -927,7 +929,7 @@ class SLKTextViewController: UIViewController {
     // If you use the standard -init method, a table view with plain style will be created
     ///
     /// - Parameter tableViewStyle: A constant that specifies the style of main table view that the controller object is to manage (UITableViewStylePlain or UITableViewStyleGrouped).
-    init(tableViewStyle: UITableViewStyle) {
+    public init(tableViewStyle: UITableViewStyle) {
         super.init(nibName: nil, bundle: nil)
         self.scrollViewProxy = tableView(style: tableViewStyle)
         slk_commonInit()
@@ -937,7 +939,7 @@ class SLKTextViewController: UIViewController {
     /// If you use the standard -init method, a table view with plain style will be created.
     ///
     /// - Parameter collectionViewLayout: The layout object to associate with the collection view. The layout controls how the collection view presents its cells and supplementary views.
-    init(collectionViewLayout: UICollectionViewLayout) {
+    public init(collectionViewLayout: UICollectionViewLayout) {
         super.init(nibName: nil, bundle: nil)
         self.scrollViewProxy = collectionView(layout: collectionViewLayout)
         slk_commonInit()
@@ -946,7 +948,7 @@ class SLKTextViewController: UIViewController {
     /// Initializes a text view controller to manage an arbitraty scroll view. The caller is responsible for configuration of the scroll view, including wiring the delegate.
     ///
     /// - Parameter scrollView: a UISCrollView to be used as the main content area.
-    init(scrollView: UIScrollView) {
+    public init(scrollView: UIScrollView) {
         super.init(nibName: nil, bundle: nil)
         self.scrollView = scrollView
         self.scrollView?.translatesAutoresizingMaskIntoConstraints = false
@@ -954,7 +956,7 @@ class SLKTextViewController: UIViewController {
         slk_commonInit()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         let tableViewStyle = type(of: self).tableViewStyle(for: aDecoder)
@@ -969,7 +971,7 @@ class SLKTextViewController: UIViewController {
         slk_commonInit()
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         self.scrollViewProxy = tableView(style: .plain)
         slk_commonInit()
@@ -985,7 +987,7 @@ class SLKTextViewController: UIViewController {
 
     // MARK: - View Lifecycle
 
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(scrollViewProxy!)
@@ -998,7 +1000,7 @@ class SLKTextViewController: UIViewController {
         slk_registerKeyCommands()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         // Invalidates this flag when the view appears
@@ -1013,27 +1015,27 @@ class SLKTextViewController: UIViewController {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         scrollViewProxy?.flashScrollIndicators()
         isViewVisible = true
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         // Caches the text before it's too late!
         cacheTextView()
     }
 
-    override func viewWillLayoutSubviews() {
+    open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
         slk_adjustContentConfigurationIfNeeded()
     }
 
-    override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
 
@@ -1044,7 +1046,7 @@ class SLKTextViewController: UIViewController {
     ///
     /// - Parameter decoder: An unarchiver object.
     /// - Returns: The tableView style to be used in the new instantiated tableView.
-    class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
+    open class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
         return .plain
     }
 
@@ -1053,7 +1055,7 @@ class SLKTextViewController: UIViewController {
     ///
     /// - Parameter decoder: An unarchiver object
     /// - Returns: The collectionView style to be used in the new instantiated collectionView.
-    static func collectionViewLayout(for decoder: NSCoder) -> UICollectionViewLayout? {
+    open static func collectionViewLayout(for decoder: NSCoder) -> UICollectionViewLayout? {
         return nil
     }
 
@@ -1133,7 +1135,7 @@ class SLKTextViewController: UIViewController {
     }
 
     // TODO: Is setter need to be implemented?
-    override var modalPresentationStyle: UIModalPresentationStyle {
+    open override var modalPresentationStyle: UIModalPresentationStyle {
         get {
             if let nav = navigationController {
                 return nav.modalPresentationStyle
@@ -1276,7 +1278,7 @@ class SLKTextViewController: UIViewController {
 
     // MARK: - Setters
 
-    override var edgesForExtendedLayout: UIRectEdge {
+    open override var edgesForExtendedLayout: UIRectEdge {
         get {
             return _edgesForExtendedLayout
         }
@@ -1536,7 +1538,7 @@ class SLKTextViewController: UIViewController {
 
     // MARK: - KVO Events
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         if let indicatorView = object as? SLKBaseTypingIndicatorView,
             keyPath == "isVisible" {
@@ -1970,7 +1972,7 @@ class SLKTextViewController: UIViewController {
         }
     }
 
-    override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         return []
     }
 
@@ -2135,34 +2137,34 @@ class SLKTextViewController: UIViewController {
     // MARK: - View Auto-Rotation
 
     @available(iOS 8, *)
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
     }
 
     @available(iOS 8, *)
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         slk_prepareForInterfaceTransition(duration: coordinator.transitionDuration)
         super.viewWillTransition(to: size, with: coordinator)
     }
 
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+    open override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         if responds(to: #selector(viewWillTransition(to:with:))) {
             return
         }
         slk_prepareForInterfaceTransition(duration: duration)
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
     }
 
-    override var shouldAutorotate: Bool {
+    open override var shouldAutorotate: Bool {
         return true
     }
 
     // MARK: - View lifeterm
 
-    override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
@@ -2176,11 +2178,11 @@ class SLKTextViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension SLKTextViewController: UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
 
@@ -2189,7 +2191,7 @@ extension SLKTextViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension SLKTextViewController: UITableViewDelegate {
 
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+    open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if let scrollViewProxy = self.scrollViewProxy, !scrollViewProxy.scrollsToTop || keyboardStatus == .willShow {
             return false
         }
@@ -2202,15 +2204,15 @@ extension SLKTextViewController: UITableViewDelegate {
         }
     }
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         isMovingKeyboard = false
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         isMovingKeyboard = false
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView === autoCompletionView {
             guard let autoCompletionHairline = self.autoCompletionHairline else {
                 return
@@ -2231,11 +2233,11 @@ extension SLKTextViewController: UITableViewDelegate {
 // MARK: - UICollectionViewDataSource
 extension SLKTextViewController: UICollectionViewDataSource {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return UICollectionViewCell()
     }
 
@@ -2249,7 +2251,7 @@ extension SLKTextViewController: UICollectionViewDelegate {
 // MARK: - UITextViewDelegate
 extension SLKTextViewController: UITextViewDelegate {
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let slkTextView = textView as? SLKTextView else {
             return true
         }
@@ -2349,27 +2351,27 @@ extension SLKTextViewController: UITextViewDelegate {
         }
     }
 
-    func textViewDidChange(_ textView: UITextView) {
+    open func textViewDidChange(_ textView: UITextView) {
         // Keep to avoid unnecessary crashes. Was meant to be overriden in subclass while calling super.
     }
 
-    func textViewDidChangeSelection(_ textView: UITextView) {
+    open func textViewDidChangeSelection(_ textView: UITextView) {
         // Keep to avoid unnecessary crashes. Was meant to be overriden in subclass while calling super.
     }
 
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return true
     }
 
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return true
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         // No implementation here. Meant to be overriden in subclass.
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
+    open func textViewDidEndEditing(_ textView: UITextView) {
         // No implementation here. Meant to be overriden in subclass.
     }
 }
@@ -2377,11 +2379,11 @@ extension SLKTextViewController: UITextViewDelegate {
 // MARK: - SLKTextViewDelegate
 extension SLKTextViewController: SLKTextViewDelegate {
 
-    func textView(_ textView: SLKTextView, shouldOfferFormattingFor symbol: String) -> Bool {
+    open func textView(_ textView: SLKTextView, shouldOfferFormattingFor symbol: String) -> Bool {
         return true
     }
 
-    func textView(_ textView: SLKTextView, shouldInsertSuffixForFormattingWith symbol: String, prefixRange: NSRange) -> Bool {
+    open func textView(_ textView: SLKTextView, shouldInsertSuffixForFormattingWith symbol: String, prefixRange: NSRange) -> Bool {
         if prefixRange.location > 0 {
             let previousCharRange = NSRange(location:prefixRange.location-1, length: 1)
             let previousCharacter = textView.text.substring(with: previousCharRange)
@@ -2402,7 +2404,7 @@ extension SLKTextViewController: SLKTextViewDelegate {
 // MARK: - UIGestureRecognizerDelegate
 extension SLKTextViewController: UIGestureRecognizerDelegate {
 
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         if gestureRecognizer === singleTapGesture {
             return textView.isFirstResponder && !ignoreTextInputbarAdjustment()
@@ -2417,7 +2419,7 @@ extension SLKTextViewController: UIGestureRecognizerDelegate {
 
 extension SLKTextViewController: UIAlertViewDelegate {
 
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+    open func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if alertView.tag != kSLKAlertViewClearTextTag || buttonIndex == alertView.cancelButtonIndex {
             return
         }

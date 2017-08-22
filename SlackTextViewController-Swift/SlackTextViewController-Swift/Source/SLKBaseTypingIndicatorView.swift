@@ -9,17 +9,17 @@
 import UIKit
 
 // TODO: add document here
-class SLKBaseTypingIndicatorView: UIView {
+open class SLKBaseTypingIndicatorView: UIView {
 
 }
 
 extension SLKBaseTypingIndicatorView: SLKTypingIndicatorProtocol {
 
-    func dismissIndicator() {
+    open  func dismissIndicator() {
 
     }
 
-    var isVisible: Bool {
+    open  var isVisible: Bool {
         get {
             return false
         }

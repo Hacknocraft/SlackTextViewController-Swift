@@ -8,27 +8,27 @@
 
 import UIKit
 
-class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
+open class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - Public Properties
 
     /// The amount of time a name should keep visible. If is zero, the indicator will not remove nor disappear automatically. Default is 6.0 seconds
-    var interval: TimeInterval = 6.0
+    open var interval: TimeInterval = 6.0
 
     /// If YES, the user can dismiss the indicator by tapping on it. Default is NO
-    var canResignByTouch = false
+    open var canResignByTouch = false
 
     /// The color of the text. Default is grayColor
-    var textColor: UIColor = .gray
+    open var textColor: UIColor = .gray
 
     /// The font of the text. Default is system font, 12 pts
-    var textFont: UIFont = .systemFont(ofSize: 12)
+    open var textFont: UIFont = .systemFont(ofSize: 12)
 
     /// The font to be used when matching a username string. Default is system bold font, 12 pts
-    var highlightFont: UIFont = .boldSystemFont(ofSize: 12)
+    open var highlightFont: UIFont = .boldSystemFont(ofSize: 12)
 
     /// The inner padding to use when laying out content in the view. Default is {10, 40, 10, 10}
-    var contentInset: UIEdgeInsets {
+    open var contentInset: UIEdgeInsets {
         get {
             return _contentInset
         }
@@ -66,12 +66,12 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         slk_commonInit()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         slk_commonInit()
     }
@@ -85,7 +85,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - Public API
 
-    func insertUsername(_ username: String?) {
+    open func insertUsername(_ username: String?) {
         guard let username = username else { return }
 
         let isShowing = usernames.contains(username)
@@ -115,7 +115,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
         self.isVisible = true
     }
 
-    func removeUsername(_ username: String?) {
+    open func removeUsername(_ username: String?) {
         guard let username = username,
             let nameIndex = usernames.index(of: username) else {
                 return
@@ -131,7 +131,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - SLKTypingIndicatorProtocol
 
-    override var isVisible: Bool {
+    open override var isVisible: Bool {
         get {
             return _isVisible
         }
@@ -153,7 +153,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
     }
     private var _isVisible = false
 
-    override func dismissIndicator() {
+    open override func dismissIndicator() {
         if isVisible {
             isVisible = false
         }
@@ -197,7 +197,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
         return attributedString
     }
 
-    override var intrinsicContentSize: CGSize {
+    open override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: height)
     }
 
@@ -209,7 +209,7 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
     }
 
     // MARK: - Setters
-    override var isHidden: Bool {
+    open override var isHidden: Bool {
         get {
             return _isHidden
         }
@@ -281,11 +281,11 @@ class SLKTypingIndicatorView: SLKBaseTypingIndicatorView {
 
     // MARK: - Hit Testing
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         if canResignByTouch {
             dismissIndicator()

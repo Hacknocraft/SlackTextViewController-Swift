@@ -11,7 +11,7 @@ import UIKit
 
 extension SLKTextView {
 
-    func slk_clearText(clearUndo: Bool) {
+    open func slk_clearText(clearUndo: Bool) {
         // Important to call self implementation, as SLKTextView overrides setText: to add additional features.
         attributedText = nil
 
@@ -20,7 +20,7 @@ extension SLKTextView {
         }
     }
 
-    func slk_scrollToCaretPositon(animated: Bool) {
+    open func slk_scrollToCaretPositon(animated: Bool) {
         if animated {
             scrollRangeToVisible(selectedRange)
         } else {
@@ -30,7 +30,7 @@ extension SLKTextView {
         }
     }
 
-    override func slk_scrollToBottom(animated: Bool) {
+    open override func slk_scrollToBottom(animated: Bool) {
         guard let selectedTextRange = selectedTextRange else { return }
 
         var rect = caretRect(for: selectedTextRange.end)
@@ -45,7 +45,7 @@ extension SLKTextView {
         }
     }
 
-    func slk_insertNewLineBreak() {
+    open func slk_insertNewLineBreak() {
         slk_insertTextAtCaretRange("\n")
 
         // if the text view cannot expand anymore, scrolling to bottom are not animated to fix a UITextView issue scrolling twice.
@@ -57,28 +57,28 @@ extension SLKTextView {
         }
     }
 
-    func slk_insertTextAtCaretRange(_ text: String) {
+    open func slk_insertTextAtCaretRange(_ text: String) {
         let range = slk_insertText(text, in: selectedRange)
         selectedRange = NSRange(location: range.location, length: 0)
     }
 
-    func slk_insertTextAtCaretRange(_ text: String, with attributes: [String: Any]) {
+    open func slk_insertTextAtCaretRange(_ text: String, with attributes: [String: Any]) {
         let range = slk_insert(text, with: attributes, in: selectedRange)
         selectedRange = NSRange(location: range.location, length: 0)
     }
 
     @discardableResult
-    func slk_insertText(_ text: String, in range: NSRange) -> NSRange {
+    open func slk_insertText(_ text: String, in range: NSRange) -> NSRange {
         let attributedText = slk_defaultAttributedString(for: text)
         return slk_insertAttributedText(attributedText, in: range)
     }
 
-    func slk_insert(_ text: String, with attributes: [String: Any], in range: NSRange) -> NSRange {
+    open func slk_insert(_ text: String, with attributes: [String: Any], in range: NSRange) -> NSRange {
         let attributedText = NSAttributedString(string: text, attributes: attributes)
         return slk_insertAttributedText(attributedText, in: range)
     }
 
-    func slk_setAttributes(_ attributes: [String: Any], in range: NSRange) -> NSAttributedString {
+    open func slk_setAttributes(_ attributes: [String: Any], in range: NSRange) -> NSAttributedString {
         let attributedText = NSMutableAttributedString(attributedString: self.attributedText)
 
         attributedText.setAttributes(attributes, range: range)
@@ -87,12 +87,12 @@ extension SLKTextView {
         return self.attributedText
     }
 
-    func slk_insertAttributedTextAtCaretRange(_ attributedText: NSAttributedString) {
+    open func slk_insertAttributedTextAtCaretRange(_ attributedText: NSAttributedString) {
         let range = slk_insertAttributedText(attributedText, in: selectedRange)
         selectedRange = NSRange(location: range.location, length: 0)
     }
 
-    func slk_insertAttributedText(_ attributedText: NSAttributedString, in range: NSRange) -> NSRange {
+    open func slk_insertAttributedText(_ attributedText: NSAttributedString, in range: NSRange) -> NSRange {
 
         // Skip if the attributed text is empty
         if attributedText.length == 0 {
@@ -136,13 +136,13 @@ extension SLKTextView {
         return selectedRange
     }
 
-    func slk_clearAllAttributes(in range: NSRange) {
+    open func slk_clearAllAttributes(in range: NSRange) {
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         mutableAttributedText.setAttributes(nil, range: range)
         self.attributedText = mutableAttributedText
     }
 
-    func slk_defaultAttributedString(for text: String) -> NSAttributedString {
+    open func slk_defaultAttributedString(for text: String) -> NSAttributedString {
         var attributes = [String: Any]()
 
         if textColor != nil {
@@ -155,7 +155,7 @@ extension SLKTextView {
         return NSAttributedString(string: text, attributes: attributes)
     }
 
-    func slk_prepareForUndo(_ description: String) {
+    open func slk_prepareForUndo(_ description: String) {
 
         if !isUndoManagerEnabled { return }
 

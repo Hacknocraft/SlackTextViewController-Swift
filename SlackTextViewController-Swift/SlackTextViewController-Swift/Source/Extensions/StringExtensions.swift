@@ -40,7 +40,7 @@ extension String {
         return substring(with: startIndex..<endIndex)
     }
 
-    func nsRange(of string: String) -> NSRange {
+    public func nsRange(of string: String) -> NSRange {
         guard let stringRange = range(of: string) else {
             return NSRange(location: 0, length: 0)
         }

@@ -8,22 +8,22 @@
 
 import UIKit
 
-enum SLKCounterStyle {
+public enum SLKCounterStyle {
     case none
     case split
     case countdown
     case countdownReversed
 }
 
-enum SLKCounterPosition {
+public enum SLKCounterPosition {
     case top
     case bottom
 }
 
-let SLKTextInputbarDidMoveNotification = "SLKTextInputbarDidMoveNotification"
+public let SLKTextInputbarDidMoveNotification = "SLKTextInputbarDidMoveNotification"
 
 /// A custom tool bar encapsulating messaging controls
-class SLKTextInputbar: UIToolbar {
+open class SLKTextInputbar: UIToolbar {
 
     // MARK: - Public properties
 
@@ -33,7 +33,7 @@ class SLKTextInputbar: UIToolbar {
      - For iPhone 5 & 6   (>=568pts): 6 lines
      - For iPad           (>=768pts): 8 lines
      */
-    lazy var textView: SLKTextView = {
+    open lazy var textView: SLKTextView = {
         let textView = SLKTextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 15)
@@ -49,7 +49,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// Optional view to host outlets under the text view, adjusting its height based on its subviews. Non-visible by default. Subviews' layout should be configured using auto-layout as well.
-    lazy var contentView: UIView = {
+    open lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = .clear
@@ -58,7 +58,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The custom input accessory view, used as empty achor view to detect the keyboard frame
-    override var inputAccessoryView: SLKInputAccessoryView? {
+    open override var inputAccessoryView: SLKInputAccessoryView? {
         let inputAccessoryView = SLKInputAccessoryView(frame: .zero)
         inputAccessoryView.backgroundColor = .clear
         inputAccessoryView.isUserInteractionEnabled = false
@@ -66,7 +66,7 @@ class SLKTextInputbar: UIToolbar {
     }
 
     /// The left action button action
-    lazy var leftButton: UIButton = {
+    open lazy var leftButton: UIButton = {
         let leftButton = UIButton(type: .system)
         leftButton.translatesAutoresizingMaskIntoConstraints = false
         leftButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -74,7 +74,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The right action button action
-    lazy var rightButton: UIButton = {
+    open lazy var rightButton: UIButton = {
         let rightButton = UIButton(type: .system)
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         rightButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -87,7 +87,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// YES if the right button should be hidden animatedly in case the text view has no text in it. Default is YES
-    var autoHideRightButton: Bool {
+    open var autoHideRightButton: Bool {
         get {
             return _autoHideRightButton
         }
@@ -105,10 +105,10 @@ class SLKTextInputbar: UIToolbar {
     private var _autoHideRightButton = true
 
     /// YES if animations should have bouncy effects. Default is YES
-    var bounces = true
+    open var bounces = true
 
     /// The inner padding to use when laying out content in the view. Default is {5, 8, 5, 8}
-    var contentInset: UIEdgeInsets {
+    open var contentInset: UIEdgeInsets {
         get {
             return _contentInset
         }
@@ -132,7 +132,7 @@ class SLKTextInputbar: UIToolbar {
     private var _contentInset = UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8)
 
     /// The minimum height based on the intrinsic content size's
-    var minimumInputbarHeight: CGFloat {
+    open var minimumInputbarHeight: CGFloat {
         var minimumHeight = textView.intrinsicContentSize.height
         minimumHeight += contentInset.top
         minimumHeight += slk_bottomMargin
@@ -140,7 +140,7 @@ class SLKTextInputbar: UIToolbar {
     }
 
     /// The most appropriate height calculated based on the amount of lines of text and other factors
-    var appropriateHeight: CGFloat {
+    open var appropriateHeight: CGFloat {
         var height: CGFloat = 0.0
         let minimumHeight = minimumInputbarHeight
 
@@ -166,10 +166,10 @@ class SLKTextInputbar: UIToolbar {
     // MARK: - Text Editing
 
     /// The view displayed on top if the text input bar, containing the button outlets, when editing is enabled
-    var editorContentView: UIView!
+    open var editorContentView: UIView!
 
     /// The title label displayed in the middle of the accessoryView
-    lazy var editorTitle: UILabel = {
+    open lazy var editorTitle: UILabel = {
         let editorTitle = UILabel()
         editorTitle.translatesAutoresizingMaskIntoConstraints = false
         editorTitle.textAlignment = .center
@@ -180,7 +180,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The 'cancel' button displayed left in the accessoryView
-    lazy var editorLeftButton: UIButton = {
+    open lazy var editorLeftButton: UIButton = {
         let editorLeftButton = UIButton(type: .system)
         editorLeftButton.translatesAutoresizingMaskIntoConstraints = false
         editorLeftButton.contentHorizontalAlignment = .left
@@ -193,7 +193,7 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The 'accept' button displayed right in the accessoryView
-    lazy var editorRightButton: UIButton = {
+    open lazy var editorRightButton: UIButton = {
         let editorRightButton = UIButton(type: .system)
         editorRightButton.translatesAutoresizingMaskIntoConstraints = false
         editorRightButton.contentHorizontalAlignment = .right
@@ -207,10 +207,10 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The accessory view's maximum height. Default is 38 pts
-    var editorContentViewHeight: CGFloat = 38
+    open var editorContentViewHeight: CGFloat = 38
 
     /// A Boolean value indicating whether the control is in edit mode
-    var isEditing: Bool {
+    open var isEditing: Bool {
         get {
             return _isEditing
         }
@@ -229,7 +229,7 @@ class SLKTextInputbar: UIToolbar {
     private var _isEditing = false
 
     /// The label used to display the character counts
-    lazy var charCountLabel: UILabel = {
+    open lazy var charCountLabel: UILabel = {
         let charCountLabel = UILabel()
         charCountLabel.translatesAutoresizingMaskIntoConstraints = false
         charCountLabel.backgroundColor = .clear
@@ -240,13 +240,13 @@ class SLKTextInputbar: UIToolbar {
     }()
 
     /// The maximum character count allowed. If larger than 0, a character count label will be displayed on top of the right button. Default is 0, which means limitless
-    var maxCharCount = 0
+    open var maxCharCount = 0
 
     /// The character counter formatting. Ignored if maxCharCount is 0. Default is None
-    var counterStyle: SLKCounterStyle = .none
+    open var counterStyle: SLKCounterStyle = .none
 
     /// The character counter layout style. Ignored if maxCharCount is 0. Default is SLKCounterPositionTop
-    var counterPosition: SLKCounterPosition {
+    open var counterPosition: SLKCounterPosition {
         get {
             return _counterPosition
         }
@@ -281,7 +281,7 @@ class SLKTextInputbar: UIToolbar {
     private var _counterPosition: SLKCounterPosition = .top
 
     /// YES if the maxmimum character count has been exceeded
-    var limitExceeded: Bool {
+    open var limitExceeded: Bool {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if maxCharCount > 0 && text.length > maxCharCount {
@@ -291,10 +291,10 @@ class SLKTextInputbar: UIToolbar {
     }
 
     /// The normal color used for character counter label. Default is lightGrayColor
-    var charCountLabelNormalColor: UIColor = .lightGray
+    open var charCountLabelNormalColor: UIColor = .lightGray
 
     /// The color used for character counter label when it has exceeded the limit. Default is redColor
-    var charCountLabelWarningColor: UIColor = .red
+    open var charCountLabelWarningColor: UIColor = .red
 
     // MARK: - Private properties
 
@@ -317,18 +317,18 @@ class SLKTextInputbar: UIToolbar {
 
     // MARK: - Initialization
 
-    init(textViewClass: AnyClass?) {
+    public init(textViewClass: AnyClass?) {
         self.textViewClass = textViewClass
         super.init(frame: .zero)
         slk_commonInit()
     }
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         slk_commonInit()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         slk_commonInit()
     }
@@ -357,7 +357,7 @@ class SLKTextInputbar: UIToolbar {
 
     // MARK: - UIView Overrides
 
-    override func layoutIfNeeded() {
+    open override func layoutIfNeeded() {
         if constraints.count == 0 || window == nil {
             return
         }
@@ -366,11 +366,11 @@ class SLKTextInputbar: UIToolbar {
         super.layoutIfNeeded()
     }
 
-    override var intrinsicContentSize: CGSize {
+    open override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: minimumInputbarHeight)
     }
 
-    override class var requiresConstraintBasedLayout: Bool {
+    open override class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -450,14 +450,14 @@ class SLKTextInputbar: UIToolbar {
 
     // MARK: - Setters
 
-    override var backgroundColor: UIColor? {
+    open override var backgroundColor: UIColor? {
         didSet {
             barTintColor = backgroundColor
             editorContentView.backgroundColor = backgroundColor
         }
     }
 
-    override var isHidden: Bool {
+    open override var isHidden: Bool {
         // We don't call super here, since we want to avoid to visually hide the view.
         // The hidden render state is handled by the view controller.
         didSet {
@@ -477,7 +477,7 @@ class SLKTextInputbar: UIToolbar {
     ///   - text: The text to be edited
     /// - Returns:
     /// YES if the text is editable
-    func canEditText(_ text: String) -> Bool {
+    open func canEditText(_ text: String) -> Bool {
         if isEditing && self.textView.text == text || isHidden {
             return false
         }
@@ -486,7 +486,7 @@ class SLKTextInputbar: UIToolbar {
     }
 
     ///  Begins editing the text, by updating the 'editing' flag and the view constraints.
-    func beginTextEditing() {
+    open func beginTextEditing() {
         if isEditing || isHidden {
             return
         }
@@ -501,7 +501,7 @@ class SLKTextInputbar: UIToolbar {
     }
 
     /// End editing the text, by updating the 'editing' flag and the view constraints
-    func endTextEdition() {
+    open func endTextEdition() {
         if !isEditing || isHidden {
             return
         }
@@ -672,7 +672,7 @@ class SLKTextInputbar: UIToolbar {
         object.removeObserver(self, forKeyPath: keyPath)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let object = object else { return }
 
         if let obj = object as? CALayer, obj === layer && keyPath == "position" {

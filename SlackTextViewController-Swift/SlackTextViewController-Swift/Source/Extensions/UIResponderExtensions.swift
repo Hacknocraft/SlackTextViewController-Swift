@@ -13,7 +13,7 @@ extension UIResponder {
 
     private weak static var _currentFirstResponder: UIResponder?
 
-    public static func slk_currentFirstResponder() -> UIResponder? {
+    static func slk_currentFirstResponder() -> UIResponder? {
         UIApplication.shared.sendAction(#selector(findFirstResponder(_:)), to: nil, from: nil, for: nil)
         return UIResponder._currentFirstResponder
     }

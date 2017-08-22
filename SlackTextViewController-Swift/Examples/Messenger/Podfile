@@ -1,0 +1,21 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+target 'Messenger' do
+use_frameworks!
+
+pod 'SlackTextViewController-Swift’, :path => ‘../../SlackTextViewController-Swift/SlackTextViewController-Swift.podspec'
+
+pod 'LoremIpsum', '~> 1.0'
+
+end
+
+target 'Programatic Example' do
+use_frameworks!
+
+pod 'SlackTextViewController-Swift’, :path => ‘../../SlackTextViewController-Swift/SlackTextViewController-Swift.podspec'
+
+pod 'LoremIpsum', '~> 1.0'
+
+end
+

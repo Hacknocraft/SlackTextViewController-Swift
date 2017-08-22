@@ -9,47 +9,47 @@
 import UIKit
 import ObjectiveC
 
-let SLKTextViewTextWillChangeNotification = "SLKTextViewTextWillChangeNotification"
-let SLKTextViewContentSizeDidChangeNotification = "SLKTextViewContentSizeDidChangeNotification"
-let SLKTextViewSelectedRangeDidChangeNotification = "SLKTextViewSelectedRangeDidChangeNotification"
-let SLKTextViewDidPasteItemNotification = "SLKTextViewDidPasteItemNotification"
-let SLKTextViewDidShakeNotification = "SLKTextViewDidShakeNotification"
+public let SLKTextViewTextWillChangeNotification = "SLKTextViewTextWillChangeNotification"
+public let SLKTextViewContentSizeDidChangeNotification = "SLKTextViewContentSizeDidChangeNotification"
+public let SLKTextViewSelectedRangeDidChangeNotification = "SLKTextViewSelectedRangeDidChangeNotification"
+public let SLKTextViewDidPasteItemNotification = "SLKTextViewDidPasteItemNotification"
+public let SLKTextViewDidShakeNotification = "SLKTextViewDidShakeNotification"
 
-let SLKTextViewPastedItemContentType = "SLKTextViewPastedItemContentType"
-let SLKTextViewPastedItemMediaType = "SLKTextViewPastedItemMediaType"
-let SLKTextViewPastedItemData = "SLKTextViewPastedItemData"
+public let SLKTextViewPastedItemContentType = "SLKTextViewPastedItemContentType"
+public let SLKTextViewPastedItemMediaType = "SLKTextViewPastedItemMediaType"
+public let SLKTextViewPastedItemData = "SLKTextViewPastedItemData"
 
-let SLKTextViewGenericFormattingSelectorPrefix = "slk_format_"
+public let SLKTextViewGenericFormattingSelectorPrefix = "slk_format_"
 
-struct SLKPastableMediaTypes: OptionSet {
+public struct SLKPastableMediaTypes: OptionSet {
 
-    let rawValue: Int
+    public let rawValue: Int
 
-    init(rawValue: Int) {
+    public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
-    static let none = SLKPastableMediaTypes(rawValue: 0)
-    static let png = SLKPastableMediaTypes(rawValue: 1 << 0)
-    static let jpeg = SLKPastableMediaTypes(rawValue: 1 << 1)
-    static let tiff = SLKPastableMediaTypes(rawValue: 1 << 2)
-    static let gif = SLKPastableMediaTypes(rawValue: 1 << 3)
-    static let mov = SLKPastableMediaTypes(rawValue: 1 << 4)
-    static let passbook = SLKPastableMediaTypes(rawValue: 1 << 5)
-    static let images: SLKPastableMediaTypes = [.png, .jpeg, .tiff, .gif]
-    static let videos: SLKPastableMediaTypes = [.mov]
-    static let all: SLKPastableMediaTypes = [.images, .mov]
+    public static let none = SLKPastableMediaTypes(rawValue: 0)
+    public static let png = SLKPastableMediaTypes(rawValue: 1 << 0)
+    public static let jpeg = SLKPastableMediaTypes(rawValue: 1 << 1)
+    public static let tiff = SLKPastableMediaTypes(rawValue: 1 << 2)
+    public static let gif = SLKPastableMediaTypes(rawValue: 1 << 3)
+    public static let mov = SLKPastableMediaTypes(rawValue: 1 << 4)
+    public static let passbook = SLKPastableMediaTypes(rawValue: 1 << 5)
+    public static let images: SLKPastableMediaTypes = [.png, .jpeg, .tiff, .gif]
+    public static let videos: SLKPastableMediaTypes = [.mov]
+    public static let all: SLKPastableMediaTypes = [.images, .mov]
 
 }
 
-class SLKTextView: UITextView, SLKTextInput {
+open class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - Public properties
 
-    weak var textViewDelegate: SLKTextViewDelegate?
+    open weak var textViewDelegate: SLKTextViewDelegate?
 
     /// The placeholder text string. Default is nil
-    var placeholder: String! {
+    open var placeholder: String! {
         get {
             return placeholderLabel.text
         }
@@ -62,7 +62,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The placeholder color. Default is lightGrayColor
-    var placeholderColor: UIColor {
+    open var placeholderColor: UIColor {
         get {
             return placeholderLabel.textColor
         }
@@ -72,7 +72,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The placeholder's number of lines. Default is 1
-    var placeholderNumberOfLines = 1 {
+    open var placeholderNumberOfLines = 1 {
         didSet {
             placeholderLabel.numberOfLines = placeholderNumberOfLines
             setNeedsLayout()
@@ -80,7 +80,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The placeholder's font. Default is the textView's font
-    var placeholderFont: UIFont! {
+    open var placeholderFont: UIFont! {
         get {
             return placeholderLabel.font
         }
@@ -94,7 +94,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The maximum number of lines before enabling scrolling. Default is 0 wich means limitless. If dynamic type is enabled, the maximum number of lines will be calculated proportionally to the user preferred font size
-    var maxNumberOfLines: Int {
+    open var maxNumberOfLines: Int {
         var numberOfLines = 0
 
         if slk_IsLandscape {
@@ -121,7 +121,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The current displayed number of lines
-    var numberOfLines: Int {
+    open var numberOfLines: Int {
         guard let font = self.font else { return 0 }
 
         var contentSize = self.contentSize
@@ -146,10 +146,10 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// The supported media types allowed to be pasted in the text view, such as images or videos. Default is None
-    var pastableMediaTypes: SLKPastableMediaTypes = .none
+    open var pastableMediaTypes: SLKPastableMediaTypes = .none
 
     /// YES if the text view is and can still expand it self, depending if the maximum number of lines are reached
-    var isExpanding: Bool {
+    open var isExpanding: Bool {
         if numberOfLines >= maxNumberOfLines {
             return true
         }
@@ -157,7 +157,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// YES if quickly refreshed the textview without the intension to dismiss the keyboard. @view -disableQuicktypeBar: for more details
-    var didNotResignFirstResponder = false
+    open var didNotResignFirstResponder = false
 
     /** YES if the magnifying glass is visible.
      This feature is deprecated since there are no legit alternatives to detect the magnifying glass.
@@ -166,10 +166,10 @@ class SLKTextView: UITextView, SLKTextInput {
 //    @property (nonatomic, getter=isLoupeVisible) BOOL loupeVisible DEPRECATED_ATTRIBUTE;
 
     /// YES if the keyboard track pad has been recognized. iOS 9 only
-    var isTrackpadEnabled = false
+    open var isTrackpadEnabled = false
 
     /// YES if autocorrection and spell checking are enabled. On iOS8, this property also controls the predictive QuickType bar from being visible. Default is YES
-    var isTypingSuggestionEnabled: Bool {
+    open var isTypingSuggestionEnabled: Bool {
         get {
             return (autocorrectionType == .no) ? false : true
         }
@@ -182,7 +182,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// YES if the text view supports undoing, either using UIMenuController, or with ctrl+z when using an external keyboard. Default is YES
-    var isUndoManagerEnabled: Bool {
+    open var isUndoManagerEnabled: Bool {
         get {
             return _isUndoManagerEnabled
         }
@@ -199,7 +199,7 @@ class SLKTextView: UITextView, SLKTextInput {
     private var _isUndoManagerEnabled = true
 
     /// YES if the font size should dynamically adapt based on the font sizing option preferred by the user. Default is YES
-    var isDynamicTypeEnabled: Bool {
+    open var isDynamicTypeEnabled: Bool {
         get {
             return _isDynamicTypeEnabled
         }
@@ -242,12 +242,12 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - Initialization
 
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    public override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         slk_commonInit()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         slk_commonInit()
     }
@@ -282,7 +282,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - UIView Overrides
 
-    override var intrinsicContentSize: CGSize {
+    open override var intrinsicContentSize: CGSize {
         if var height = font?.lineHeight {
             height += textContainerInset.top + textContainerInset.bottom
             return CGSize(width: UIViewNoIntrinsicMetric, height: height)
@@ -290,18 +290,18 @@ class SLKTextView: UITextView, SLKTextInput {
         return .zero
     }
 
-    override class var requiresConstraintBasedLayout: Bool {
+    open override class var requiresConstraintBasedLayout: Bool {
             return true
     }
 
-    override func layoutIfNeeded() {
+    open override func layoutIfNeeded() {
         if window == nil {
             return
         }
         super.layoutIfNeeded()
     }
 
-    override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
 
         placeholderLabel.isHidden = slk_shouldHidePlaceholder()
@@ -483,19 +483,19 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - UITextView Overrides
 
-    override var selectedRange: NSRange {
+    open override var selectedRange: NSRange {
         didSet {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextViewSelectedRangeDidChangeNotification), object: self, userInfo: nil)
         }
     }
 
-    override var selectedTextRange: UITextRange? {
+    open override var selectedTextRange: UITextRange? {
         didSet {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextViewSelectedRangeDidChangeNotification), object: self, userInfo: nil)
         }
     }
 
-    override var text: String! {
+    open override var text: String! {
         get {
             return attributedText.string
         }
@@ -513,7 +513,7 @@ class SLKTextView: UITextView, SLKTextInput {
         }
     }
 
-    override var attributedText: NSAttributedString! {
+    open override var attributedText: NSAttributedString! {
         didSet {
             // Registers for undo management
             slk_prepareForUndo("Attributed Text Set")
@@ -522,7 +522,7 @@ class SLKTextView: UITextView, SLKTextInput {
         }
     }
 
-    override var font: UIFont? {
+    open override var font: UIFont? {
         didSet {
             guard let font = font else { return }
 
@@ -546,14 +546,14 @@ class SLKTextView: UITextView, SLKTextInput {
         placeholderLabel.font = dynamicFont
     }
 
-    override var textAlignment: NSTextAlignment {
+    open override var textAlignment: NSTextAlignment {
         didSet {
             // Updates the placeholder text alignment too
             placeholderLabel.textAlignment = textAlignment
         }
     }
 
-    override var contentOffset: CGPoint {
+    open override var contentOffset: CGPoint {
         didSet {
             // At times during a layout pass, the content offset's x value may change.
             // Since we only care about vertical offset, let's override its horizontal value to avoid other layout issues.
@@ -564,14 +564,14 @@ class SLKTextView: UITextView, SLKTextInput {
     // MARK: - UITextInput Overrides
 
     @available(iOS 9.0, *)
-    override func beginFloatingCursor(at point: CGPoint) {
+    open override func beginFloatingCursor(at point: CGPoint) {
         super.beginFloatingCursor(at: point)
 
         isTrackpadEnabled = true
     }
 
     @available(iOS 9.0, *)
-    override func endFloatingCursor() {
+    open override func endFloatingCursor() {
         super.endFloatingCursor()
 
         isTrackpadEnabled = false
@@ -584,12 +584,12 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - UIResponder Overrides
 
-    override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         slk_addCustomMenuControllerItems()
         return super.canBecomeFirstResponder
     }
 
-    override var canResignFirstResponder: Bool {
+    open override var canResignFirstResponder: Bool {
         if isUndoManagerEnabled {
             undoManager?.removeAllActions()
         }
@@ -597,7 +597,7 @@ class SLKTextView: UITextView, SLKTextInput {
         return super.canResignFirstResponder
     }
 
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 
         if formatting {
             if let title = slk_formattingTitle(from: action),
@@ -653,7 +653,7 @@ class SLKTextView: UITextView, SLKTextInput {
         return super.canPerformAction(action, withSender: sender)
     }
 
-    override func paste(_ sender: Any?) {
+    open override func paste(_ sender: Any?) {
         guard let pastedItem = slk_pastedItem() else { return }
 
         if let item = pastedItem as? [String: Any] {
@@ -716,7 +716,7 @@ class SLKTextView: UITextView, SLKTextInput {
      You can also use this method to confirm an auto-correction programatically, before the text view resigns first responder.
      */
 
-    func refreshFirstResponder() {
+    open func refreshFirstResponder() {
         if !isFirstResponder {
             return
         }
@@ -728,7 +728,7 @@ class SLKTextView: UITextView, SLKTextInput {
         becomeFirstResponder()
     }
 
-    func refreshInputViews() {
+    open func refreshInputViews() {
 
         didNotResignFirstResponder = true
 
@@ -824,7 +824,7 @@ class SLKTextView: UITextView, SLKTextInput {
     /// - Parameters:
     ///   - symbol: A markdown symbol to be prefixed and sufixed to a text selection
     ///   - title: The tooltip item title for this formatting
-    func registerMarkdownFormattingSymbol(_ symbol: String, title: String) {
+    open func registerMarkdownFormattingSymbol(_ symbol: String, title: String) {
 
         var registeredFormattingTitles = [String]()
         var registeredFormattingSymbols = [String]()
@@ -837,12 +837,12 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 
     /// YES if the a markdown closure symbol should be added automatically after double spacebar tap, just like the native gesture to add a sentence period. Default is YES. This will always be NO if there isn't any registered formatting symbols.
-    var isFormattingEnabled: Bool {
+    open var isFormattingEnabled: Bool {
         return (registeredFormattingSymbols.count > 0) ? true : false
     }
 
     /// An array of the registered formatting symbols.
-    var registeredSymbols: [String] {
+    open var registeredSymbols: [String] {
         return registeredFormattingSymbols
     }
 
@@ -908,7 +908,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - KVO Listener
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         if let obj = object as? SLKTextView, obj === self,
             keyPath == "contentSize" {
@@ -922,7 +922,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     // MARK: - Motion Events
 
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    open override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 
         if let e = event, e.type == .motion && e.subtype == .motionShake {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: SLKTextViewDidShakeNotification), object: self)
@@ -937,7 +937,7 @@ class SLKTextView: UITextView, SLKTextInput {
     ///   - modifiers: The bit mask of modifier keys that must be pressed. Use 0 if none
     ///   - title: The title to display to the user. Optional
     ///   - completion: A completion block called whenever the key combination is detected. Required
-    func observeKeyInput(_ input: String, modifiers: UIKeyModifierFlags, title: String?, completion: @escaping (UIKeyCommand) -> Void) {
+    open func observeKeyInput(_ input: String, modifiers: UIKeyModifierFlags, title: String?, completion: @escaping (UIKeyCommand) -> Void) {
 
         let keyCommand = UIKeyCommand(input: input, modifierFlags: modifiers, action: #selector(didDetect(_:)))
 
@@ -963,14 +963,14 @@ class SLKTextView: UITextView, SLKTextInput {
        return String(format: "%@_%ld", keyCommand.input, keyCommand.modifierFlags.rawValue)
     }
 
-    override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         return Array(registeredKeyCommands.values)
     }
 
     // MARK: - Up/Down Cursor Movement
 
     /// Notifies the text view that the user pressed any arrow key. This is used to move the cursor up and down while having multiple lines.
-    func didPressArrowKey(keyCommand: UIKeyCommand) {
+    open func didPressArrowKey(keyCommand: UIKeyCommand) {
 
         if !keyCommand.isKind(of: UIKeyCommand.self) || text.length == 0 || numberOfLines < 2 {
             return
@@ -1110,7 +1110,7 @@ class SLKTextView: UITextView, SLKTextInput {
     }
 }
 
-@objc protocol SLKTextViewDelegate: UITextViewDelegate {
+@objc public protocol SLKTextViewDelegate: UITextViewDelegate {
 
     /// Asks the delegate whether the specified formatting symbol should be displayed in the tooltip. This is useful to remove some tooltip options when they no longer apply in some context. For example, Blockquotes formatting requires the symbol to be prefixed at the begining of a paragraph
     /// - Parameters:
