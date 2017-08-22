@@ -350,7 +350,7 @@ class SLKTextInputbar: UIToolbar {
 
         slk_registerNotifications()
 
-        slk_registerTo(layer, forKeyPath: "path")
+        slk_registerTo(layer, forKeyPath: "position")
         slk_registerTo(leftButton.imageView, forKeyPath: "image")
         slk_registerTo(rightButton.titleLabel, forKeyPath: "font")
     }

@@ -1106,7 +1106,7 @@ class SLKTextView: UITextView, SLKTextInput {
 
     deinit {
         slk_unregisterNotifications()
-        removeObserver(self, forKeyPath: NSStringFromSelector(#selector(setter: contentSize)))
+        removeObserver(self, forKeyPath: "contentSize")
     }
 }
 
